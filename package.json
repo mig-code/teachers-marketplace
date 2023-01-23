@@ -2,9 +2,6 @@
     "name": "teachers-marketplace",
     "version": "0.1.0",
     "private": true,
-    "prettier": {
-        "singleQuote": true
-    },
     "dependencies": {
         "@testing-library/jest-dom": "^5.16.5",
         "@testing-library/react": "^13.4.0",
@@ -22,15 +19,36 @@
     "scripts": {
         "start": "react-scripts start",
         "build": "react-scripts build",
-        "test": "react-scripts test",
+        "test": "react-scripts test --watchAll --collect-coverage",
+        "test:prod": "react-scripts test --watchAll --collect-coverage --watchAll=false",
         "eject": "react-scripts eject",
         "prepare": "husky install"
+    },
+    "jest": {
+        "coveragePathIgnorePatterns": [
+            "<rootDir>/src/reportWebVitals.ts",
+            "<rootDir>/src/index.ts",
+            "<rootDir>/src/tools/*"
+        ]
     },
     "eslintConfig": {
         "extends": [
             "react-app",
-            "react-app/jest"
-        ]
+            "react-app/jest",
+            "plugin:@typescript-eslint/recommended",
+            "prettier"
+        ],
+        "parser": "@typescript-eslint/parser",
+        "parserOptions": {
+            "ecmaVersion": "latest",
+            "sourceType": "module"
+        }
+    },
+    "plugins": [
+        "@typescript-eslint"
+    ],
+    "prettier": {
+        "singleQuote": true
     },
     "browserslist": {
         "production": [
@@ -45,6 +63,7 @@
         ]
     },
     "devDependencies": {
+        "eslint-config-prettier": "^8.6.0",
         "husky": "^8.0.3"
     }
 }

@@ -1,6 +1,7 @@
 ### Links
 
-    #### Deploy :https://teachers-marketplace.netlify.app/
+#### Deploy : https://teachers-marketplace.netlify.app/
+#### Sonar : https://sonarcloud.io/project/pull_requests_list?id=mig-code_teachers-marketplace
 
 # Proyecto final
 
