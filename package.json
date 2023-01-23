@@ -24,6 +24,13 @@
         "eject": "react-scripts eject",
         "prepare": "husky install"
     },
+    "jest": {
+        "coveragePathIgnorePatterns": [
+            "<rootDir>/src/reportWebVitals.ts",
+            "<rootDir>/src/index.ts",
+            "<rootDir>/src/tools/*"
+        ]
+    },
     "eslintConfig": {
         "extends": [
             "react-app",
