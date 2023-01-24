@@ -5,6 +5,7 @@ export type ProductStructure = {
     owner: string;
     price: number;
     available: boolean;
+    imgUrl: string;
     isFavoritedBy: Array<string>;
 };
 
@@ -21,7 +22,8 @@ export class Product {
         public title: string,
         public description: string,
         public price: number,
-        public owner: string
+        public owner: string,
+        public imgUrl: string = 'assets/img/pelota_fantasia.jpg'
     ) {
         this.id = Product.generateId();
     }
