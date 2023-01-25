@@ -1,13 +1,16 @@
+import { useContext } from 'react';
 import Item from '../../../core/components/item/item';
-import { productMocks } from '../../../core/mocks/product.mocks';
+import { AppContext } from '../../../core/context/app.context';
+
 
 export function HomePage() {
-    const mockItems = productMocks;
+    const {products} = useContext(AppContext)
+    console.log(products)
     return (
         <section>
             <h1>Dale una segunda vida al material escolar</h1>
             <div>
-                {mockItems.map((item) => (
+                {products.map((item) => (
                     <li key={item.id}>
                         <Item item={item} />
                     </li>
