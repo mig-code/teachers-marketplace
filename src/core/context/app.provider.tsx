@@ -4,13 +4,14 @@ import { useProducts } from '../hooks/useProducts';
 import { AppContext } from './app.context';
 
 export function AppContextProvider({ children }: { children: JSX.Element }) {
-    const { getProducts } = useProducts();
-    const products = getProducts();
+    const {products,handleLoadProducts } = useProducts();
+   
     const context = useMemo(
         () => ({
             products,
+            handleLoadProducts,
         }),
-        [products]
+        [products, handleLoadProducts]
     );
 
     return (
