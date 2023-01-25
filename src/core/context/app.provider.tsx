@@ -1,9 +1,11 @@
 import { useMemo } from 'react';
-import { productTemporalData } from '../data/products';
+
+import { useProducts } from '../hooks/useProducts';
 import { AppContext } from './app.context';
 
 export function AppContextProvider({ children }: { children: JSX.Element }) {
-    const products = productTemporalData;
+    const { getProducts } = useProducts();
+    const products = getProducts();
     const context = useMemo(
         () => ({
             products,

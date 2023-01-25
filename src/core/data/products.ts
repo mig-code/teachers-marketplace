@@ -6,3 +6,7 @@ export const productTemporalData: Array<ProductStructure> = [
     new Product('Product 3', 'Description 3', 300, 'Owner 3'),
     new Product('Product 4', 'Description 4', 400, 'Owner 4'),
 ];
+
+export function getProductsData(): Array<ProductStructure> {
+    return productTemporalData;
+}
