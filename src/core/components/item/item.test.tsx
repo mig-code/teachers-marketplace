@@ -1,18 +1,13 @@
 import { render, screen } from '@testing-library/react';
-import { Product } from '../../models/product';
+import { productMocks } from '../../mocks/product.mocks';
 import Item from './item';
 
 describe('Given Item component', () => {
     describe('When it has been render', () => {
-        const productMock = new Product(
-            'Product 1 test',
-            'Description 1 test',
-            100,
-            'Owner 1 test'
-        );
+        const productMock = productMocks[0];
         test('Then Item info should have been render', () => {
             render(<Item item={productMock} />);
-            const textElement = screen.getByText(/Product 1 test/i);
+            const textElement = screen.getByText(/Product 1/i);
             expect(textElement).toBeInTheDocument();
         });
     });
