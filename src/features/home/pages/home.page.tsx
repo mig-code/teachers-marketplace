@@ -4,7 +4,7 @@ import { AppContext } from '../../../core/context/app.context';
 
 export function HomePage() {
     const { products, handleLoadProducts } = useContext(AppContext);
-    console.log(products);
+    console.log("Loading home page with products: ", products);
     useEffect(() => {
         handleLoadProducts();
     }, [handleLoadProducts]);
