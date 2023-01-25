@@ -1,13 +1,18 @@
+import { useContext, useEffect } from 'react';
 import Item from '../../../core/components/item/item';
-import { productMocks } from '../../../core/mocks/product.mocks';
+import { AppContext } from '../../../core/context/app.context';
 
 export function HomePage() {
-    const mockItems = productMocks;
+    const { products, handleLoadProducts } = useContext(AppContext);
+    console.log("Loading home page with products: ", products);
+    useEffect(() => {
+        handleLoadProducts();
+    }, [handleLoadProducts]);
     return (
         <section>
             <h1>Dale una segunda vida al material escolar</h1>
             <div>
-                {mockItems.map((item) => (
+                {products.map((item) => (
                     <li key={item.id}>
                         <Item item={item} />
                     </li>
