@@ -5,7 +5,7 @@ export interface Repository<T> {
 }
 export class ProductsRepository implements Repository<ProductStructure> {
     constructor(
-        private url = 'https://isdi-clase-default-rtdb.europe-west1.firebasedatabase.app/productos.json'
+        private url = 'https://teachers-marketplace-default-rtdb.firebaseio.com//productos.json'
     ) {}
 
     async load(): Promise<Array<ProductStructure>> {
