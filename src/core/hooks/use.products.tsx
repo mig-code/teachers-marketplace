@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useState } from 'react';
 
 import { ProductStructure } from '../models/product';
-import { ProductsRepository } from '../services/products.repo';
+import { ProductsRepository } from '../services/products.repository';
 
 export type UseProducts = {
     products: Array<ProductStructure>;
