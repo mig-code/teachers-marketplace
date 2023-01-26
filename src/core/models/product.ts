@@ -7,6 +7,7 @@ export type ProductStructure = {
     available: boolean;
     imgUrl: string;
     isFavoritedBy: Array<string>;
+    localId: string;
 };
 
 export class Product {
@@ -18,6 +19,7 @@ export class Product {
     id: string;
     isFavoritedBy: Array<string> = [];
     available = true;
+    localId = '';
     constructor(
         public title: string,
         public description: string,

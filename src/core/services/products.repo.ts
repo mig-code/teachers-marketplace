@@ -24,10 +24,11 @@ export class ProductsRepository implements Repository<ProductStructure> {
         if (!result) return [];
         return Object.keys(result).map((key) => ({
             ...result[key],
-            id: key,
+            localId: key,
         }));
     }
-    async delete(id: ProductStructure['id']): Promise<ProductStructure['id']> {
+    async delete(id: ProductStructure['localId']): Promise<ProductStructure['localId']> {
+        console.log('delete', id)
         if (!id) return Promise.reject(invalidIdError);
         this.url =
             'https://teachers-marketplace-default-rtdb.firebaseio.com/productos/' +
