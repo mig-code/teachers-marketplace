@@ -7,6 +7,9 @@ export type UseProducts = {
     products: Array<ProductStructure>;
     handleLoadProducts: () => Promise<void>;
     handleDeleteProduct: (id: string) => Promise<void>;
+    handleUpdateProduct: (
+        productPayload: Partial<ProductStructure>
+    ) => Promise<void>;
 };
 
 export function useProducts(): UseProducts {
@@ -38,10 +41,24 @@ export function useProducts(): UseProducts {
         },
         [repo]
     );
+    const handleUpdateProduct = useCallback(
+        async (productPayload: Partial<ProductStructure>) => {
+            try {
+                console.log('UPDATE PRODUCT');
+                await repo.update(productPayload);
+                const products = await repo.load();
+                setProducts(products);
+            } catch (error) {
+                console.error(error);
+            }
+        },
+        [repo]
+    );
 
     return {
         products,
         handleLoadProducts,
         handleDeleteProduct,
+        handleUpdateProduct,
     };
 }

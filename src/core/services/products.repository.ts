@@ -43,4 +43,21 @@ export class ProductsRepository implements Repository<ProductStructure> {
             throw new Error(`Error ${resp.status}: ${resp.statusText}`);
         return id;
     }
+    async update(payload: Partial<ProductStructure>): Promise<ProductStructure> {
+        if (!payload.id) return Promise.reject(invalidIdError);
+        this.url =
+            'https://teachers-marketplace-default-rtdb.firebaseio.com/productos/' +
+            payload.localId +
+            '.json';
+        const resp = await fetch(this.url, {
+            method: 'PATCH',
+            body: JSON.stringify(payload),
+            headers: {
+                'Content-type': 'application/json',
+            },
+        });
+        if (!resp.ok)
+            throw new Error(`Error ${resp.status}: ${resp.statusText}`);
+        return await resp.json();
+    }
 }
