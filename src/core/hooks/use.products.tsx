@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from 'react';
-
+import { consoleDebug } from '../../tools/debug';
 import { ProductStructure } from '../models/product';
 import { ProductsRepository } from '../services/products.repository';
 
@@ -7,6 +7,9 @@ export type UseProducts = {
     products: Array<ProductStructure>;
     handleLoadProducts: () => Promise<void>;
     handleDeleteProduct: (id: string) => Promise<void>;
+    handleUpdateProduct: (
+        productPayload: Partial<ProductStructure>
+    ) => Promise<void>;
 };
 
 export function useProducts(): UseProducts {
@@ -22,26 +25,54 @@ export function useProducts(): UseProducts {
             const products = await repo.load();
             setProducts(products);
         } catch (error) {
-            console.error(error);
+            handleError(error as Error);
         }
     }, [repo]);
 
     const handleDeleteProduct = useCallback(
         async (id: string) => {
             try {
-                await repo.delete(id);
-                const products = await repo.load();
-                setProducts(products);
+                const deletedId = await repo.delete(id);
+                setProducts((prev) =>
+                    prev.filter((product) => product.localId !== deletedId)
+                );
             } catch (error) {
-                console.error(error);
+                handleError(error as Error);
             }
         },
         [repo]
     );
+    const handleUpdateProduct = useCallback(
+        async (productPayload: Partial<ProductStructure>) => {
+            try {
+                console.log('UPDATE PRODUCT');
+                await repo.update(productPayload);
+              
+                setProducts((prev) =>
+                    prev.map((product) => {
+                        if (product.localId === productPayload.localId) {
+                            return {
+                                ...product,
+                                ...productPayload,
+                            };
+                        }
+                        return product;
+                    }
+                ));
+            } catch (error) {
+                handleError(error as Error);
+            }
+        },
+        [repo]
+    );
+        const handleError = (error: Error) => {
+            consoleDebug(error.message);
+        };
 
     return {
         products,
         handleLoadProducts,
         handleDeleteProduct,
+        handleUpdateProduct,
     };
 }
