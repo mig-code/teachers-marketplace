@@ -7,8 +7,9 @@ export function Menu() {
                 <Link to={'/'}>
                     <li>Inicio </li>
                 </Link>
-
-                <li> Publicar</li>
+                <Link to={'/subir-producto'}>
+                    <li> Publicar</li>
+                </Link>
 
                 <li>Login</li>
             </ul>
