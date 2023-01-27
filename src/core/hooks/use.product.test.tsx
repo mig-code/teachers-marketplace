@@ -132,7 +132,10 @@ describe(`Given useProducts (custom hook)
             userEvent.click(buttons[3]);
             expect(ProductsRepository.prototype.create).toHaveBeenCalled();
             expect(
-                await screen.findByText(productMockAdd.title)
+                await screen.findByText(productMock1.title)
+            ).toBeInTheDocument();
+            expect(
+                await screen.findByText(productMock2.title)
             ).toBeInTheDocument();
         });
 

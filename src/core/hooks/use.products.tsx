@@ -71,7 +71,7 @@ export function useProducts(): UseProducts {
             try {
                 console.log('CREATE PRODUCT');
                 await repo.create(productPayload);
-                setProducts((prev) => [...prev, productPayload]);
+                // setProducts((prev) => [...prev, productPayload]);
             } catch (error) {
                 handleError(error as Error);
             }
