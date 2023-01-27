@@ -24,7 +24,13 @@ export default function Item({ item }: { item: ProductStructure }) {
             <p>{item.description}</p>
             <img src={item.imgUrl} alt={item.title} />
             <p>Precio : {item.price}</p>
-            <p>Favorite by : {item.isFavoritedBy.map((user) => user + ' ')}</p>
+
+            <p>
+                Favorite by :
+                {item.isFavoritedBy
+                    ? item.isFavoritedBy.map((user) => user + ' ')
+                    : 'Nadie lo ha añadido a favoritos'}{' '}
+            </p>
             <button onClick={handleClickDelete}>Eliminar</button>
             <button onClick={handleClickAddToFavorites}>
                 Añadir a Favoritos

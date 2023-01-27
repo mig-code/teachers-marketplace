@@ -10,6 +10,7 @@ export type UseProducts = {
     handleUpdateProduct: (
         productPayload: Partial<ProductStructure>
     ) => Promise<void>;
+    handleCreateProduct: (productPayload: ProductStructure) => Promise<void>;
 };
 
 export function useProducts(): UseProducts {
@@ -47,7 +48,7 @@ export function useProducts(): UseProducts {
             try {
                 console.log('UPDATE PRODUCT');
                 await repo.update(productPayload);
-              
+
                 setProducts((prev) =>
                     prev.map((product) => {
                         if (product.localId === productPayload.localId) {
@@ -57,22 +58,35 @@ export function useProducts(): UseProducts {
                             };
                         }
                         return product;
-                    }
-                ));
+                    })
+                );
             } catch (error) {
                 handleError(error as Error);
             }
         },
         [repo]
     );
-        const handleError = (error: Error) => {
-            consoleDebug(error.message);
-        };
+    const handleCreateProduct = useCallback(
+        async (productPayload: ProductStructure) => {
+            try {
+                console.log('CREATE PRODUCT');
+                await repo.create(productPayload);
+            } catch (error) {
+                handleError(error as Error);
+            }
+        },
+        [repo]
+    );
+
+    const handleError = (error: Error) => {
+        consoleDebug(error.message);
+    };
 
     return {
         products,
         handleLoadProducts,
         handleDeleteProduct,
         handleUpdateProduct,
+        handleCreateProduct,
     };
 }
