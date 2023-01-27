@@ -9,6 +9,7 @@ export function AppContextProvider({ children }: { children: JSX.Element }) {
         handleLoadProducts,
         handleDeleteProduct,
         handleUpdateProduct,
+        handleCreateProduct,
     } = useProducts();
     console.log('Loading AppContextProvider with products: ', products);
 
@@ -18,8 +19,15 @@ export function AppContextProvider({ children }: { children: JSX.Element }) {
             handleLoadProducts,
             handleDeleteProduct,
             handleUpdateProduct,
+            handleCreateProduct,
         }),
-        [products, handleLoadProducts, handleDeleteProduct, handleUpdateProduct]
+        [
+            products,
+            handleLoadProducts,
+            handleDeleteProduct,
+            handleUpdateProduct,
+            handleCreateProduct,
+        ]
     );
 
     return (

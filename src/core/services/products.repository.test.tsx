@@ -1,5 +1,5 @@
 import { productMocks } from '../mocks/product.mocks';
-import { ProductStructure } from '../models/product';
+import { Product, ProductStructure } from '../models/product';
 import { ProductsRepository } from './products.repository';
 
 describe('Given ProductsRepo', () => {
@@ -96,6 +96,36 @@ describe('Given ProductsRepo', () => {
             });
             await expect(async () => {
                 await repo.update(updatePayload);
+            }).rejects.toThrowError();
+            expect(global.fetch).toHaveBeenCalled();
+        });
+    });
+    describe('When we use create method', () => {
+        test(`Then if the data are VALID, we received the task 
+            created in the repo with its own new id`, async () => {
+            const mockNewProductPayload = new Product(
+                'New Product',
+                "New Product's description",
+                10,
+                'New Product Author'
+            );
+
+            global.fetch = jest.fn().mockResolvedValue({
+                ok: true,
+                json: jest.fn().mockResolvedValue(mockNewProductPayload),
+            });
+
+            const data = await repo.create(mockNewProductPayload);
+            expect(data).toHaveProperty('title', mockNewProductPayload.title);
+            expect(data).toHaveProperty("description", mockNewProductPayload.description);
+        });
+        test(`Then if the data are NOT VALID, we received a rejected promise`, async () => {
+            global.fetch = jest.fn().mockResolvedValue({
+                ok: false,
+            });
+
+            await expect(async () => {
+                await repo.create({ } as Product);
             }).rejects.toThrowError();
             expect(global.fetch).toHaveBeenCalled();
         });

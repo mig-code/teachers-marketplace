@@ -16,6 +16,7 @@ import {
     mockValidRepoResponse,
     mockNoValidRepoResponse,
     productMockUpdate,
+    productMockAdd,
 } from './testing.mock';
 
 import * as debug from '../../tools/debug';
@@ -23,7 +24,7 @@ import * as debug from '../../tools/debug';
 jest.mock('../services/products.repository');
 
 ProductsRepository.prototype.load = jest.fn();
-// useProducts.prototype.create = jest.fn();
+ProductsRepository.prototype.create = jest.fn();
 ProductsRepository.prototype.update = jest.fn();
 ProductsRepository.prototype.delete = jest.fn();
 
@@ -38,6 +39,7 @@ describe(`Given useProducts (custom hook)
                 handleLoadProducts,
                 handleDeleteProduct,
                 handleUpdateProduct,
+                handleCreateProduct,
                 products,
             } = useProducts();
             return (
@@ -53,6 +55,9 @@ describe(`Given useProducts (custom hook)
                         onClick={() => handleUpdateProduct(productMockUpdate)}
                     >
                         Update
+                    </button>
+                    <button onClick={() => handleCreateProduct(productMockAdd)}>
+                        Create
                     </button>
 
                     {products.length === 0 ? (
@@ -122,6 +127,17 @@ describe(`Given useProducts (custom hook)
                 await screen.findByText(productMockUpdate.title)
             ).toBeInTheDocument();
         });
+        test('Then its function handleCreateProduct should be used', async () => {
+            userEvent.click(buttons[0]);
+            userEvent.click(buttons[3]);
+            expect(ProductsRepository.prototype.create).toHaveBeenCalled();
+            expect(
+                await screen.findByText(productMock1.title)
+            ).toBeInTheDocument();
+            expect(
+                await screen.findByText(productMock2.title)
+            ).toBeInTheDocument();
+        });
 
         describe(`When the repo is NOT working OK`, () => {
             beforeEach(mockNoValidRepoResponse);
@@ -147,6 +163,15 @@ describe(`Given useProducts (custom hook)
             test('Then its function handleUpdated should be used', async () => {
                 userEvent.click(buttons[2]);
                 expect(ProductsRepository.prototype.update).toHaveBeenCalled();
+                await waitFor(() => {
+                    expect(spyConsole).toHaveBeenLastCalledWith(
+                        'Testing errors'
+                    );
+                });
+            });
+            test('Then its function handleCreateProduct should be used', async () => {
+                userEvent.click(buttons[3]);
+                expect(ProductsRepository.prototype.create).toHaveBeenCalled();
                 await waitFor(() => {
                     expect(spyConsole).toHaveBeenLastCalledWith(
                         'Testing errors'
