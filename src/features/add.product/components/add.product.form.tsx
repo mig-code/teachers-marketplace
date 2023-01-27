@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import { SyntheticEvent, useState } from 'react';
+import React, { useContext, SyntheticEvent, useState } from 'react';
+
 import { AppContext } from '../../../core/context/app.context';
 import { Product, ProductStructure } from '../../../core/models/product';
 
@@ -31,7 +31,7 @@ export function AddProductForm() {
             new Product(
                 productFormData.title as string,
                 productFormData.description as string,
-                productFormData.price as number,
+                parseInt(productFormData.price as unknown as string),
                 'user1',
                 ' https://firebasestorage.googleapis.com/v0/b/isdi-clase.appspot.com/o/images%2Fpelota_fantasia.jpg?alt=media&token=3d08b069-90ad-4bd0-93df-6dd7a9291b25'
             )
