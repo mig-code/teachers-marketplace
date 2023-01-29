@@ -2,21 +2,24 @@ import React, { useContext } from 'react';
 import { AppContext } from '../../context/app.context';
 import { ProductStructure } from '../../types/products.types';
 
-
 export default function Item({ item }: { item: ProductStructure }) {
     const { handleDeleteProduct, handleUpdateProduct } = useContext(AppContext);
 
     function handleClickAddToFavorites() {
         console.log('Añadir a favoritos');
-        const newProduct = {
+        const AddUserLike: Partial<ProductStructure> = {
             ...item,
-            isFavoritedBy: [...item.isFavoritedBy, 'user1'],
+            isLikedBy: {
+                ...item.isLikedBy,
+                users: [...item.isLikedBy.users, 'user1'],
+            },
         };
-        handleUpdateProduct(newProduct);
+        console.log(AddUserLike);
+        handleUpdateProduct(AddUserLike);
     }
     function handleClickDelete() {
         console.log('Eliminar item');
-        handleDeleteProduct(item.productInfo.firebaseId);
+        handleDeleteProduct(item.firebaseId);
     }
     return (
         <div>

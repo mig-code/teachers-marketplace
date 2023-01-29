@@ -1,5 +1,7 @@
-import { ProductStructure } from "../types/products.types";
-
+import {
+    ProductInfoStructure,
+    ProductStructure,
+} from '../types/products.types';
 
 const invalidIdError = new Error('Invalid ID');
 const urlId = '';
@@ -25,12 +27,12 @@ export class ProductsRepository implements Repository<ProductStructure> {
         if (!result) return [];
         return Object.keys(result).map((key) => ({
             ...result[key],
-            localId: key,
+            firebaseId: key,
         }));
     }
     async delete(
-        id: ProductStructure['localId']
-    ): Promise<ProductStructure['localId']> {
+        id: ProductStructure['firebaseId']
+    ): Promise<ProductStructure['firebaseId']> {
         console.log('delete', id);
         if (!id) return Promise.reject(invalidIdError);
         this.url =
@@ -47,10 +49,14 @@ export class ProductsRepository implements Repository<ProductStructure> {
     async update(
         payload: Partial<ProductStructure>
     ): Promise<ProductStructure> {
-        if (!payload.id) return Promise.reject(invalidIdError);
+        if (!payload.firebaseId) {
+            console.log('update', payload.firebaseId);
+            return Promise.reject(invalidIdError);
+        }
+
         this.url =
             'https://teachers-marketplace-default-rtdb.firebaseio.com/products/' +
-            payload.localId +
+            payload.firebaseId +
             '.json';
         const resp = await fetch(this.url, {
             method: 'PATCH',

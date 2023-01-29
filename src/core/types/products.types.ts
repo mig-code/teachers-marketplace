@@ -8,7 +8,6 @@ export type ProductInfoStructure = {
         available: boolean;
         price: number;
         publishedAt: Date;
-        firebaseId?: string;
     };
 };
 export type ProductLikedStructure = {
@@ -16,6 +15,7 @@ export type ProductLikedStructure = {
         users: Array<string>;
     };
 };
-export type ProductStructure = ProductInfoStructure & ProductLikedStructure 
-
-
+export type ProductStructure = ProductInfoStructure &
+    ProductLikedStructure & {
+        firebaseId: string;
+    };

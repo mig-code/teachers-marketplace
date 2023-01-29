@@ -36,7 +36,7 @@ export function useProducts(): UseProducts {
             try {
                 const deletedId = await repo.delete(id);
                 setProducts((prev) =>
-                    prev.filter((product) => product.productInfo.firebaseId !== deletedId)
+                    prev.filter((product) => product.firebaseId !== deletedId)
                 );
             } catch (error) {
                 handleError(error as Error);
@@ -52,7 +52,7 @@ export function useProducts(): UseProducts {
 
                 setProducts((prev) =>
                     prev.map((product) => {
-                        if (product.productInfo.firebaseId === productPayload.productInfo?.firebaseId) {
+                        if (product.firebaseId === productPayload.firebaseId) {
                             return {
                                 ...product,
                                 ...productPayload,
