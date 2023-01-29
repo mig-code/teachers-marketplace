@@ -16,7 +16,7 @@ export default function Item({ item }: { item: ProductStructure }) {
     }
     function handleClickDelete() {
         console.log('Eliminar item');
-        handleDeleteProduct(item.localId);
+        handleDeleteProduct(item.productInfo.firebaseId);
     }
     return (
         <div>
