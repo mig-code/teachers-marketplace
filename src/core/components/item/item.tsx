@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { AppContext } from '../../context/app.context';
-import { ProductStructure } from '../../models/product';
+import { ProductStructure } from '../../types/products.types';
+
 
 export default function Item({ item }: { item: ProductStructure }) {
     const { handleDeleteProduct, handleUpdateProduct } = useContext(AppContext);
@@ -19,16 +20,16 @@ export default function Item({ item }: { item: ProductStructure }) {
     }
     return (
         <div>
-            <h2>{item.title}</h2>
+            <h2>{item.productInfo.title}</h2>
 
-            <p>{item.description}</p>
-            <img src={item.imgUrl} alt={item.title} />
-            <p>Precio : {item.price}</p>
+            <p>{item.productInfo.description}</p>
+            <img src={item.productInfo.imgUrl} alt={item.productInfo.title} />
+            <p>Precio : {item.productInfo.price}</p>
 
             <p>
                 Favorite by :
-                {item.isFavoritedBy
-                    ? item.isFavoritedBy.map((user) => user + ' ')
+                {item.isLikedBy.users
+                    ? item.isLikedBy.users.map((user) => user + ' ')
                     : 'Nadie lo ha añadido a favoritos'}{' '}
             </p>
             <button onClick={handleClickDelete}>Eliminar</button>

@@ -1,4 +1,5 @@
-import { ProductStructure } from '../models/product';
+import { ProductStructure } from "../types/products.types";
+
 
 const invalidIdError = new Error('Invalid ID');
 const urlId = '';
@@ -8,14 +9,14 @@ interface Repository<T> {
 }
 export class ProductsRepository implements Repository<ProductStructure> {
     constructor(
-        private url = 'https://teachers-marketplace-default-rtdb.firebaseio.com/productos/' +
+        private url = 'https://teachers-marketplace-default-rtdb.firebaseio.com/products/' +
             urlId +
             '.json'
     ) {}
 
     async load(): Promise<Array<ProductStructure>> {
         this.url =
-            'https://teachers-marketplace-default-rtdb.firebaseio.com/productos.json';
+            'https://teachers-marketplace-default-rtdb.firebaseio.com/products.json';
         const resp = await fetch(this.url);
         if (!resp.ok)
             throw new Error(`Error ${resp.status}: ${resp.statusText}`);
@@ -33,7 +34,7 @@ export class ProductsRepository implements Repository<ProductStructure> {
         console.log('delete', id);
         if (!id) return Promise.reject(invalidIdError);
         this.url =
-            'https://teachers-marketplace-default-rtdb.firebaseio.com/productos/' +
+            'https://teachers-marketplace-default-rtdb.firebaseio.com/products/' +
             id +
             '.json';
         const resp = await fetch(this.url, {
@@ -48,7 +49,7 @@ export class ProductsRepository implements Repository<ProductStructure> {
     ): Promise<ProductStructure> {
         if (!payload.id) return Promise.reject(invalidIdError);
         this.url =
-            'https://teachers-marketplace-default-rtdb.firebaseio.com/productos/' +
+            'https://teachers-marketplace-default-rtdb.firebaseio.com/products/' +
             payload.localId +
             '.json';
         const resp = await fetch(this.url, {

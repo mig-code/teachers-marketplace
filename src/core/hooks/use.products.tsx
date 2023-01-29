@@ -1,7 +1,8 @@
 import { useCallback, useMemo, useState } from 'react';
 import { consoleDebug } from '../../tools/debug';
-import { ProductStructure } from '../models/product';
+
 import { ProductsRepository } from '../services/products.repository';
+import { ProductStructure } from '../types/products.types';
 
 export type UseProducts = {
     products: Array<ProductStructure>;
@@ -35,7 +36,7 @@ export function useProducts(): UseProducts {
             try {
                 const deletedId = await repo.delete(id);
                 setProducts((prev) =>
-                    prev.filter((product) => product.localId !== deletedId)
+                    prev.filter((product) => product.productInfo.firebaseId !== deletedId)
                 );
             } catch (error) {
                 handleError(error as Error);
@@ -51,7 +52,7 @@ export function useProducts(): UseProducts {
 
                 setProducts((prev) =>
                     prev.map((product) => {
-                        if (product.localId === productPayload.localId) {
+                        if (product.productInfo.firebaseId === productPayload.productInfo?.firebaseId) {
                             return {
                                 ...product,
                                 ...productPayload,
