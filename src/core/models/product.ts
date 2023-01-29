@@ -1,32 +1,50 @@
-export type ProductStructure = {
-    id: string;
-    title: string;
-    description: string;
-    owner: string;
-    price: number;
-    available: boolean;
-    imgUrl: string;
-    isFavoritedBy: Array<string>;
-    localId: string;
-};
+import { generateId } from '../helpers/generateId';
+import { ProductInfoStructure } from '../types/products.types';
 
-export class Product {
-    static generateId() {
-        const aNumbers = new Uint32Array(1);
-        window.crypto?.getRandomValues(aNumbers);
-        return ('000000' + aNumbers[0]).slice(-6);
+export function generateProduct(
+    title: string,
+    description: string,
+    price: number,
+    owner: string,
+    imgUrl = 'assets/img/pelota_fantasia.jpg'
+): ProductInfoStructure {
+    return (
+        {
+            productInfo: {
+                title,
+                description,
+                price,
+                owner,
+                imgUrl,
+                id: generateId(),
+                available: true,
+                publishedAt: new Date(),
+            },
+
+        }
+    );
     }
-    id: string;
-    isFavoritedBy: Array<string> = [];
-    available = true;
-    localId = '';
-    constructor(
-        public title: string,
-        public description: string,
-        public price: number,
-        public owner: string,
-        public imgUrl: string = 'assets/img/pelota_fantasia.jpg'
-    ) {
-        this.id = Product.generateId();
-    }
-}
+
+    // OLD WAY WITH CLASS
+    
+// export class ProductInfo {
+//     static generateId() {
+//         const aNumbers = new Uint32Array(1);
+//         window.crypto?.getRandomValues(aNumbers);
+//         return parseInt(('000000' + aNumbers[0]).slice(-6));
+//     }
+//     public id: number;
+//     public available = true;
+//     public publishedDate = new Date();
+
+//     constructor(
+//         public title: string,
+//         public description: string,
+//         public price: number,
+//         public owner: string,
+//         public imgUrl: string = 'assets/img/pelota_fantasia.jpg'
+//     ) {
+//         this.id = ProductInfo.generateId();
+//     }
+// }
+    
