@@ -5,6 +5,7 @@ export function generateProduct(
     title: string,
     description: string,
     price: number,
+    category: string,
     owner: string,
     imgUrl = 'assets/img/pelota_fantasia.jpg'
 ): ProductInfoStructure {
@@ -14,6 +15,7 @@ export function generateProduct(
                 title,
                 description,
                 price,
+                category,
                 owner,
                 imgUrl,
                 id: generateId(),

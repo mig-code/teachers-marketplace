@@ -69,9 +69,11 @@ export class ProductsRepository implements Repository<ProductStructure> {
             throw new Error(`Error ${resp.status}: ${resp.statusText}`);
         return await resp.json();
     }
-    async create(payload: ProductStructure): Promise<ProductStructure> {
+    async create(
+        payload: ProductInfoStructure
+    ): Promise<ProductStructure['firebaseId']> {
         this.url =
-            'https://teachers-marketplace-default-rtdb.firebaseio.com/productos.json';
+            'https://teachers-marketplace-default-rtdb.firebaseio.com/products.json';
         const resp = await fetch(this.url, {
             method: 'POST',
             body: JSON.stringify(payload),

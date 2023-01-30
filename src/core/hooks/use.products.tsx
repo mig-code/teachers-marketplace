@@ -2,7 +2,7 @@ import { useCallback, useMemo, useState } from 'react';
 import { consoleDebug } from '../../tools/debug';
 
 import { ProductsRepository } from '../services/products.repository';
-import { ProductStructure } from '../types/products.types';
+import { ProductInfoStructure, ProductStructure } from '../types/products.types';
 
 export type UseProducts = {
     products: Array<ProductStructure>;
@@ -68,7 +68,7 @@ export function useProducts(): UseProducts {
         [repo]
     );
     const handleCreateProduct = useCallback(
-        async (productPayload: ProductStructure) => {
+        async (productPayload: ProductInfoStructure) => {
             try {
                 console.log('CREATE PRODUCT');
                 await repo.create(productPayload);

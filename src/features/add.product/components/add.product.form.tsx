@@ -1,15 +1,17 @@
 import React, { useContext, SyntheticEvent, useState } from 'react';
 
 import { AppContext } from '../../../core/context/app.context';
-import { Product, ProductStructure } from '../../../core/models/product';
+import { generateProduct } from '../../../core/models/product';
+import { AddProductFormStructure } from '../../../core/types/form.types';
+import { ProductInfoStructure } from '../../../core/types/products.types';
 
 export function AddProductForm() {
     const { handleCreateProduct } = useContext(AppContext);
 
-    const initialProductDetails: Partial<ProductStructure> = {
+    const initialProductDetails: Partial<AddProductFormStructure> = {
         title: '',
         description: '',
-        price: '' as unknown as number,
+        price: 0,
     };
 
     const [productFormData, setProductFormData] = useState(
@@ -26,16 +28,16 @@ export function AddProductForm() {
 
     const handleSubmit = (ev: SyntheticEvent) => {
         ev.preventDefault();
+        const newProduct = generateProduct(
+            productFormData.title as string,
+            productFormData.description as string,
+            productFormData.price as number,
 
-        handleCreateProduct(
-            new Product(
-                productFormData.title as string,
-                productFormData.description as string,
-                parseInt(productFormData.price as unknown as string),
-                'user1',
-                ' https://firebasestorage.googleapis.com/v0/b/isdi-clase.appspot.com/o/images%2Fpelota_fantasia.jpg?alt=media&token=3d08b069-90ad-4bd0-93df-6dd7a9291b25'
-            )
+            'libros',
+            'miguel'
         );
+
+        handleCreateProduct(newProduct);
 
         setProductFormData(initialProductDetails);
         console.log(productFormData);
