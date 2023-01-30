@@ -21,7 +21,7 @@ export function AddProductForm() {
     );
     const [uploadValue, setUploadValue] = useState(0);
     const [uploadedImagerUrl, setuploadedImagerUrl] = useState('');
-    const urlStoragePath = process.env.REACT_APP_DB_URL;
+    const urlStoragePath = process.env.REACT_APP_DB_STORAGE_URL;
 
     const handleInput = (ev: SyntheticEvent) => {
         const element = ev.target as HTMLFormElement;
