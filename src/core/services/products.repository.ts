@@ -1,7 +1,4 @@
-import {
-    ProductInfoStructure,
-    ProductStructure,
-} from '../types/products.types';
+import { ProductStructure } from '../types/products.types';
 
 const invalidIdError = new Error('Invalid ID');
 const urlId = '';
@@ -70,7 +67,7 @@ export class ProductsRepository implements Repository<ProductStructure> {
         return await resp.json();
     }
     async create(
-        payload: ProductInfoStructure
+        payload: Partial<ProductStructure>
     ): Promise<ProductStructure['firebaseId']> {
         this.url =
             'https://teachers-marketplace-default-rtdb.firebaseio.com/products.json';

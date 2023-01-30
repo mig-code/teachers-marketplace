@@ -2,7 +2,7 @@ import { useCallback, useMemo, useState } from 'react';
 import { consoleDebug } from '../../tools/debug';
 
 import { ProductsRepository } from '../services/products.repository';
-import { ProductInfoStructure, ProductStructure } from '../types/products.types';
+import { ProductStructure } from '../types/products.types';
 
 export type UseProducts = {
     products: Array<ProductStructure>;
@@ -11,7 +11,7 @@ export type UseProducts = {
     handleUpdateProduct: (
         productPayload: Partial<ProductStructure>
     ) => Promise<void>;
-    handleCreateProduct: (productPayload: ProductStructure) => Promise<void>;
+    handleCreateProduct: (productPayload: Partial< ProductStructure>) => Promise<void>;
 };
 
 export function useProducts(): UseProducts {
@@ -68,7 +68,7 @@ export function useProducts(): UseProducts {
         [repo]
     );
     const handleCreateProduct = useCallback(
-        async (productPayload: ProductInfoStructure) => {
+        async (productPayload: Partial<ProductStructure>) => {
             try {
                 console.log('CREATE PRODUCT');
                 await repo.create(productPayload);

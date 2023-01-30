@@ -3,7 +3,6 @@ import React, { useContext, SyntheticEvent, useState } from 'react';
 import { AppContext } from '../../../core/context/app.context';
 import { generateProduct } from '../../../core/models/product';
 import { AddProductFormStructure } from '../../../core/types/form.types';
-import { ProductInfoStructure } from '../../../core/types/products.types';
 
 export function AddProductForm() {
     const { handleCreateProduct } = useContext(AppContext);

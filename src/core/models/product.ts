@@ -1,5 +1,5 @@
 import { generateId } from '../helpers/generateId';
-import { ProductInfoStructure } from '../types/products.types';
+import { ProductStructure } from '../types/products.types';
 
 export function generateProduct(
     title: string,
@@ -8,27 +8,24 @@ export function generateProduct(
     category: string,
     owner: string,
     imgUrl = 'assets/img/pelota_fantasia.jpg'
-): ProductInfoStructure {
-    return (
-        {
-            productInfo: {
-                title,
-                description,
-                price,
-                category,
-                owner,
-                imgUrl,
-                id: generateId(),
-                available: true,
-                publishedAt: new Date(),
-            },
+): Partial<ProductStructure> {
+    return {
+        productInfo: {
+            title,
+            description,
+            price,
+            owner,
+            imgUrl,
+            category,
+            id: generateId(),
+            available: true,
+            publishedAt: new Date(),
+        },
+    };
+}
 
-        }
-    );
-    }
+// OLD WAY WITH CLASS
 
-    // OLD WAY WITH CLASS
-    
 // export class ProductInfo {
 //     static generateId() {
 //         const aNumbers = new Uint32Array(1);
@@ -49,4 +46,3 @@ export function generateProduct(
 //         this.id = ProductInfo.generateId();
 //     }
 // }
-    
