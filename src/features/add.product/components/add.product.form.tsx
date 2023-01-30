@@ -1,7 +1,7 @@
 import React, { useContext, SyntheticEvent, useState } from 'react';
 
 import { AppContext } from '../../../core/context/app.context';
-import { generateProduct } from '../../../core/models/product';
+import { generateProductWithOnlyInfo } from '../../../core/models/product';
 import { AddProductFormStructure } from '../../../core/types/form.types';
 
 export function AddProductForm() {
@@ -27,7 +27,7 @@ export function AddProductForm() {
 
     const handleSubmit = (ev: SyntheticEvent) => {
         ev.preventDefault();
-        const newProduct = generateProduct(
+        const newProduct = generateProductWithOnlyInfo(
             productFormData.title as string,
             productFormData.description as string,
             productFormData.price as number,

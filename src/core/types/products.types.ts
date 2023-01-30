@@ -14,7 +14,13 @@ export type ProductLikedStructure = {
 };
 export type ProductStructure = {
     productInfo: ProductInfoStructure;
-    isLikedBy: ProductLikedStructure;
+    isLikedBy?: ProductLikedStructure;
 
     firebaseId: string;
 };
+
+export type DeepPartial<T> = T extends object
+    ? {
+          [P in keyof T]?: DeepPartial<T[P]>;
+      }
+    : T;

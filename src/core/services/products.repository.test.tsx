@@ -1,11 +1,13 @@
-import { productMocks } from '../mocks/product.mocks';
-import { Product, ProductStructure } from '../models/product';
+import { productsMockWithFirebaseId } from '../mocks/product.mocks';
+import { generateProductWithOnlyInfo } from '../models/product';
+import { DeepPartial, ProductStructure } from '../types/products.types';
+
 import { ProductsRepository } from './products.repository';
 
 describe('Given ProductsRepo', () => {
-    const mockProducts = productMocks.map((product, index) => ({
+    const mockProducts = productsMockWithFirebaseId.map((product, index) => ({
         ...product,
-        localId: index.toString(),
+        firebaseId: index.toString(),
     }));
     const repo = new ProductsRepository();
 
@@ -38,9 +40,9 @@ describe('Given ProductsRepo', () => {
         });
     });
     describe('When we use delete method', () => {
-        test(`Then if the ID are VALID, we received the localId 
-            of the task delete in the repo`, async () => {
-            const id = mockProducts[0].localId;
+        test(`Then if the ID are VALID, we received the firebaseId 
+            of the product deleted in the repo`, async () => {
+            const id = mockProducts[0].firebaseId;
             global.fetch = jest.fn().mockResolvedValue({
                 ok: true,
                 json: jest.fn().mockResolvedValue(id),
@@ -68,9 +70,11 @@ describe('Given ProductsRepo', () => {
     describe('When we use update method', () => {
         test(`Then if the ID are VALID, we received the product 
             update in the repo`, async () => {
-            const updatePayload: Partial<ProductStructure> = {
-                id: mockProducts[0].localId,
-                title: 'Product Updated',
+            const updatePayload: DeepPartial<ProductStructure> = {
+                firebaseId: '1',
+                productInfo: {
+                    title: 'Product Updated',
+                },
             };
             global.fetch = jest.fn().mockResolvedValue({
                 ok: true,
@@ -87,9 +91,11 @@ describe('Given ProductsRepo', () => {
             expect(global.fetch).not.toHaveBeenCalled();
         });
         test(`Then if the ID are NOT VALID, we received a null`, async () => {
-            const updatePayload: Partial<ProductStructure> = {
-                id: 'bad',
-                title: 'Product Updated',
+            const updatePayload: DeepPartial<ProductStructure> = {
+                firebaseId: 'bad',
+                productInfo: {
+                    title: 'Product Updated',
+                },
             };
             global.fetch = jest.fn().mockResolvedValue({
                 ok: false,
@@ -101,13 +107,14 @@ describe('Given ProductsRepo', () => {
         });
     });
     describe('When we use create method', () => {
-        test(`Then if the data are VALID, we received the task 
+        test(`Then if the data are VALID, we received the product 
             created in the repo with its own new id`, async () => {
-            const mockNewProductPayload = new Product(
+            const mockNewProductPayload = generateProductWithOnlyInfo(
                 'New Product',
-                "New Product's description",
-                10,
-                'New Product Author'
+                'New Product Description',
+                34,
+                'libros',
+                'userId'
             );
 
             global.fetch = jest.fn().mockResolvedValue({
@@ -116,8 +123,14 @@ describe('Given ProductsRepo', () => {
             });
 
             const data = await repo.create(mockNewProductPayload);
-            expect(data).toHaveProperty('title', mockNewProductPayload.title);
-            expect(data).toHaveProperty("description", mockNewProductPayload.description);
+            expect(data).toHaveProperty(
+                'productInfo.title',
+                mockNewProductPayload.productInfo.title
+            );
+            expect(data).toHaveProperty(
+                'productInfo.description',
+                mockNewProductPayload.productInfo.description
+            );
         });
         test(`Then if the data are NOT VALID, we received a rejected promise`, async () => {
             global.fetch = jest.fn().mockResolvedValue({
@@ -125,7 +138,7 @@ describe('Given ProductsRepo', () => {
             });
 
             await expect(async () => {
-                await repo.create({ } as Product);
+                await repo.create({} as ProductStructure);
             }).rejects.toThrowError();
             expect(global.fetch).toHaveBeenCalled();
         });

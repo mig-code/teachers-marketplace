@@ -1,14 +1,14 @@
 import { generateId } from '../helpers/generateId';
 import { ProductStructure } from '../types/products.types';
 
-export function generateProduct(
+export function generateProductWithOnlyInfo(
     title: string,
     description: string,
     price: number,
     category: string,
     owner: string,
     imgUrl = 'assets/img/pelota_fantasia.jpg'
-): Partial<ProductStructure> {
+): ProductStructure {
     return {
         productInfo: {
             title,
@@ -17,12 +17,15 @@ export function generateProduct(
             owner,
             imgUrl,
             category,
-            id: generateId(),
+            id: parseInt (generateId()),
             available: true,
             publishedAt: new Date(),
         },
+        firebaseId: generateId(),
     };
 }
+
+
 
 // OLD WAY WITH CLASS
 

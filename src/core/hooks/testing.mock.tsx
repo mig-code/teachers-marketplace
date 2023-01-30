@@ -1,38 +1,37 @@
-import { productMock3 } from '../mocks/product.mocks';
-import { Product } from '../models/product';
+import { generateProductWithOnlyInfo } from '../models/product';
+
 import { ProductsRepository } from '../services/products.repository';
 
-export const productMock1 = new Product(
+export const productMock1 = generateProductWithOnlyInfo(
     'Test product 1',
-    'Test description 2',
+    'Test description 1',
     100,
-    'user',
-    'assets/img/pelota_fantasia.jpg'
+    'libros',
+    'miguel'
 );
-productMock1.id = '000001';
-productMock1.localId = '000001';
-export const productMock2 = new Product(
+
+productMock1.firebaseId = '000001';
+export const productMock2 = generateProductWithOnlyInfo(
     'Test product 2',
     'Test description 2',
     200,
-    'user',
-    'assets/img/pelota_fantasia.jpg'
+    'coches',
+    'miguel'
 );
-productMock2.id = '000002';
-productMock2.localId = '000002';
+
+productMock2.firebaseId = '000002';
 export const productsMock = [productMock1, productMock2];
 
-export const productMockAdd = new Product(
-    'Added product',
-    'Added description',
+export const productMockAdd = generateProductWithOnlyInfo(
+    'Test product 3',
+    'Test description 3',
     300,
-    'user',
-    'assets/img/pelota_fantasia.jpg'
+    'libros',
+    'miguel'
 );
-productMock3.id = '000003';
-productMockAdd.localId = '000003';
 
 export const productMockUpdate = { ...productMock2, title: 'Updated product' };
+
 
 export const mockValidRepoResponse = () => {
     (ProductsRepository.prototype.load as jest.Mock).mockResolvedValue(
@@ -45,7 +44,7 @@ export const mockValidRepoResponse = () => {
         productMockUpdate
     );
     (ProductsRepository.prototype.delete as jest.Mock).mockResolvedValue(
-        productMock1.id
+        productMock1.firebaseId
     );
 };
 

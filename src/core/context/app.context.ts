@@ -9,7 +9,7 @@ export type AppContextStructure = {
     handleUpdateProduct: (
         productPayload: Partial<ProductStructure>
     ) => Promise<void>;
-    handleCreateProduct: (productPayload: Partial< ProductStructure>) => Promise<void>;
+    handleCreateProduct: (productPayload: ProductStructure) => Promise<void>;
 };
 
 export const initialContext: AppContextStructure = {

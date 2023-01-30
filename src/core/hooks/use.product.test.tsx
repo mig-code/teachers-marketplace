@@ -47,7 +47,9 @@ describe(`Given useProducts (custom hook)
                     <button onClick={handleLoadProducts}>Load</button>
 
                     <button
-                        onClick={() => handleDeleteProduct(productMock1.id)}
+                        onClick={() =>
+                            handleDeleteProduct(productMock1.firebaseId)
+                        }
                     >
                         Delete
                     </button>
@@ -69,8 +71,8 @@ describe(`Given useProducts (custom hook)
                             <ul>
                                 {products.map((product) => (
                                     <>
-                                        <li key={product.id}>
-                                            {product.title}
+                                        <li key={product.productInfo.id}>
+                                            {product.productInfo.title}
                                         </li>
                                     </>
                                 ))}
@@ -95,10 +97,10 @@ describe(`Given useProducts (custom hook)
             });
             expect(ProductsRepository.prototype.load).toHaveBeenCalled();
             expect(
-                await screen.findByText(productMock1.title)
+                await screen.findByText(productMock1.productInfo.title)
             ).toBeInTheDocument();
             expect(
-                await screen.findByText(productMock2.title)
+                await screen.findByText(productMock2.productInfo.title)
             ).toBeInTheDocument();
         });
 
@@ -108,15 +110,18 @@ describe(`Given useProducts (custom hook)
             fireEvent.click(buttons[1]);
             expect(ProductsRepository.prototype.delete).toHaveBeenCalled();
             expect(
-                await screen.findByText(productMock2.title)
+                await screen.findByText(productMock2.productInfo.title)
             ).toBeInTheDocument();
 
             await expect(
-                async () => await screen.findByText(productMock1.title)
+                async () =>
+                    await screen.findByText(productMock1.productInfo.title)
             ).rejects.toThrowError();
 
             await waitFor(() => {
-                expect(screen.queryByText(productMock1.title)).toBeNull();
+                expect(
+                    screen.queryByText(productMock1.productInfo.title)
+                ).toBeNull();
             });
         });
         test('Then its function handleUpdateProduct should be used', async () => {
@@ -124,7 +129,7 @@ describe(`Given useProducts (custom hook)
             userEvent.click(buttons[2]);
             expect(ProductsRepository.prototype.update).toHaveBeenCalled();
             expect(
-                await screen.findByText(productMockUpdate.title)
+                await screen.findByText(productMockUpdate.productInfo.title)
             ).toBeInTheDocument();
         });
         test('Then its function handleCreateProduct should be used', async () => {
@@ -132,10 +137,10 @@ describe(`Given useProducts (custom hook)
             userEvent.click(buttons[3]);
             expect(ProductsRepository.prototype.create).toHaveBeenCalled();
             expect(
-                await screen.findByText(productMock1.title)
+                await screen.findByText(productMock1.productInfo.title)
             ).toBeInTheDocument();
             expect(
-                await screen.findByText(productMock2.title)
+                await screen.findByText(productMock2.productInfo.title)
             ).toBeInTheDocument();
         });
 

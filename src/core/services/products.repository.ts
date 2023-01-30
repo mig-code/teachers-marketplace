@@ -1,4 +1,4 @@
-import { ProductStructure } from '../types/products.types';
+import { DeepPartial, ProductStructure } from '../types/products.types';
 
 const invalidIdError = new Error('Invalid ID');
 const urlId = '';
@@ -44,7 +44,7 @@ export class ProductsRepository implements Repository<ProductStructure> {
         return id;
     }
     async update(
-        payload: Partial<ProductStructure>
+        payload: DeepPartial<ProductStructure>
     ): Promise<ProductStructure> {
         if (!payload.firebaseId) {
             console.log('update', payload.firebaseId);
