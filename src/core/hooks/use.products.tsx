@@ -11,13 +11,13 @@ export type UseProducts = {
     handleUpdateProduct: (
         productPayload: Partial<ProductStructure>
     ) => Promise<void>;
-    handleCreateProduct: (productPayload:  ProductStructure) => Promise<void>;
+    handleCreateProduct: (productPayload: ProductStructure) => Promise<void>;
 };
 
 export function useProducts(): UseProducts {
     const repo = useMemo(() => new ProductsRepository(), []);
 
-    console.log('Loading UseProducts hook');
+    console.debug('Loading UseProducts hook');
 
     const initialProducts = Array<ProductStructure>;
     const [products, setProducts] = useState(initialProducts);
@@ -47,7 +47,6 @@ export function useProducts(): UseProducts {
     const handleUpdateProduct = useCallback(
         async (productPayload: Partial<ProductStructure>) => {
             try {
-                console.log('UPDATE PRODUCT');
                 await repo.update(productPayload);
 
                 setProducts((prev) =>
@@ -70,7 +69,6 @@ export function useProducts(): UseProducts {
     const handleCreateProduct = useCallback(
         async (productPayload: ProductStructure) => {
             try {
-                console.log('CREATE PRODUCT');
                 await repo.create(productPayload);
                 // setProducts((prev) => [...prev, productPayload]);
             } catch (error) {

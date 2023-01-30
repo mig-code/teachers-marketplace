@@ -1,9 +1,4 @@
-import React, {
-    useContext,
-    SyntheticEvent,
-    useState,
-    InputHTMLAttributes,
-} from 'react';
+import React, { useContext, SyntheticEvent, useState } from 'react';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 
 import { AppContext } from '../../../core/context/app.context';
@@ -26,7 +21,7 @@ export function AddProductForm() {
     );
     const [uploadValue, setUploadValue] = useState(0);
     const [uploadedImagerUrl, setuploadedImagerUrl] = useState('');
-    const urlStoragePath = 'gs://teachers-marketplace.appspot.com/test/';
+    const urlStoragePath = process.env.REACT_APP_DB_URL;
 
     const handleInput = (ev: SyntheticEvent) => {
         const element = ev.target as HTMLFormElement;
