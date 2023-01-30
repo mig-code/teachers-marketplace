@@ -7,6 +7,7 @@ import {
     AppContextStructure,
 } from '../../../core/context/app.context';
 import { AddProductForm } from './add.product.form';
+import * as useUploadFile from '../../../core/hooks/use.upload.file';
 
 describe('Given render AddProductForm component', () => {
     const handleCreateProduct = jest.fn();
@@ -62,6 +63,37 @@ describe('Given render AddProductForm component', () => {
 
             userEvent.click(submitButton);
             expect(handleCreateProduct).toHaveBeenCalled();
+        });
+        test('Then we should Upload a file and call handlUploadFile', () => {
+            const mockAppContext = {
+                handleCreateProduct,
+            } as unknown as AppContextStructure;
+
+            jest.spyOn(useUploadFile, 'useUploadFile').mockImplementation(
+                () => ({
+                    handleUploadFile,
+                    uploadedImagerUrl: '/testImage.png',
+                    uploadProgressValue: 0,
+                })
+            );
+            const handleUploadFile = jest.fn();
+
+            render(
+                <AppContext.Provider value={mockAppContext}>
+                    <BrowserRouter>
+                        <AddProductForm></AddProductForm>
+                    </BrowserRouter>
+                </AppContext.Provider>
+            );
+
+            const file = new File([''], 'testImage.png', {
+                type: 'image/png',
+            });
+            const fileInput = screen.getByLabelText(/Subir Imagen/i);
+            expect(fileInput).toBeInTheDocument();
+
+            userEvent.upload(fileInput, file);
+            expect(handleUploadFile).toHaveBeenCalled();
         });
     });
 });
