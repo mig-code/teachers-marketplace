@@ -7,6 +7,11 @@ export default function Item({ item }: { item: ProductStructure }) {
 
     function handleClickAddToFavorites() {
         console.log('Añadir a favoritos');
+        if (!item.isLikedBy) {
+            item.isLikedBy = {
+                users: [],
+            };
+        }
         const AddUserLike: Partial<ProductStructure> = {
             ...item,
             isLikedBy: {
@@ -31,7 +36,7 @@ export default function Item({ item }: { item: ProductStructure }) {
 
             <p>
                 Favorite by :
-                {item.isLikedBy.users
+                {item.isLikedBy
                     ? item.isLikedBy.users.map((user) => user + ' ')
                     : 'Nadie lo ha añadido a favoritos'}{' '}
             </p>
