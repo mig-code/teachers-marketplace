@@ -1,17 +1,16 @@
 import React, { useContext, SyntheticEvent, useState } from 'react';
-// import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 
 import { AppContext } from '../../../core/context/app.context';
 import { generateProductWithOnlyInfo } from '../../../core/models/product';
 import { AddProductFormStructure } from '../../../core/types/form.types';
-import { useUploadFile } from '../../../core/hooks/use.upload.file';
-// import { storage } from '../../../core/firebase/config';
+
+import {
+    getUrlsFromStorage,
+    saveImageInStorage,
+} from '../../../core/services/storage';
 
 export function AddProductForm() {
     const { handleCreateProduct } = useContext(AppContext);
-    const { handleUploadFile, uploadedImagerUrl, uploadProgressValue } =
-        useUploadFile();
-    // const urlStoragePath = process.env.REACT_APP_DB_STORAGE_URL;
 
     const initialProductDetails: Partial<AddProductFormStructure> = {
         title: '',
@@ -23,8 +22,8 @@ export function AddProductForm() {
     const [productFormData, setProductFormData] = useState(
         initialProductDetails
     );
-    // const [uploadValue, setUploadValue] = useState(0);
-    // const [uploadedImagerUrl, setuploadedImagerUrl] = useState('');
+
+    const [uploadedImagerUrl, setuploadedImagerUrl] = useState('');
 
     const handleInput = (ev: SyntheticEvent) => {
         const element = ev.target as HTMLFormElement;
@@ -50,31 +49,21 @@ export function AddProductForm() {
         setProductFormData(initialProductDetails);
         console.log(productFormData);
     };
-    const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        handleUploadFile(event);
-        // const file = event.target.files[0];
-        // const storageRef = ref(storage, 'test/' + file.name);
-        // const upload = uploadBytesResumable(storageRef, file);
-        // upload.on('state_changed', (snapshot) => {
-        //     const percentage =
-        //         (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        //     setUploadValue(percentage);
-        // });
-        // upload.then((snapshot) => {
-        //     console.log(snapshot);
 
-        //     const url = getDownloadURL(
-        //         ref(storage, urlStoragePath + file.name)
-        //     );
-        //     url.then((url) => {
-        //         setuploadedImagerUrl(url);
-        //         setProductFormData({
-        //             ...productFormData,
-        //             imgUrl: url,
-        //         });
-        //         console.log(url);
-        //     });
-        // });
+    const handleUploadImage = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (!event.target.files) return;
+        const file = event.target.files[0];
+
+        saveImageInStorage(file, 'test/', file.name);
+        const url = getUrlsFromStorage('test/', file.name);
+
+        url.then((url) => {
+            setuploadedImagerUrl(url);
+            setProductFormData({
+                ...productFormData,
+                imgUrl: url as string,
+            });
+        });
     };
     return (
         <section>
@@ -119,14 +108,14 @@ export function AddProductForm() {
                     />
                 </div>
                 <div>
-                    <label htmlFor="uploadImage">Subir Imagen</label>
-                    <progress value={uploadProgressValue} max="100"></progress>
+                    <label htmlFor="uploadImage"> Subir Imagen</label>
+
                     <br />
                     <input
                         id="uploadImage"
                         name="uploadImage"
                         type="file"
-                        onChange={handleImageChange}
+                        onChange={handleUploadImage}
                     />
 
                     <br />
