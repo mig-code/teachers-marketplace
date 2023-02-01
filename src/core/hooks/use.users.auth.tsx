@@ -30,26 +30,32 @@ export function useUserAuth(): UseUserAuth {
 
     const loginWithGoogle = async () => {
         const provider = new GoogleAuthProvider();
+        try {
+            const userCredentials = await signInWithPopup(auth, provider);
+            const loggedToken = await userCredentials.user.getIdToken();
+            if (!userCredentials) throw new Error('No user logged in');
 
-        const userCredentials = await signInWithPopup(auth, provider);
-        const loggedToken = await userCredentials.user.getIdToken();
-
-        if (!userCredentials) throw new Error('No user logged in');
-
-        const loggedUser = {
-            info: {
-                firebaseId: userCredentials.user.uid,
-                name: userCredentials.user.displayName as string,
-                photoUrl: userCredentials.user.photoURL as string,
-            },
-            token: loggedToken,
-        };
-        setUser(loggedUser);
-        console.log(loggedUser);
+            const loggedUser = {
+                info: {
+                    firebaseId: userCredentials.user.uid,
+                    name: userCredentials.user.displayName as string,
+                    photoUrl: userCredentials.user.photoURL as string,
+                },
+                token: loggedToken,
+            };
+            setUser(loggedUser);
+            console.log(loggedUser);
+        } catch (error) {
+            console.log(error);
+        }
     };
     const logoutWithGoogle = async () => {
-        signOut(auth);
-        setUser(initialUser);
+        try {
+            signOut(auth);
+            setUser(initialUser);
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     return {
