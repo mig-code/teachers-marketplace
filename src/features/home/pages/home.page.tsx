@@ -3,7 +3,7 @@ import Item from '../../../core/components/item/item';
 import { AppContext } from '../../../core/context/app.context';
 
 export function HomePage() {
-    const { handleLoadProducts, products, user, loginWithGoogle } =
+    const { handleLoadProducts, products, user, handleLoginWithGoogle } =
         useContext(AppContext);
 
     console.log('Loading home page with products: ', products);
@@ -16,7 +16,7 @@ export function HomePage() {
             {user?.info.firebaseId ? (
                 <button onClick={handleLoadProducts}>Load products</button>
             ) : (
-                <button onClick={loginWithGoogle}>Login</button>
+                <button onClick={handleLoginWithGoogle}>Login</button>
             )}
 
             <div>

@@ -12,8 +12,8 @@ export type AppContextStructure = {
     ) => Promise<void>;
     handleCreateProduct: (productPayload: ProductStructure) => Promise<void>;
     user: UserStructure | null;
-    loginWithGoogle: () => Promise<void>;
-    logoutWithGoogle: () => Promise<void>;
+    handleLoginWithGoogle: () => Promise<void>;
+    handleLogout: () => Promise<void>;
 };
 
 export const initialContext: AppContextStructure = {
@@ -27,8 +27,8 @@ export const initialContext: AppContextStructure = {
         productPayload: Partial<ProductStructure>
     ) => {},
     user: null,
-    loginWithGoogle: async () => {},
-    logoutWithGoogle: async () => {},
+    handleLoginWithGoogle: async () => {},
+    handleLogout: async () => {},
 };
 
 export const AppContext = createContext(initialContext);

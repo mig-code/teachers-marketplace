@@ -1,11 +1,11 @@
-import { GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
 import { useState } from 'react';
-import { auth } from '../../firebase/config';
+
+import { loginWithGoogle, logout } from '../services/login';
 
 export type UseUserAuth = {
     user: UserStructure | null;
-    loginWithGoogle: () => Promise<void>;
-    logoutWithGoogle: () => Promise<void>;
+    handleLoginWithGoogle: () => Promise<void>;
+    handleLogout: () => Promise<void>;
 };
 export type UserStructure = {
     info: {
@@ -28,39 +28,18 @@ export function useUserAuth(): UseUserAuth {
 
     const [user, setUser] = useState(initialUser);
 
-    const loginWithGoogle = async () => {
-        const provider = new GoogleAuthProvider();
-        try {
-            const userCredentials = await signInWithPopup(auth, provider);
-            const loggedToken = await userCredentials.user.getIdToken();
-            if (!userCredentials) throw new Error('No user logged in');
-
-            const loggedUser = {
-                info: {
-                    firebaseId: userCredentials.user.uid,
-                    name: userCredentials.user.displayName as string,
-                    photoUrl: userCredentials.user.photoURL as string,
-                },
-                token: loggedToken,
-            };
-            setUser(loggedUser);
-            console.log(loggedUser);
-        } catch (error) {
-            console.log(error);
-        }
+    const handleLoginWithGoogle = async () => {
+        const userLogged = (await loginWithGoogle()) as UserStructure;
+        setUser(userLogged);
     };
-    const logoutWithGoogle = async () => {
-        try {
-            signOut(auth);
-            setUser(initialUser);
-        } catch (error) {
-            console.log(error);
-        }
+    const handleLogout = async () => {
+        logout();
+        setUser(initialUser);
     };
 
     return {
         user,
-        loginWithGoogle,
-        logoutWithGoogle,
+        handleLoginWithGoogle,
+        handleLogout,
     };
 }

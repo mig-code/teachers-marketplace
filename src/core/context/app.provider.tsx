@@ -13,7 +13,7 @@ export function AppContextProvider({ children }: { children: JSX.Element }) {
         handleCreateProduct,
     } = useProducts();
 
-    const { user, loginWithGoogle, logoutWithGoogle } = useUserAuth();
+    const { user, handleLoginWithGoogle, handleLogout } = useUserAuth();
 
     console.log('Loading AppContextProvider with products: ', products);
 
@@ -25,8 +25,9 @@ export function AppContextProvider({ children }: { children: JSX.Element }) {
             handleUpdateProduct,
             handleCreateProduct,
             user,
-            loginWithGoogle,
-            logoutWithGoogle,
+            handleLoginWithGoogle,
+            handleLogout,
+           
         }),
         [
             products,
@@ -35,8 +36,9 @@ export function AppContextProvider({ children }: { children: JSX.Element }) {
             handleUpdateProduct,
             handleCreateProduct,
             user,
-            loginWithGoogle,
-            logoutWithGoogle,
+            handleLoginWithGoogle,
+            handleLogout,
+            
         ]
     );
 

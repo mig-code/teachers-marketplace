@@ -3,15 +3,15 @@ import { Link } from 'react-router-dom';
 import { AppContext } from '../../context/app.context';
 
 export function Menu() {
-    const { user, loginWithGoogle, logoutWithGoogle } = useContext(AppContext);
+    const { user, handleLoginWithGoogle,handleLogout } = useContext(AppContext);
     console.log(user);
 
-    const handleLogin = () => {
-        loginWithGoogle();
+    const handleLoginOnClick = () => {
+        handleLoginWithGoogle();
         console.log(user);
     };
-    const handleLogout = () => {
-        logoutWithGoogle();
+    const handleLogoutOnClick = () => {
+        handleLogout();
         console.log(user);
     };
     return (
@@ -26,9 +26,9 @@ export function Menu() {
 
                 <li>
                     {user?.info.firebaseId ? (
-                        <button onClick={handleLogout}>Logout</button>
+                        <button onClick={handleLogoutOnClick}>Logout</button>
                     ) : (
-                        <button onClick={handleLogin}>Login</button>
+                        <button onClick={handleLoginOnClick}>Login</button>
                     )}
                 </li>
             </ul>
