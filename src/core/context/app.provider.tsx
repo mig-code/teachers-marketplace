@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
 import { useProducts } from '../hooks/use.products';
-import { useUsersAuth } from '../hooks/use.users.auth';
+import { useUserAuth } from '../hooks/use.users.auth';
 import { AppContext } from './app.context';
 
 export function AppContextProvider({ children }: { children: JSX.Element }) {
@@ -13,7 +13,7 @@ export function AppContextProvider({ children }: { children: JSX.Element }) {
         handleCreateProduct,
     } = useProducts();
 
-    const { user, loginWithGoogle, logoutWithGoogle } = useUsersAuth();
+    const { user, loginWithGoogle, logoutWithGoogle } = useUserAuth();
 
     console.log('Loading AppContextProvider with products: ', products);
 

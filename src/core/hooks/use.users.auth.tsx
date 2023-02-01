@@ -1,11 +1,9 @@
-import { sign } from 'crypto';
 import { GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
 import { useState } from 'react';
 import { auth } from '../../firebase/config';
 
-export type UseUsersAuth = {
+export type UseUserAuth = {
     user: UserStructure | null;
-
     loginWithGoogle: () => Promise<void>;
     logoutWithGoogle: () => Promise<void>;
 };
@@ -18,7 +16,7 @@ export type UserStructure = {
     token: string;
 };
 
-export function useUsersAuth(): UseUsersAuth {
+export function useUserAuth(): UseUserAuth {
     const initialUser: UserStructure = {
         info: {
             firebaseId: '',
