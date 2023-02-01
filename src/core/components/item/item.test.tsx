@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { AppContext, AppContextStructure } from '../../context/app.context';
-import { productsMockWithFirebaseId } from '../../mocks/product.mocks';
+import { productsMockWithFirebaseId } from '../../../mocks/product.mocks';
 import Item from './item';
 
 describe('Given Item component', () => {

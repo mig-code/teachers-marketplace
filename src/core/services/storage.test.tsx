@@ -1,6 +1,6 @@
 import { saveImageInStorage, getUrlsFromStorage } from './storage';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
-import { storage } from '../firebase/config';
+import { storage } from '../../firebase/config';
 
 jest.mock('firebase/storage');
 
