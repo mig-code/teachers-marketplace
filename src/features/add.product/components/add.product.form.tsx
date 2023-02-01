@@ -50,11 +50,13 @@ export function AddProductForm() {
         console.log(productFormData);
     };
 
-    const handleUploadImage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleUploadImage = async (
+        event: React.ChangeEvent<HTMLInputElement>
+    ) => {
         if (!event.target.files) return;
         const file = event.target.files[0];
 
-        saveImageInStorage(file, 'test/', file.name);
+        await saveImageInStorage(file, 'test/', file.name);
         const url = getUrlsFromStorage('test/', file.name);
 
         url.then((url) => {

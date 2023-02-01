@@ -1,7 +1,7 @@
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { storage } from '../../firebase/config';
 
-export function saveImageInStorage(
+export async function  saveImageInStorage(
     file: File,
     storagePath: string,
     fileName: string
@@ -11,7 +11,7 @@ export function saveImageInStorage(
     return upload;
 }
 
-export function getUrlsFromStorage(storagePath: string, fileName: string) {
+export async function getUrlsFromStorage(storagePath: string, fileName: string) {
     const storageRef = ref(storage, storagePath + fileName);
     return getDownloadURL(storageRef);
 }
