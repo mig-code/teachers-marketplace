@@ -25,6 +25,7 @@ export function useUserAuth(): UseUserAuth {
         },
         token: '',
     };
+
     const [user, setUser] = useState(initialUser);
 
     const loginWithGoogle = async () => {
@@ -38,8 +39,8 @@ export function useUserAuth(): UseUserAuth {
         const loggedUser = {
             info: {
                 firebaseId: userCredentials.user.uid,
-                name: userCredentials.user.displayName,
-                photoUrl: userCredentials.user.photoURL,
+                name: userCredentials.user.displayName as string,
+                photoUrl: userCredentials.user.photoURL as string,
             },
             token: loggedToken,
         };
@@ -48,6 +49,7 @@ export function useUserAuth(): UseUserAuth {
     };
     const logoutWithGoogle = async () => {
         signOut(auth);
+        setUser(initialUser);
     };
 
     return {
