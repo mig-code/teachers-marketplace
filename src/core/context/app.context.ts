@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { createContext } from 'react';
+import { UserStructure } from '../hooks/use.users.auth';
 import { ProductStructure } from '../types/products.types';
 
 export type AppContextStructure = {
@@ -10,6 +11,9 @@ export type AppContextStructure = {
         productPayload: Partial<ProductStructure>
     ) => Promise<void>;
     handleCreateProduct: (productPayload: ProductStructure) => Promise<void>;
+    user: UserStructure | null;
+    loginWithGoogle: () => Promise<void>;
+    logoutWithGoogle: () => Promise<void>;
 };
 
 export const initialContext: AppContextStructure = {
@@ -22,6 +26,9 @@ export const initialContext: AppContextStructure = {
     handleCreateProduct: async (
         productPayload: Partial<ProductStructure>
     ) => {},
+    user: null,
+    loginWithGoogle: async () => {},
+    logoutWithGoogle: async () => {},
 };
 
 export const AppContext = createContext(initialContext);
