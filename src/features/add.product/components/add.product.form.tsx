@@ -4,6 +4,11 @@ import { AppContext } from '../../../core/context/app.context';
 import { generateProductWithOnlyInfo } from '../../../core/models/product';
 import { AddProductFormStructure } from '../../../core/types/form.types';
 
+import {
+    getUrlsFromStorage,
+    saveImageInStorage,
+} from '../../../core/services/storage';
+
 export function AddProductForm() {
     const { handleCreateProduct } = useContext(AppContext);
 
@@ -11,11 +16,14 @@ export function AddProductForm() {
         title: '',
         description: '',
         price: 0,
+        imgUrl: '',
     };
 
     const [productFormData, setProductFormData] = useState(
         initialProductDetails
     );
+
+    const [uploadedImagerUrl, setuploadedImagerUrl] = useState('');
 
     const handleInput = (ev: SyntheticEvent) => {
         const element = ev.target as HTMLFormElement;
@@ -31,15 +39,31 @@ export function AddProductForm() {
             productFormData.title as string,
             productFormData.description as string,
             productFormData.price as number,
-
             'libros',
-            'miguel'
+            'miguel',
+            productFormData.imgUrl as string
         );
 
         handleCreateProduct(newProduct);
 
         setProductFormData(initialProductDetails);
         console.log(productFormData);
+    };
+
+    const handleUploadImage = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (!event.target.files) return;
+        const file = event.target.files[0];
+
+        saveImageInStorage(file, 'test/', file.name);
+        const url = getUrlsFromStorage('test/', file.name);
+
+        url.then((url) => {
+            setuploadedImagerUrl(url);
+            setProductFormData({
+                ...productFormData,
+                imgUrl: url as string,
+            });
+        });
     };
     return (
         <section>
@@ -76,11 +100,28 @@ export function AddProductForm() {
                         type="number"
                         name="price"
                         id="price"
+                        min={0}
                         value={productFormData.price}
                         onInput={handleInput}
                         placeholder="Precio"
                         required
                     />
+                </div>
+                <div>
+                    <label htmlFor="uploadImage"> Subir Imagen</label>
+
+                    <br />
+                    <input
+                        id="uploadImage"
+                        name="uploadImage"
+                        type="file"
+                        onChange={handleUploadImage}
+                    />
+
+                    <br />
+                    {uploadedImagerUrl && (
+                        <img src={uploadedImagerUrl} alt="user" />
+                    )}
                 </div>
 
                 <div>

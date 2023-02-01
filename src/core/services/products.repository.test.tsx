@@ -114,7 +114,8 @@ describe('Given ProductsRepo', () => {
                 'New Product Description',
                 34,
                 'libros',
-                'userId'
+                'userId',
+                'default/img.jpg'
             );
 
             global.fetch = jest.fn().mockResolvedValue({

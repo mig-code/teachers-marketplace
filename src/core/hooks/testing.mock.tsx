@@ -7,7 +7,8 @@ export const productMock1 = generateProductWithOnlyInfo(
     'Test description 1',
     100,
     'libros',
-    'miguel'
+    'miguel',
+    'default/img.jpg'
 );
 
 productMock1.firebaseId = '000001';
@@ -16,7 +17,8 @@ export const productMock2 = generateProductWithOnlyInfo(
     'Test description 2',
     200,
     'coches',
-    'miguel'
+    'miguel',
+    'default/img.jpg'
 );
 
 productMock2.firebaseId = '000002';
@@ -27,7 +29,8 @@ export const productMockAdd = generateProductWithOnlyInfo(
     'Test description 3',
     300,
     'libros',
-    'miguel'
+    'miguel',
+    "default/img.jpg"
 );
 
 export const productMockUpdate = { ...productMock2, title: 'Updated product' };

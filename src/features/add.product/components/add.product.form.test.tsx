@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { act } from 'react-dom/test-utils';
 
 import { BrowserRouter } from 'react-router-dom';
 import {
@@ -63,5 +64,51 @@ describe('Given render AddProductForm component', () => {
             userEvent.click(submitButton);
             expect(handleCreateProduct).toHaveBeenCalled();
         });
+    });
+});
+
+describe('Given render AddProductForm component to upload File', () => {
+    const handleCreateProduct = jest.fn();
+    const mockAppContext = {
+        handleCreateProduct,
+    } as unknown as AppContextStructure;
+
+    test('Then we should upload an image', () => {
+        render(
+            <AppContext.Provider value={mockAppContext}>
+                <BrowserRouter>
+                    <AddProductForm></AddProductForm>
+                </BrowserRouter>
+            </AppContext.Provider>
+        );
+
+        const uploadImageInput = screen.getByLabelText(/Subir Imagen/i);
+        expect(uploadImageInput).toBeInTheDocument();
+
+        const file = new File([''], 'testImage.png', {
+            type: 'image/png',
+        });
+        // eslint-disable-next-line testing-library/no-unnecessary-act
+        const saveImageInStorageMock = jest.fn();
+        const getUrlsFromStorageMock = jest.fn();
+        saveImageInStorageMock.mockResolvedValue('testImage.png');
+        getUrlsFromStorageMock.mockResolvedValue('testImage.png');
+        jest.spyOn(
+            // eslint-disable-next-line @typescript-eslint/no-var-requires
+            require('../../../core/services/storage'),
+            'saveImageInStorage'
+        ).mockImplementation(saveImageInStorageMock);
+        jest.spyOn(
+            // eslint-disable-next-line @typescript-eslint/no-var-requires
+            require('../../../core/services/storage'),
+            'getUrlsFromStorage'
+        ).mockImplementation(getUrlsFromStorageMock);
+
+        // eslint-disable-next-line testing-library/no-unnecessary-act
+        act(() => {
+            userEvent.upload(uploadImageInput, file);
+        });
+        expect(saveImageInStorageMock).toHaveBeenCalled();
+        expect(getUrlsFromStorageMock).toHaveBeenCalled();
     });
 });

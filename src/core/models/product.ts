@@ -7,7 +7,7 @@ export function generateProductWithOnlyInfo(
     price: number,
     category: string,
     owner: string,
-    imgUrl = 'assets/img/pelota_fantasia.jpg'
+    imgUrl : string,
 ): ProductStructure {
     return {
         productInfo: {
