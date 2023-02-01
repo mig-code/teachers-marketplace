@@ -1,4 +1,4 @@
-import { productsMockWithFirebaseId } from '../mocks/product.mocks';
+import { productsMockWithFirebaseId } from '../../mocks/product.mocks';
 import { generateProductWithOnlyInfo } from '../models/product';
 import { DeepPartial, ProductStructure } from '../types/products.types';
 

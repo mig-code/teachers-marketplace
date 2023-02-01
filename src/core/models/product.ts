@@ -1,4 +1,4 @@
-import { generateId } from '../helpers/generateId';
+import { generateId } from '../../helpers/generateId';
 import { ProductStructure } from '../types/products.types';
 
 export function generateProductWithOnlyInfo(

@@ -5,6 +5,9 @@ const urlId = '';
 interface Repository<T> {
     load: () => Promise<T[]>;
     delete: (id: string) => Promise<string>;
+    update: (payload: DeepPartial<T>) => Promise<T>;
+    create: (payload: Partial<T>) => Promise<string>;
+
 }
 export class ProductsRepository implements Repository<ProductStructure> {
     constructor(

@@ -1,5 +1,5 @@
-import { generateProductWithOnlyInfo } from '../models/product';
-import { ProductStructure } from '../types/products.types';
+import { generateProductWithOnlyInfo } from '../core/models/product';
+import { ProductStructure } from '../core/types/products.types';
 
 export const productMock1 = generateProductWithOnlyInfo(
     'Product 1',
