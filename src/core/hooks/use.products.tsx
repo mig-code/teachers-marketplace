@@ -17,8 +17,6 @@ export type UseProducts = {
 export function useProducts(): UseProducts {
     const repo = useMemo(() => new ProductsRepository(), []);
 
-    console.debug('Loading UseProducts hook');
-
     const initialProducts = Array<ProductStructure>;
     const [products, setProducts] = useState(initialProducts);
 
