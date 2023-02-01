@@ -17,7 +17,6 @@ jobs:
       - name: Install modules
         run: npm ci
       - name: Testing coverage
-        run: npm run test:prod #Change for a valid npm script
         env:
           REACT_APP_APIKEY: ${{ secrets.REACT_APP_APIKEY }}
           REACT_APP_AUTHDOMAIN: ${ secrets.REACT_APP_AUTHDOMAIN }
@@ -27,6 +26,8 @@ jobs:
           REACT_APP_APPID: ${ secrets.REACT_APP_APPID }
           REACT_APP_MEASUREMENTID: ${ secrets.REACT_APP_MEASUREMENTID }
           REACT_APP_DB_STORAGE_URL: ${ secrets.REACT_APP_DB_STORAGE_URL }
+        run: npm run test:prod #Change for a valid npm script
+        
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
