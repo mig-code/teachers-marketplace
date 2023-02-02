@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 
 import { useProducts } from '../hooks/use.products';
+import { useUserAuth } from '../hooks/use.users.auth';
 import { AppContext } from './app.context';
 
 export function AppContextProvider({ children }: { children: JSX.Element }) {
@@ -11,6 +12,9 @@ export function AppContextProvider({ children }: { children: JSX.Element }) {
         handleUpdateProduct,
         handleCreateProduct,
     } = useProducts();
+
+    const { user, handleLoginWithGoogle, handleLogout } = useUserAuth();
+
     console.log('Loading AppContextProvider with products: ', products);
 
     const context = useMemo(
@@ -20,6 +24,10 @@ export function AppContextProvider({ children }: { children: JSX.Element }) {
             handleDeleteProduct,
             handleUpdateProduct,
             handleCreateProduct,
+            user,
+            handleLoginWithGoogle,
+            handleLogout,
+           
         }),
         [
             products,
@@ -27,6 +35,10 @@ export function AppContextProvider({ children }: { children: JSX.Element }) {
             handleDeleteProduct,
             handleUpdateProduct,
             handleCreateProduct,
+            user,
+            handleLoginWithGoogle,
+            handleLogout,
+            
         ]
     );
 

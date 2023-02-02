@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 
@@ -109,6 +109,10 @@ describe('Given render AddProductForm component to upload File', () => {
             userEvent.upload(uploadImageInput, file);
         });
         expect(saveImageInStorageMock).toHaveBeenCalled();
-        expect(getUrlsFromStorageMock).toHaveBeenCalled();
+
+        // eslint-disable-next-line testing-library/await-async-utils
+        waitFor(async () => {
+            await expect(getUrlsFromStorageMock).toHaveBeenCalled();
+        });
     });
 });

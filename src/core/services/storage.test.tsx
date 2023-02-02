@@ -10,9 +10,10 @@ describe('Given "saveImageInStorage"', () => {
             type: 'image/png',
         });
         const storageRef = ref(storage, 'images/1');
-        const uploadTask = uploadBytesResumable(storageRef, file);
+        const uploadTask = await uploadBytesResumable(storageRef, file);
         const result = await saveImageInStorage(file, 'test-url', 'images');
         expect(result).toEqual(uploadTask);
+       
     });
 });
 
