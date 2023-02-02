@@ -23,9 +23,9 @@ export async function loginWithGoogle() {
 }
 
 export async function logout() {
-     try {
-         signOut(auth);
-     } catch (error) {
-         console.log(error);
-     }
+    try {
+        await signOut(auth);
+    } catch (error) {
+        console.log(error);
+    }
 }

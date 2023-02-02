@@ -1,4 +1,4 @@
-import { loginWithGoogle } from './login';
+import { loginWithGoogle, logout } from './login';
 
 jest.mock('firebase/auth');
 
@@ -31,9 +31,9 @@ describe('Given "loginWithGoogle"', () => {
     });
 });
 
-// describe('Given logout function', () => {
-//     test('Then it should logout', async () => {
-//         const result = await logout();
-//         expect(result).toEqual(undefined);
-//     });
-// });
+describe('Given logout function', () => {
+    test('Then it should logout', async () => {
+        const result = await logout();
+        expect(result).toEqual(undefined);
+    });
+});
