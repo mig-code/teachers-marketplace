@@ -6,9 +6,11 @@ export const productMock1 = generateProductWithOnlyInfo(
     'Test product 1',
     'Test description 1',
     100,
-    'libros',
-    'miguel',
-    'default/img.jpg'
+    'img1.jpg',
+    'coches',
+    'userUid1',
+    'ownerName1',
+    'token1'
 );
 
 productMock1.firebaseId = '000001';
@@ -16,9 +18,11 @@ export const productMock2 = generateProductWithOnlyInfo(
     'Test product 2',
     'Test description 2',
     200,
-    'coches',
-    'miguel',
-    'default/img.jpg'
+    'img2.jpg',
+    'libros',
+    'userUid2',
+    'ownerName2',
+    'token2'
 );
 
 productMock2.firebaseId = '000002';
@@ -28,13 +32,14 @@ export const productMockAdd = generateProductWithOnlyInfo(
     'Test product 3',
     'Test description 3',
     300,
+    'img3.jpg',
     'libros',
-    'miguel',
-    "default/img.jpg"
+    'userUid3',
+    'ownerName3',
+    'token3'
 );
 
 export const productMockUpdate = { ...productMock2, title: 'Updated product' };
-
 
 export const mockValidRepoResponse = () => {
     (ProductsRepository.prototype.load as jest.Mock).mockResolvedValue(

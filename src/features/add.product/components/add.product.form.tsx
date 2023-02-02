@@ -10,7 +10,7 @@ import {
 } from '../../../core/services/storage';
 
 export function AddProductForm() {
-    const { handleCreateProduct } = useContext(AppContext);
+    const { handleCreateProduct, user } = useContext(AppContext);
 
     const initialProductDetails: Partial<AddProductFormStructure> = {
         title: '',
@@ -40,8 +40,11 @@ export function AddProductForm() {
             productFormData.description as string,
             productFormData.price as number,
             'libros',
-            'miguel',
-            productFormData.imgUrl as string
+            productFormData.imgUrl as string,
+
+            user?.info.firebaseId as string,
+            user?.info.name as string,
+            user?.token as string
         );
 
         handleCreateProduct(newProduct);

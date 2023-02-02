@@ -6,26 +6,28 @@ export function generateProductWithOnlyInfo(
     description: string,
     price: number,
     category: string,
-    owner: string,
-    imgUrl : string,
+    imgUrl: string,
+
+    ownerUid: string,
+    ownerName: string,
+    token: string
 ): ProductStructure {
     return {
         productInfo: {
             title,
             description,
             price,
-            owner,
             imgUrl,
             category,
-            id: parseInt (generateId()),
+            ownerUid,
+            ownerName,
+            id: parseInt(generateId()),
             available: true,
             publishedAt: new Date(),
         },
-        firebaseId: generateId(),
+        firebaseId: token,
     };
 }
-
-
 
 // OLD WAY WITH CLASS
 

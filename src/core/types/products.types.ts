@@ -2,7 +2,8 @@ export type ProductInfoStructure = {
     id: number;
     title: string;
     description: string;
-    owner: string;
+    ownerUid: string;
+    ownerName: string;
     imgUrl: string;
     available: boolean;
     price: number;

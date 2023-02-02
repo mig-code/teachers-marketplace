@@ -1,19 +1,12 @@
 import { useState } from 'react';
 
 import { loginWithGoogle, logout } from '../services/login';
+import { UserStructure } from '../types/user.type';
 
 export type UseUserAuth = {
     user: UserStructure | null;
     handleLoginWithGoogle: () => Promise<void>;
     handleLogout: () => Promise<void>;
-};
-export type UserStructure = {
-    info: {
-        firebaseId: string;
-        name: string | null;
-        photoUrl: string | null;
-    };
-    token: string;
 };
 
 export function useUserAuth(): UseUserAuth {
