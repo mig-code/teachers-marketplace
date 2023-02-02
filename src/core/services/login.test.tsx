@@ -1,39 +1,47 @@
+import { auth } from '../../firebase/config';
 import { loginWithGoogle, logout } from './login';
+import { signInWithPopup, signOut } from 'firebase/auth';
+import { act } from 'react-dom/test-utils';
+import { wait } from '@testing-library/user-event/dist/utils';
+import { waitFor } from '@testing-library/react';
 
+// FIRST I MOCK THE MODULE
+// THEN I PUT MY OWN VALUES
 jest.mock('firebase/auth');
-
-const mockSignInWithPopup = jest.fn();
-
-jest.mock('firebase/auth', () => ({
-    getAuth: () => ({
-        signInWithPopup: async () => mockSignInWithPopup(),
-    }),
-    GoogleAuthProvider: jest.fn(),
-}));
-
-mockSignInWithPopup.mockResolvedValue({
+const mockUserCredential = {
     user: {
-        uid: 'validId',
-        displayName: 'user name test',
-        photoURL: 'url photo test',
+        firebaseId: '123456789',
+        geIdToken: () => {
+            return '123456789';
+        },
     },
-});
+};
+const mockEmpytUserCredential = {
+    user: null,
+};
+(signInWithPopup as jest.Mock).mockResolvedValue(mockUserCredential);
+(signOut as jest.Mock).mockResolvedValue({ user: null });
 
-// jest spy on firebase auth
-describe('Given "loginWithGoogle"', () => {
-    test('Then "loginWithGoogle" should return a user', async () => {
+describe('Given login function', () => {
+    test('Then it should login', async () => {
         const result = await loginWithGoogle();
 
-        // Need to mock the firebase auth
-        const resultmock = await mockSignInWithPopup();
-        console.log(result);
-        console.log(resultmock);
+        // eslint-disable-next-line testing-library/await-async-utils
+        waitFor(() => {
+            expect(result).toEqual(mockUserCredential);
+        });
+
+        expect(signInWithPopup).toHaveBeenCalled();
     });
 });
 
-describe('Given logout function', () => {
-    test('Then it should logout', async () => {
-        const result = await logout();
-        expect(result).toEqual(undefined);
+describe('Given "loginWithGoogle"', () => {
+    test('Then "loginWithGoogle" should return a user', async () => {
+        const result = await loginWithGoogle();
+        // eslint-disable-next-line testing-library/await-async-utils
+        waitFor(() => {
+            expect(result).toEqual(mockEmpytUserCredential);
+        });
+        expect(signInWithPopup).toHaveBeenCalled();
     });
 });
