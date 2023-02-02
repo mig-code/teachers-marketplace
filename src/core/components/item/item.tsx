@@ -36,6 +36,7 @@ export default function Item({ item }: { item: ProductStructure }) {
             {item.productInfo.ownerName && (
                 <p>Subido por: {item.productInfo.ownerName}</p>
             )}
+            <p>Categoria: {item.productInfo.category}</p>
 
             <p>
                 Favorite by :

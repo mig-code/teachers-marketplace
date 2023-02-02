@@ -3,6 +3,5 @@ export type AddProductFormStructure = {
     description: string;
     price: number;
     category: string;
-    owner: string;
     imgUrl: string;
 };

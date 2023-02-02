@@ -12,10 +12,11 @@ import {
 export function AddProductForm() {
     const { handleCreateProduct, user } = useContext(AppContext);
 
-    const initialProductDetails: Partial<AddProductFormStructure> = {
+    const initialProductDetails: AddProductFormStructure = {
         title: '',
         description: '',
         price: 0,
+        category: '',
         imgUrl: '',
     };
 
@@ -36,11 +37,11 @@ export function AddProductForm() {
     const handleSubmit = (ev: SyntheticEvent) => {
         ev.preventDefault();
         const newProduct = generateProductWithOnlyInfo(
-            productFormData.title as string,
-            productFormData.description as string,
-            productFormData.price as number,
-            'libros',
-            productFormData.imgUrl as string,
+            productFormData.title,
+            productFormData.description,
+            productFormData.price,
+            productFormData.category,
+            productFormData.imgUrl,
 
             user?.info.firebaseId as string,
             user?.info.name as string,
@@ -51,25 +52,28 @@ export function AddProductForm() {
 
         setProductFormData(initialProductDetails);
         setuploadedImagerUrl('');
-        console.log(productFormData);
     };
 
     const handleUploadImage = async (
         event: React.ChangeEvent<HTMLInputElement>
     ) => {
-        if (!event.target.files) return;
-        const file = event.target.files[0];
+        let file: File | null = null;
+        try {
+            if (!event.target.files) return;
+            file = event.target.files[0];
+            await saveImageInStorage(file, 'test/', file.name);
+            const url = getUrlsFromStorage('test/', file.name);
 
-        await saveImageInStorage(file, 'test/', file.name);
-        const url = getUrlsFromStorage('test/', file.name);
-
-        url.then((url) => {
-            setuploadedImagerUrl(url);
-            setProductFormData({
-                ...productFormData,
-                imgUrl: url as string,
+            url.then((url) => {
+                setuploadedImagerUrl(url);
+                setProductFormData({
+                    ...productFormData,
+                    imgUrl: url as string,
+                });
             });
-        });
+        } catch (error) {
+            console.log(error);
+        }
     };
     return (
         <section>
@@ -87,6 +91,24 @@ export function AddProductForm() {
                         required
                     />
                 </div>
+                <div>
+                    <label htmlFor="uploadImage"> Subir Imagen</label>
+
+                    <br />
+                    <input
+                        id="uploadImage"
+                        name="uploadImage"
+                        type="file"
+                        onChange={handleUploadImage}
+                        required
+                    />
+
+                    <br />
+                    {uploadedImagerUrl && (
+                        <img src={uploadedImagerUrl} alt="user" />
+                    )}
+                </div>
+
                 <div>
                     <label htmlFor="description">
                         Descripción del producto
@@ -114,21 +136,21 @@ export function AddProductForm() {
                     />
                 </div>
                 <div>
-                    <label htmlFor="uploadImage"> Subir Imagen</label>
-
-                    <br />
-                    <input
-                        id="uploadImage"
-                        name="uploadImage"
-                        type="file"
-                        onChange={handleUploadImage}
+                    <label htmlFor="category">Categoría</label>
+                    <select
+                        name="category"
+                        id="category"
+                        value={productFormData.category}
+                        onInput={handleInput}
                         required
-                    />
-
-                    <br />
-                    {uploadedImagerUrl && (
-                        <img src={uploadedImagerUrl} alt="user" />
-                    )}
+                    >
+                        <option value="">Seleccione una categoría</option>
+                        <option value="Juguetes">Juguetes</option>
+                        <option value="Libros">Libros</option>
+                        <option value="material escolar">
+                            Material Escolar
+                        </option>
+                    </select>
                 </div>
 
                 <div>
