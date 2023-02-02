@@ -58,19 +58,23 @@ export function AddProductForm() {
     const handleUploadImage = async (
         event: React.ChangeEvent<HTMLInputElement>
     ) => {
-        if (!event.target.files) return;
-        const file = event.target.files[0];
+        let file: File | null = null;
+        try {
+            if (!event.target.files) return;
+            file = event.target.files[0];
+            await saveImageInStorage(file, 'test/', file.name);
+            const url = getUrlsFromStorage('test/', file.name);
 
-        await saveImageInStorage(file, 'test/', file.name);
-        const url = getUrlsFromStorage('test/', file.name);
-
-        url.then((url) => {
-            setuploadedImagerUrl(url);
-            setProductFormData({
-                ...productFormData,
-                imgUrl: url as string,
+            url.then((url) => {
+                setuploadedImagerUrl(url);
+                setProductFormData({
+                    ...productFormData,
+                    imgUrl: url as string,
+                });
             });
-        });
+        } catch (error) {
+            console.log(error);
+        }
     };
     return (
         <section>

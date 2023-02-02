@@ -59,7 +59,10 @@ describe('Given render AddProductForm component', () => {
             userEvent.type(titleInput, inputMockData.title);
             userEvent.type(descriptionInput, inputMockData.description);
             userEvent.type(priceInput, inputMockData.price.toString());
-            userEvent.selectOptions(categoryInputSelectElement, inputMockData.category);
+            userEvent.selectOptions(
+                categoryInputSelectElement,
+                inputMockData.category
+            );
 
             expect(titleInput).toHaveValue(inputMockData.title);
             expect(descriptionInput).toHaveValue(inputMockData.description);
