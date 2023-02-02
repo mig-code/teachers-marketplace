@@ -12,10 +12,11 @@ import {
 export function AddProductForm() {
     const { handleCreateProduct, user } = useContext(AppContext);
 
-    const initialProductDetails: Partial<AddProductFormStructure> = {
+    const initialProductDetails: AddProductFormStructure = {
         title: '',
         description: '',
         price: 0,
+        category: '',
         imgUrl: '',
     };
 
@@ -39,7 +40,7 @@ export function AddProductForm() {
             productFormData.title as string,
             productFormData.description as string,
             productFormData.price as number,
-            'libros',
+            productFormData.category as string,
             productFormData.imgUrl as string,
 
             user?.info.firebaseId as string,
@@ -88,6 +89,24 @@ export function AddProductForm() {
                     />
                 </div>
                 <div>
+                    <label htmlFor="uploadImage"> Subir Imagen</label>
+
+                    <br />
+                    <input
+                        id="uploadImage"
+                        name="uploadImage"
+                        type="file"
+                        onChange={handleUploadImage}
+                        required
+                    />
+
+                    <br />
+                    {uploadedImagerUrl && (
+                        <img src={uploadedImagerUrl} alt="user" />
+                    )}
+                </div>
+
+                <div>
                     <label htmlFor="description">
                         Descripción del producto
                     </label>
@@ -114,21 +133,21 @@ export function AddProductForm() {
                     />
                 </div>
                 <div>
-                    <label htmlFor="uploadImage"> Subir Imagen</label>
-
-                    <br />
-                    <input
-                        id="uploadImage"
-                        name="uploadImage"
-                        type="file"
-                        onChange={handleUploadImage}
+                    <label htmlFor="category">Categoría</label>
+                    <select
+                        name="category"
+                        id="category"
+                        value={productFormData.category}
+                        onInput={handleInput}
                         required
-                    />
-
-                    <br />
-                    {uploadedImagerUrl && (
-                        <img src={uploadedImagerUrl} alt="user" />
-                    )}
+                    >
+                        <option value="">Seleccione una categoría</option>
+                        <option value="Juguetes">Juguetes</option>
+                        <option value="Libros">Libros</option>
+                        <option value="material escolar">
+                            Material Escolar
+                        </option>
+                    </select>
                 </div>
 
                 <div>
