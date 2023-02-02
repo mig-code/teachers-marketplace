@@ -15,6 +15,7 @@ describe('Given render AddProductForm component', () => {
         title: 'Titulo del producto',
         description: 'Descripcion del producto',
         price: 10,
+        category: 'Libros',
     };
 
     const mockAppContext = {
@@ -52,14 +53,20 @@ describe('Given render AddProductForm component', () => {
                 name: /Añadir/i,
             });
             expect(submitButton).toBeInTheDocument();
+            const categoryInputSelectElement =
+                screen.getByLabelText(/Categoría/i);
 
             userEvent.type(titleInput, inputMockData.title);
             userEvent.type(descriptionInput, inputMockData.description);
             userEvent.type(priceInput, inputMockData.price.toString());
+            userEvent.selectOptions(categoryInputSelectElement, inputMockData.category);
 
             expect(titleInput).toHaveValue(inputMockData.title);
             expect(descriptionInput).toHaveValue(inputMockData.description);
             expect(priceInput).toHaveValue(inputMockData.price);
+            expect(categoryInputSelectElement).toHaveValue(
+                inputMockData.category
+            );
 
             userEvent.click(submitButton);
             expect(handleCreateProduct).toHaveBeenCalled();
