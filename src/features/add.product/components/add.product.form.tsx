@@ -50,6 +50,7 @@ export function AddProductForm() {
         handleCreateProduct(newProduct);
 
         setProductFormData(initialProductDetails);
+        setuploadedImagerUrl('');
         console.log(productFormData);
     };
 
@@ -121,6 +122,7 @@ export function AddProductForm() {
                         name="uploadImage"
                         type="file"
                         onChange={handleUploadImage}
+                        required
                     />
 
                     <br />
