@@ -37,11 +37,11 @@ export function AddProductForm() {
     const handleSubmit = (ev: SyntheticEvent) => {
         ev.preventDefault();
         const newProduct = generateProductWithOnlyInfo(
-            productFormData.title as string,
-            productFormData.description as string,
-            productFormData.price as number,
-            productFormData.category as string,
-            productFormData.imgUrl as string,
+            productFormData.title,
+            productFormData.description,
+            productFormData.price,
+            productFormData.category,
+            productFormData.imgUrl,
 
             user?.info.firebaseId as string,
             user?.info.name as string,
