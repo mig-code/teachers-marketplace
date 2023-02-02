@@ -33,6 +33,9 @@ export default function Item({ item }: { item: ProductStructure }) {
             <p>{item.productInfo.description}</p>
             <img src={item.productInfo.imgUrl} alt={item.productInfo.title} />
             <p>Precio : {item.productInfo.price}</p>
+            {item.productInfo.ownerName && (
+                <p>Subido por: {item.productInfo.ownerName}</p>
+            )}
 
             <p>
                 Favorite by :
