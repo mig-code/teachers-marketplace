@@ -52,7 +52,6 @@ export function AddProductForm() {
 
         setProductFormData(initialProductDetails);
         setuploadedImagerUrl('');
-        console.log(productFormData);
     };
 
     const handleUploadImage = async (
