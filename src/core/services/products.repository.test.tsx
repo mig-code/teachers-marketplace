@@ -112,10 +112,12 @@ describe('Given ProductsRepo', () => {
             const mockNewProductPayload = generateProductWithOnlyInfo(
                 'New Product',
                 'New Product Description',
-                34,
-                'libros',
-                'userId',
-                'default/img.jpg'
+                10,
+                'category',
+                'image.jpg',
+                'userUid',
+                'userName',
+                'token'
             );
 
             global.fetch = jest.fn().mockResolvedValue({

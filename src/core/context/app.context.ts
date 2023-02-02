@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { createContext } from 'react';
-import { UserStructure } from '../hooks/use.users.auth';
+
 import { ProductStructure } from '../types/products.types';
+import { UserStructure } from '../types/user.type';
 
 export type AppContextStructure = {
     products: Array<ProductStructure>;

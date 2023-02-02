@@ -6,8 +6,10 @@ export const productMock1 = generateProductWithOnlyInfo(
     'Description 1',
     100,
     'Category 1',
-    'Owner 1',
-    'default/img.jpg'
+    'img1.jpg',
+    'owner1Uid',
+    'owner2Name',
+    'token'
 );
 
 export const productMock2 = generateProductWithOnlyInfo(
@@ -15,8 +17,10 @@ export const productMock2 = generateProductWithOnlyInfo(
     'Description 2',
     200,
     'Category 2',
-    'Owner 2',
-    'default/img.jpg'
+    'img2.jpg',
+    'owner2Uid',
+    'owner2Name',
+    'token'
 );
 
 export const productMock3 = generateProductWithOnlyInfo(
@@ -24,8 +28,10 @@ export const productMock3 = generateProductWithOnlyInfo(
     'Description 3',
     300,
     'Category 3',
-    'Owner 3',
-    'default/img.jpg'
+    'img3.jpg',
+    'owner3Uid',
+    'owner3Name',
+    'token'
 );
 
 export const productsMockWithFirebaseId: Array<ProductStructure> = [
