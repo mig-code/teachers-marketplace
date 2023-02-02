@@ -29,17 +29,17 @@ describe('Given "config.ts', () => {
             });
         });
 
-        test('Then keys should be  undefinded', () => {
+        test('Then keys should be proces.env variables', () => {
             const config = firebaseConfig();
-            
+
             const result = {
-                apiKey: undefined,
-                authDomain: undefined,
-                projectId: undefined,
-                storageBucket: undefined,
-                messagingSenderId: undefined,
-                appId: undefined,
-                measurementId: undefined,
+                apiKey: process.env.REACT_APP_APIKEY,
+                authDomain: process.env.REACT_APP_AUTHDOMAIN,
+                projectId: process.env.REACT_APP_PROJECTID,
+                storageBucket: process.env.REACT_APP_STORAGEBUCKET,
+                messagingSenderId: process.env.REACT_APP_MESSAGINSENDERID,
+                appId: process.env.REACT_APP_APPID,
+                measurementId: process.env.REACT_APP_MEASUREMENTID,
             };
             expect(config).toEqual(result);
         });
@@ -48,5 +48,4 @@ describe('Given "config.ts', () => {
             process.env = previousEnv;
         });
     });
-
 });
