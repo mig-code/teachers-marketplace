@@ -1,14 +1,6 @@
-import { auth } from '../../firebase/config';
 import { loginWithGoogle, logout } from './login';
-import {
-    getIdToken,
-    GoogleAuthProvider,
-    signInWithPopup,
-    signOut,
-} from 'firebase/auth';
-import { act } from 'react-dom/test-utils';
-import { wait } from '@testing-library/user-event/dist/utils';
-import { waitFor } from '@testing-library/react';
+import { signInWithPopup, signOut } from 'firebase/auth';
+
 import { UserStructure } from '../types/user.type';
 import * as debug from '../../tools/debug';
 // FIRST I MOCK THE MODULE
@@ -45,7 +37,7 @@ describe('Given login function', () => {
         expect(result).toEqual(mockResponse);
     });
 
-    test('Then it should throw error without it', async () => {
+    test('Then it should throw error without them', async () => {
         (signInWithPopup as jest.Mock).mockResolvedValue(null);
         spyConsole = jest.spyOn(debug, 'consoleDebug');
         await loginWithGoogle();
@@ -61,11 +53,10 @@ describe('Given logout function', () => {
         expect(signOut).toHaveBeenCalled();
     });
 
-    test('Then it should throw error without it', async () => {
+    test('Then it should throw error when rejected', async () => {
         (signOut as jest.Mock).mockRejectedValue('error');
         const spyConsole = jest.spyOn(debug, 'consoleDebug');
-        const result = await logout();
-        console.log(result);
+        await logout();
         expect(spyConsole).toHaveBeenCalled();
     });
 });
