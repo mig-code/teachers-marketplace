@@ -61,15 +61,14 @@ export function AddProductForm() {
         try {
             if (!event.target.files) return;
             file = event.target.files[0];
-            await saveImageInStorage(file, 'test/', file.name);
-            const url = getUrlsFromStorage('test/', file.name);
 
-            url.then((url) => {
-                setuploadedImagerUrl(url);
-                setProductFormData({
-                    ...productFormData,
-                    imgUrl: url as string,
-                });
+            await saveImageInStorage(file, 'test/', file.name);
+            const url = await getUrlsFromStorage('test/', file.name);
+
+            setuploadedImagerUrl(url as string);
+            setProductFormData({
+                ...productFormData,
+                imgUrl: url as string,
             });
         } catch (error) {
             console.log(error);
