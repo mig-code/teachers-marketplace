@@ -1,39 +1,62 @@
 import { loginWithGoogle, logout } from './login';
+import { signInWithPopup, signOut } from 'firebase/auth';
 
+import { UserStructure } from '../types/user.type';
+import * as debug from '../../tools/debug';
+// FIRST I MOCK THE MODULE
+// THEN I PUT MY OWN VALUES
 jest.mock('firebase/auth');
+jest.mock('../../tools/debug');
 
-const mockSignInWithPopup = jest.fn();
+describe('Given login function', () => {
+    let spyConsole: jest.SpyInstance;
+    test('Then it should login correct with correct credentials', async () => {
+        const mockUserCredential = {
+            user: {
+                uid: '123',
+                displayName: 'test',
+                photoURL: 'test',
+                getIdToken(): Promise<string> {
+                    return Promise.resolve('123');
+                },
+            },
+        };
 
-jest.mock('firebase/auth', () => ({
-    getAuth: () => ({
-        signInWithPopup: async () => mockSignInWithPopup(),
-    }),
-    GoogleAuthProvider: jest.fn(),
-}));
+        (signInWithPopup as jest.Mock).mockResolvedValue(mockUserCredential);
 
-mockSignInWithPopup.mockResolvedValue({
-    user: {
-        uid: 'validId',
-        displayName: 'user name test',
-        photoURL: 'url photo test',
-    },
-});
-
-// jest spy on firebase auth
-describe('Given "loginWithGoogle"', () => {
-    test('Then "loginWithGoogle" should return a user', async () => {
+        const mockResponse: UserStructure = {
+            info: {
+                firebaseId: '123',
+                name: 'test',
+                photoUrl: 'test',
+            },
+            token: '123',
+        };
         const result = await loginWithGoogle();
+        expect(signInWithPopup).toHaveBeenCalled();
+        expect(result).toEqual(mockResponse);
+    });
 
-        // Need to mock the firebase auth
-        const resultmock = await mockSignInWithPopup();
-        console.log(result);
-        console.log(resultmock);
+    test('Then it should throw error without them', async () => {
+        (signInWithPopup as jest.Mock).mockResolvedValue(null);
+        spyConsole = jest.spyOn(debug, 'consoleDebug');
+        await loginWithGoogle();
+
+        expect(spyConsole).toHaveBeenCalled();
     });
 });
 
 describe('Given logout function', () => {
-    test('Then it should logout', async () => {
-        const result = await logout();
-        expect(result).toEqual(undefined);
+    test('Then it should logout correct', async () => {
+        (signOut as jest.Mock).mockResolvedValue(null);
+        await logout();
+        expect(signOut).toHaveBeenCalled();
+    });
+
+    test('Then it should throw error when rejected', async () => {
+        (signOut as jest.Mock).mockRejectedValue('error');
+        const spyConsole = jest.spyOn(debug, 'consoleDebug');
+        await logout();
+        expect(spyConsole).toHaveBeenCalled();
     });
 });

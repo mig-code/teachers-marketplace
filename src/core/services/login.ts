@@ -1,12 +1,13 @@
 import { GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
 import { auth } from '../../firebase/config';
+import { consoleDebug } from '../../tools/debug';
 
 export async function loginWithGoogle() {
     const provider = new GoogleAuthProvider();
     try {
         const userCredentials = await signInWithPopup(auth, provider);
         const loggedToken = await userCredentials.user.getIdToken();
-        if (!userCredentials) throw new Error('No user logged in');
+        console.log(userCredentials);
 
         const loggedUser = {
             info: {
@@ -18,7 +19,7 @@ export async function loginWithGoogle() {
         };
         return loggedUser;
     } catch (error) {
-        console.log(error);
+        handleError(error as Error);
     }
 }
 
@@ -26,6 +27,9 @@ export async function logout() {
     try {
         await signOut(auth);
     } catch (error) {
-        console.log(error);
+        handleError(error as Error);
     }
 }
+const handleError = (error: Error) => {
+    consoleDebug(error.message);
+};
