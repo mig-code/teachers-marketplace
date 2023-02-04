@@ -1,9 +1,8 @@
 import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
-import { homeReducer } from '../reducer/home.reducer';
+
 import { uploadImageReducer } from '../reducer/upload.image.reducer';
 export const store = configureStore({
     reducer: {
-        counter: homeReducer,
         uploadImage: uploadImageReducer,
     },
 });

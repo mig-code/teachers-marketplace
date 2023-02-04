@@ -7,7 +7,7 @@ const initialState = '';
 export const uploadImageReducer = createReducer(initialState, (builder) => {
     builder.addCase(
         ac.setUploadImageUrlActionCreatorUploadImage,
-        (state, action) => (state = action.payload)
+        (state, action) => action.payload
     );
 
     builder.addDefaultCase((state) => state);
