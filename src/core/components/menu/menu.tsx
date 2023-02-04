@@ -1,12 +1,10 @@
-import { useContext } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { AppContext } from '../../context/app.context';
+import { useUserAuth } from '../../hooks/use.users.auth';
 import { RootState } from '../../store/store';
 
 export function Menu() {
-    const { handleLoginWithGoogle, handleLogout } = useContext(AppContext);
-
+    const { handleLoginWithGoogle, handleLogout } = useUserAuth();
     const user = useSelector((state: RootState) => state.user);
 
     const handleLoginOnClick = () => {
