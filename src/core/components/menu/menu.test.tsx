@@ -15,6 +15,9 @@ import { logout } from '../../services/login';
 jest.mock('../../hooks/use.users.auth');
 
 describe('Given Menu component', () => {
+    beforeEach(() => {
+        jest.clearAllMocks();
+    });
     describe('When it has been render with no user', () => {
         const mockUser: UserStructure = {
             info: {
@@ -59,43 +62,47 @@ describe('Given Menu component', () => {
             expect(mockhandleLoginWithGoogle).toHaveBeenCalled();
         });
     });
-    // describe('When it has been render with an user', () => {
-    //     jest.mock('../../hooks/use.users.auth', () => {
-    //         return {
-    //             useUserAuth: jest.fn(),
-    //         };
-    //     });
+    describe('When it has been render with user', () => {
+        const mockUser: UserStructure = {
+            info: {
+                firebaseId: 'validid',
+                name: '',
+                photoUrl: '',
+            },
+            token: '',
+        };
+        const preloadedState: Partial<RootState> = {
+            user: mockUser,
+        };
 
-    //     const mockUser: UserStructure = {
-    //         info: {
-    //             firebaseId: '',
-    //             name: '',
-    //             photoUrl: '',
-    //         },
-    //         token: '',
-    //     };
-    //     const preloadedState: Partial<RootState> = {
-    //         user: mockUser,
-    //     };
+        const mockStore = configureStore({
+            reducer: {
+                uploadImage: uploadImageReducer,
+                user: userReducer,
+            },
+            preloadedState,
+        });
 
-    //     const mockStore = configureStore({
-    //         reducer: {
-    //             uploadImage: uploadImageReducer,
-    //             user: userReducer,
-    //         },
-    //         preloadedState,
-    //     });
-    //     test('Then we should click in login button', () => {
-    //         render(
-    //             <Provider store={mockStore}>
-    //                 <BrowserRouter>
-    //                     <Menu />
-    //                 </BrowserRouter>
-    //             </Provider>
-    //         );
-    //         const buttonElement = screen.getAllByRole('button');
-    //         userEvent.click(buttonElement[0]);
-    //         expect(useUserAuth).toHaveBeenCalled();
-    //     });
-    // });
+        test('Then we should click in login button', () => {
+            const mockhandleLogout = jest.fn();
+            (useUserAuth as jest.Mock).mockImplementation(() => {
+                return {
+                    handleLogout: mockhandleLogout,
+                };
+            });
+
+            render(
+                <Provider store={mockStore}>
+                    <BrowserRouter>
+                        <Menu />
+                    </BrowserRouter>
+                </Provider>
+            );
+            const buttonElement = screen.getAllByRole('button');
+            userEvent.click(buttonElement[0]);
+            expect(buttonElement[0]).toHaveTextContent('Logout');
+
+            expect(mockhandleLogout).toHaveBeenCalled();
+        });
+    });
 });
