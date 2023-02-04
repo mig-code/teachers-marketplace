@@ -2,7 +2,7 @@
 import { createContext } from 'react';
 
 import { ProductStructure } from '../types/products.types';
-import { UserStructure } from '../types/user.type';
+
 
 export type AppContextStructure = {
     products: Array<ProductStructure>;
@@ -12,7 +12,7 @@ export type AppContextStructure = {
         productPayload: Partial<ProductStructure>
     ) => Promise<void>;
     handleCreateProduct: (productPayload: ProductStructure) => Promise<void>;
-    user: UserStructure | null;
+   
     handleLoginWithGoogle: () => Promise<void>;
     handleLogout: () => Promise<void>;
 };
@@ -27,7 +27,7 @@ export const initialContext: AppContextStructure = {
     handleCreateProduct: async (
         productPayload: Partial<ProductStructure>
     ) => {},
-    user: null,
+    
     handleLoginWithGoogle: async () => {},
     handleLogout: async () => {},
 };

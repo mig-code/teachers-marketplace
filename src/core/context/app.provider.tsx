@@ -13,7 +13,7 @@ export function AppContextProvider({ children }: { children: JSX.Element }) {
         handleCreateProduct,
     } = useProducts();
 
-    const { user, handleLoginWithGoogle, handleLogout } = useUserAuth();
+    const { handleLoginWithGoogle, handleLogout } = useUserAuth();
 
     const context = useMemo(
         () => ({
@@ -22,7 +22,7 @@ export function AppContextProvider({ children }: { children: JSX.Element }) {
             handleDeleteProduct,
             handleUpdateProduct,
             handleCreateProduct,
-            user,
+
             handleLoginWithGoogle,
             handleLogout,
         }),
@@ -32,7 +32,7 @@ export function AppContextProvider({ children }: { children: JSX.Element }) {
             handleDeleteProduct,
             handleUpdateProduct,
             handleCreateProduct,
-            user,
+
             handleLoginWithGoogle,
             handleLogout,
         ]
