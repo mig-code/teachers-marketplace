@@ -8,6 +8,10 @@ import {
     getUrlsFromStorage,
     saveImageInStorage,
 } from '../../../core/services/storage';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../../core/store/store';
+
+import * as ac from '../../../core/reducer/action.creator';
 
 export function AddProductForm() {
     const { handleCreateProduct, user } = useContext(AppContext);
@@ -24,7 +28,13 @@ export function AddProductForm() {
         initialProductDetails
     );
 
-    const [uploadedImagerUrl, setuploadedImagerUrl] = useState('');
+    const uploadedImagerUrl = useSelector(
+        (state: RootState) => state.uploadImage
+    );
+    const dispatcher = useDispatch();
+
+    // with useState
+    // const [uploadedImagerUrl, setuploadedImagerUrl] = useState('');
 
     const handleInput = (ev: SyntheticEvent) => {
         const element = ev.target as HTMLFormElement;
@@ -51,7 +61,8 @@ export function AddProductForm() {
         handleCreateProduct(newProduct);
 
         setProductFormData(initialProductDetails);
-        setuploadedImagerUrl('');
+
+        dispatcher(ac.setUploadImageUrlActionCreatorUploadImage(''));
     };
 
     const handleUploadImage = async (
@@ -65,7 +76,10 @@ export function AddProductForm() {
             await saveImageInStorage(file, 'test/', file.name);
             const url = await getUrlsFromStorage('test/', file.name);
 
-            setuploadedImagerUrl(url as string);
+            dispatcher(
+                ac.setUploadImageUrlActionCreatorUploadImage(url as string)
+            );
+            // setuploadedImagerUrl(url as string);
             setProductFormData({
                 ...productFormData,
                 imgUrl: url as string,

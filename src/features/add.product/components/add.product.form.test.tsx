@@ -1,13 +1,15 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
+import { Provider } from 'react-redux';
 
-import { BrowserRouter } from 'react-router-dom';
+import { MemoryRouter } from 'react-router-dom';
 
 import {
     AppContext,
     AppContextStructure,
 } from '../../../core/context/app.context';
+import { store } from '../../../core/store/store';
 import { AddProductForm } from './add.product.form';
 jest.mock('../../../core/services/storage');
 
@@ -37,11 +39,13 @@ describe('Given render AddProductForm component', () => {
     beforeEach(() => {
         // eslint-disable-next-line testing-library/no-render-in-setup
         render(
+            <Provider store={store}>
             <AppContext.Provider value={mockAppContext}>
-                <BrowserRouter>
+                <MemoryRouter>
                     <AddProductForm></AddProductForm>
-                </BrowserRouter>
+                </MemoryRouter>
             </AppContext.Provider>
+            </Provider>
         );
     });
 
