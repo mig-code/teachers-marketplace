@@ -33,8 +33,7 @@
     "jest": {
         "coveragePathIgnorePatterns": [
             "<rootDir>/src/reportWebVitals.ts",
-            "<rootDir>/src/index.ts",
-            "<rootDir>/src/tools/*"
+            "<rootDir>/src/index.ts"
         ]
     },
     "eslintConfig": {
