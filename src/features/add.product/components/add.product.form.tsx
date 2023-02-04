@@ -14,11 +14,11 @@ import { RootState } from '../../../core/store/store';
 import * as ac from '../../../core/reducer/action.creator';
 import { consoleDebug } from '../../../tools/debug';
 
-
 export function AddProductForm() {
-    const { handleCreateProduct, user } = useContext(AppContext);
+    const { handleCreateProduct } = useContext(AppContext);
+    const user = useSelector((state: RootState) => state.user);
 
-    const initialProductDetails: AddProductFormStructure = {
+    const initialFormProductDetails: AddProductFormStructure = {
         title: '',
         description: '',
         price: 0,
@@ -27,7 +27,7 @@ export function AddProductForm() {
     };
 
     const [productFormData, setProductFormData] = useState(
-        initialProductDetails
+        initialFormProductDetails
     );
 
     const uploadedImagerUrl = useSelector(
@@ -61,9 +61,7 @@ export function AddProductForm() {
         );
 
         handleCreateProduct(newProduct);
-
-        setProductFormData(initialProductDetails);
-
+        setProductFormData(initialFormProductDetails);
         dispatcher(ac.setUploadImageUrlActionCreatorUploadImage(''));
     };
 

@@ -1,37 +1,28 @@
-import { useState } from 'react';
-
-import { loginWithGoogle, logout } from '../services/login';
 import { UserStructure } from '../types/user.type';
+import { loginWithGoogle, logout } from '../services/login';
+import { useDispatch } from 'react-redux';
+import * as ac from '../../core/reducer/action.creator';
 
 export type UseUserAuth = {
-    user: UserStructure | null;
     handleLoginWithGoogle: () => Promise<void>;
     handleLogout: () => Promise<void>;
 };
 
 export function useUserAuth(): UseUserAuth {
-    const initialUser: UserStructure = {
-        info: {
-            firebaseId: '',
-            name: '',
-            photoUrl: '',
-        },
-        token: '',
-    };
+    // Old way with useState
 
-    const [user, setUser] = useState(initialUser);
+    const dispatcher = useDispatch();
 
     const handleLoginWithGoogle = async () => {
         const userLogged = (await loginWithGoogle()) as UserStructure;
-        setUser(userLogged);
+        dispatcher(ac.loginActionCreatorUser(userLogged));
     };
     const handleLogout = async () => {
         logout();
-        setUser(initialUser);
+        dispatcher(ac.logoutActionCreatorUser());
     };
 
     return {
-        user,
         handleLoginWithGoogle,
         handleLogout,
     };
