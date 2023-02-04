@@ -6,7 +6,6 @@ export default function Item({ item }: { item: ProductStructure }) {
     const { handleDeleteProduct, handleUpdateProduct } = useContext(AppContext);
 
     function handleClickAddToFavorites() {
-        console.log('Añadir a favoritos');
         if (!item.isLikedBy) {
             item.isLikedBy = {
                 users: [],
@@ -19,11 +18,10 @@ export default function Item({ item }: { item: ProductStructure }) {
                 users: [...item.isLikedBy.users, 'user1'],
             },
         };
-        console.log(AddUserLike);
+
         handleUpdateProduct(AddUserLike);
     }
     function handleClickDelete() {
-        console.log('Eliminar item');
         handleDeleteProduct(item.firebaseId);
     }
     return (

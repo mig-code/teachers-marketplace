@@ -5,7 +5,7 @@ describe('Given "config.ts', () => {
         // During testing in React node is executed with NODE_ENV = test
         test('Then intialConfig shoul return test apiKey', () => {
             const config = firebaseConfig();
-            console.log(config);
+
             const result = {
                 apiKey: 'test-api-key',
                 authDomain: 'test-auth-domain',

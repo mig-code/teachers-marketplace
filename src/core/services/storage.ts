@@ -9,9 +9,7 @@ export async function saveImageInStorage(
 ) {
     try {
         const storageRef = await ref(storage, storagePath + fileName);
-        console.log(storageRef);
         const upload = await uploadBytesResumable(storageRef, file);
-        console.log(upload);
         return upload;
     } catch (error) {
         handleError(error as Error);

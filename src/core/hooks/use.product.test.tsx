@@ -70,11 +70,9 @@ describe(`Given useProducts (custom hook)
                             {products.length}
                             <ul>
                                 {products.map((product) => (
-                                    <>
-                                        <li key={product.productInfo.id}>
-                                            {product.productInfo.title}
-                                        </li>
-                                    </>
+                                    <li key={product.productInfo.id}>
+                                        {product.productInfo.title}
+                                    </li>
                                 ))}
                             </ul>
                         </div>

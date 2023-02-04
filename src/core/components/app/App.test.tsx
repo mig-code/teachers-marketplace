@@ -5,6 +5,7 @@ import { MemoryRouter } from 'react-router-dom';
 import App from './App';
 import { Provider } from 'react-redux';
 import { store } from '../../store/store';
+import { consoleDebug } from '../../../tools/debug';
 
 describe('When render App component', () => {
     test('It should render the layout Component', () => {
@@ -21,3 +22,6 @@ describe('When render App component', () => {
         expect(textElement).toBeInTheDocument();
     });
 });
+const handleError = (error: Error) => {
+    consoleDebug(error.message);
+};

@@ -7,7 +7,6 @@ interface Repository<T> {
     delete: (id: string) => Promise<string>;
     update: (payload: DeepPartial<T>) => Promise<T>;
     create: (payload: Partial<T>) => Promise<string>;
-
 }
 export class ProductsRepository implements Repository<ProductStructure> {
     constructor(
@@ -33,7 +32,6 @@ export class ProductsRepository implements Repository<ProductStructure> {
     async delete(
         id: ProductStructure['firebaseId']
     ): Promise<ProductStructure['firebaseId']> {
-        console.log('delete', id);
         if (!id) return Promise.reject(invalidIdError);
         this.url =
             'https://teachers-marketplace-default-rtdb.firebaseio.com/products/' +
@@ -50,7 +48,6 @@ export class ProductsRepository implements Repository<ProductStructure> {
         payload: DeepPartial<ProductStructure>
     ): Promise<ProductStructure> {
         if (!payload.firebaseId) {
-            console.log('update', payload.firebaseId);
             return Promise.reject(invalidIdError);
         }
 

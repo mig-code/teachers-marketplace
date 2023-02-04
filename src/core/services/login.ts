@@ -7,7 +7,7 @@ export async function loginWithGoogle() {
     try {
         const userCredentials = await signInWithPopup(auth, provider);
         const loggedToken = await userCredentials.user.getIdToken();
-        console.log(userCredentials);
+      
 
         const loggedUser = {
             info: {
