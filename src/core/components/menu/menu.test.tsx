@@ -4,13 +4,13 @@ import { Menu } from './menu';
 import userEvent from '@testing-library/user-event';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { RootStore, RootState } from '../../store/store';
+import { RootState } from '../../store/store';
 import { configureStore } from '@reduxjs/toolkit';
 import { uploadImageReducer } from '../../reducer/upload.image.reducer';
 import { userReducer } from '../../reducer/user.reducer';
 import { UserStructure } from '../../types/user.type';
 import { useUserAuth } from '../../hooks/use.users.auth';
-import { logout } from '../../services/login';
+
 // import * as useUserAuthMock from '../../hooks/use.users.auth';
 jest.mock('../../hooks/use.users.auth');
 
@@ -41,11 +41,9 @@ describe('Given Menu component', () => {
 
         test('Then we should click in login button', () => {
             const mockhandleLoginWithGoogle = jest.fn();
-            (useUserAuth as jest.Mock).mockImplementation(() => {
-                return {
-                    handleLoginWithGoogle: mockhandleLoginWithGoogle,
-                    logout: jest.fn(),
-                };
+            (useUserAuth as jest.Mock).mockReturnValue({
+                handleLoginWithGoogle: mockhandleLoginWithGoogle,
+                handleLogout: jest.fn(),
             });
 
             render(
@@ -85,10 +83,9 @@ describe('Given Menu component', () => {
 
         test('Then we should click in login button', () => {
             const mockhandleLogout = jest.fn();
-            (useUserAuth as jest.Mock).mockImplementation(() => {
-                return {
-                    handleLogout: mockhandleLogout,
-                };
+            (useUserAuth as jest.Mock).mockReturnValue({
+                handleLoginWithGoogle: jest.fn(),
+                handleLogout: mockhandleLogout,
             });
 
             render(
