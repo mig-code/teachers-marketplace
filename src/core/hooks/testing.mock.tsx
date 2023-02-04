@@ -12,7 +12,7 @@ export const productMock1 = generateProductWithOnlyInfo(
     'ownerName1',
     'token1'
 );
-
+productMock1.productInfo.id = 1;
 productMock1.firebaseId = '000001';
 export const productMock2 = generateProductWithOnlyInfo(
     'Test product 2',
@@ -24,7 +24,7 @@ export const productMock2 = generateProductWithOnlyInfo(
     'ownerName2',
     'token2'
 );
-
+productMock1.productInfo.id = 2;
 productMock2.firebaseId = '000002';
 export const productsMock = [productMock1, productMock2];
 

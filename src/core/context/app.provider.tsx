@@ -15,8 +15,6 @@ export function AppContextProvider({ children }: { children: JSX.Element }) {
 
     const { user, handleLoginWithGoogle, handleLogout } = useUserAuth();
 
-    console.log('Loading AppContextProvider with products: ', products);
-
     const context = useMemo(
         () => ({
             products,
@@ -27,7 +25,6 @@ export function AppContextProvider({ children }: { children: JSX.Element }) {
             user,
             handleLoginWithGoogle,
             handleLogout,
-           
         }),
         [
             products,
@@ -38,7 +35,6 @@ export function AppContextProvider({ children }: { children: JSX.Element }) {
             user,
             handleLoginWithGoogle,
             handleLogout,
-            
         ]
     );
 

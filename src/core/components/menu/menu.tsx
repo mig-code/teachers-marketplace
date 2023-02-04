@@ -3,16 +3,14 @@ import { Link } from 'react-router-dom';
 import { AppContext } from '../../context/app.context';
 
 export function Menu() {
-    const { user, handleLoginWithGoogle,handleLogout } = useContext(AppContext);
-    console.log(user);
+    const { user, handleLoginWithGoogle, handleLogout } =
+        useContext(AppContext);
 
     const handleLoginOnClick = () => {
         handleLoginWithGoogle();
-        console.log(user);
     };
     const handleLogoutOnClick = () => {
         handleLogout();
-        console.log(user);
     };
     return (
         <nav>

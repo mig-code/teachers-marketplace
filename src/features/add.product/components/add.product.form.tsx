@@ -12,6 +12,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../core/store/store';
 
 import * as ac from '../../../core/reducer/action.creator';
+import { consoleDebug } from '../../../tools/debug';
+
 
 export function AddProductForm() {
     const { handleCreateProduct, user } = useContext(AppContext);
@@ -85,7 +87,7 @@ export function AddProductForm() {
                 imgUrl: url as string,
             });
         } catch (error) {
-            console.log(error);
+            handleError(error as Error);
         }
     };
     return (
@@ -173,3 +175,6 @@ export function AddProductForm() {
         </section>
     );
 }
+const handleError = (error: Error) => {
+    consoleDebug(error.message);
+};
