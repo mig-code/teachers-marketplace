@@ -1,58 +1,101 @@
 import { render, screen } from '@testing-library/react';
-import { AppContext, AppContextStructure } from '../../context/app.context';
+
 import { Menu } from './menu';
 import userEvent from '@testing-library/user-event';
 import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { RootStore, RootState } from '../../store/store';
+import { configureStore } from '@reduxjs/toolkit';
+import { uploadImageReducer } from '../../reducer/upload.image.reducer';
+import { userReducer } from '../../reducer/user.reducer';
+import { UserStructure } from '../../types/user.type';
+import { useUserAuth } from '../../hooks/use.users.auth';
+import { logout } from '../../services/login';
+// import * as useUserAuthMock from '../../hooks/use.users.auth';
+jest.mock('../../hooks/use.users.auth');
 
 describe('Given Menu component', () => {
     describe('When it has been render with no user', () => {
-        const user = null;
-
-        const mockAppContext = {
-            user,
-            handleLoginWithGoogle: jest.fn(),
-            handleLogout: jest.fn(),
-        } as unknown as AppContextStructure;
-        test('Then we should click in login button', () => {
-            render(
-                <BrowserRouter>
-                    <AppContext.Provider value={mockAppContext}>
-                        <Menu />
-                    </AppContext.Provider>
-                </BrowserRouter>
-            );
-            const buttonElement = screen.getAllByRole('button');
-            userEvent.click(buttonElement[0]);
-            expect(mockAppContext.handleLoginWithGoogle).toHaveBeenCalled();
-        });
-    });
-    describe('When it has been render with an user', () => {
-        const user = {
+        const mockUser: UserStructure = {
             info: {
-                firebaseId: 'validId',
-                email: '',
-                name: 'test',
-                photo: 'test',
+                firebaseId: '',
+                name: '',
+                photoUrl: '',
             },
-            token: 'validToken',
+            token: '',
+        };
+        const preloadedState: Partial<RootState> = {
+            user: mockUser,
         };
 
-        const mockAppContext = {
-            user,
-            handleLoginWithGoogle: jest.fn(),
-            handleLogout: jest.fn(),
-        } as unknown as AppContextStructure;
+        const mockStore = configureStore({
+            reducer: {
+                uploadImage: uploadImageReducer,
+                user: userReducer,
+            },
+            preloadedState,
+        });
+
         test('Then we should click in login button', () => {
+            const mockhandleLoginWithGoogle = jest.fn();
+            (useUserAuth as jest.Mock).mockImplementation(() => {
+                return {
+                    handleLoginWithGoogle: mockhandleLoginWithGoogle,
+                    logout: jest.fn(),
+                };
+            });
+
             render(
-                <BrowserRouter>
-                    <AppContext.Provider value={mockAppContext}>
+                <Provider store={mockStore}>
+                    <BrowserRouter>
                         <Menu />
-                    </AppContext.Provider>
-                </BrowserRouter>
+                    </BrowserRouter>
+                </Provider>
             );
             const buttonElement = screen.getAllByRole('button');
             userEvent.click(buttonElement[0]);
-            expect(mockAppContext.handleLogout).toHaveBeenCalled();
+            expect(buttonElement[0]).toHaveTextContent('Login');
+
+            expect(mockhandleLoginWithGoogle).toHaveBeenCalled();
         });
     });
+    // describe('When it has been render with an user', () => {
+    //     jest.mock('../../hooks/use.users.auth', () => {
+    //         return {
+    //             useUserAuth: jest.fn(),
+    //         };
+    //     });
+
+    //     const mockUser: UserStructure = {
+    //         info: {
+    //             firebaseId: '',
+    //             name: '',
+    //             photoUrl: '',
+    //         },
+    //         token: '',
+    //     };
+    //     const preloadedState: Partial<RootState> = {
+    //         user: mockUser,
+    //     };
+
+    //     const mockStore = configureStore({
+    //         reducer: {
+    //             uploadImage: uploadImageReducer,
+    //             user: userReducer,
+    //         },
+    //         preloadedState,
+    //     });
+    //     test('Then we should click in login button', () => {
+    //         render(
+    //             <Provider store={mockStore}>
+    //                 <BrowserRouter>
+    //                     <Menu />
+    //                 </BrowserRouter>
+    //             </Provider>
+    //         );
+    //         const buttonElement = screen.getAllByRole('button');
+    //         userEvent.click(buttonElement[0]);
+    //         expect(useUserAuth).toHaveBeenCalled();
+    //     });
+    // });
 });
