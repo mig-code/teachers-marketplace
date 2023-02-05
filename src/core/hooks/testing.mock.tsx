@@ -10,7 +10,7 @@ export const productMock1 = generateProductWithOnlyInfo(
     'coches',
     'userUid1',
     'ownerName1',
-    'token1'
+  
 );
 productMock1.productInfo.id = 1;
 productMock1.firebaseId = '000001';
@@ -22,7 +22,7 @@ export const productMock2 = generateProductWithOnlyInfo(
     'libros',
     'userUid2',
     'ownerName2',
-    'token2'
+   
 );
 productMock1.productInfo.id = 2;
 productMock2.firebaseId = '000002';
@@ -36,7 +36,7 @@ export const productMockAdd = generateProductWithOnlyInfo(
     'libros',
     'userUid3',
     'ownerName3',
-    'token3'
+
 );
 
 export const productMockUpdate = { ...productMock2, title: 'Updated product' };
