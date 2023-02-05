@@ -22,7 +22,7 @@ export function generateProductWithOnlyInfo(
             ownerName,
             id: parseInt(generateId()),
             available: true,
-            publishedAt: new Date(),
+            publishedAt: new Date().toISOString(),
         },
         firebaseId: '',
     };

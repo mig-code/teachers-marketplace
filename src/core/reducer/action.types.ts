@@ -9,7 +9,7 @@ export const actionTypesUser = {
 
 export const actionTypesProducts = {
     load : 'products@load',
-    create : 'products@add',
+    create : 'products@create',
     delete : 'products@delete',
     update : 'products@update',
 };

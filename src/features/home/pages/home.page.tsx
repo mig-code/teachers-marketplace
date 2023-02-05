@@ -1,10 +1,14 @@
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 import Item from '../../../core/components/item/item';
-import { AppContext } from '../../../core/context/app.context';
+
+import { useProducts } from '../../../core/hooks/use.products';
+import { RootState } from '../../../core/store/store';
 
 export function HomePage() {
-    const { handleLoadProducts, products } = useContext(AppContext);
+    const { handleLoadProducts } = useProducts();
+    const products = useSelector((state: RootState) => state.products);
 
     useEffect(() => {
         handleLoadProducts();

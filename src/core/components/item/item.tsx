@@ -1,23 +1,30 @@
-import React, { useContext } from 'react';
-import { AppContext } from '../../context/app.context';
+import React from 'react';
+import { useProducts } from '../../hooks/use.products';
+
 import { ProductStructure } from '../../types/products.types';
 
 export default function Item({ item }: { item: ProductStructure }) {
-    const { handleDeleteProduct, handleUpdateProduct } = useContext(AppContext);
+    const { handleDeleteProduct, handleUpdateProduct } = useProducts();
 
     function handleClickAddToFavorites() {
+        let AddUserLike: Partial<ProductStructure>;
+
         if (!item.isLikedBy) {
-            item.isLikedBy = {
-                users: [],
+            AddUserLike = {
+                ...item,
+                isLikedBy: {
+                    users: ['user1'],
+                },
+            };
+        } else {
+            AddUserLike = {
+                ...item,
+                isLikedBy: {
+                    ...item.isLikedBy,
+                    users: [...item.isLikedBy.users, 'user1'],
+                },
             };
         }
-        const AddUserLike: Partial<ProductStructure> = {
-            ...item,
-            isLikedBy: {
-                ...item.isLikedBy,
-                users: [...item.isLikedBy.users, 'user1'],
-            },
-        };
 
         handleUpdateProduct(AddUserLike);
     }

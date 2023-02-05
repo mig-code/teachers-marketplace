@@ -5,7 +5,6 @@ import './sass/index.scss';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import reportWebVitals from './reportWebVitals';
-import { AppContextProvider } from './core/context/app.provider';
 import { store } from './core/store/store';
 
 const root = ReactDOM.createRoot(
@@ -14,11 +13,9 @@ const root = ReactDOM.createRoot(
 root.render(
     <React.StrictMode>
         <Provider store={store}>
-            <AppContextProvider>
-                <Router>
-                    <App></App>
-                </Router>
-            </AppContextProvider>
+            <Router>
+                <App></App>
+            </Router>
         </Provider>
     </React.StrictMode>
 );

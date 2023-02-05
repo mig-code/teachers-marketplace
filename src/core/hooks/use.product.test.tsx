@@ -1,12 +1,6 @@
 /* eslint-disable testing-library/no-render-in-setup */
 /* eslint-disable testing-library/no-unnecessary-act */
-import {
-    fireEvent,
-    render,
-    screen,
-    waitFor,
-    act,
-} from '@testing-library/react';
+import { render, screen, waitFor, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ProductsRepository } from '../services/products.repository';
 import { useProducts } from './use.products';
@@ -20,43 +14,22 @@ import {
 
 import * as debug from '../../tools/debug';
 import { Provider, useSelector } from 'react-redux';
-import { RootState, store } from '../store/store';
-import { ProductStructure } from '../types/products.types';
+import { RootState } from '../store/store';
 import { configureStore } from '@reduxjs/toolkit';
 import { productsReducer } from '../reducer/products.reducer';
 
 jest.mock('../services/products.repository');
 
-const mockLoad = jest.fn();
-const mockCreate = jest.fn();
-const mockUpdate = jest.fn();
-const mockDelete = jest.fn();
-
-ProductsRepository.prototype.load = mockLoad;
-ProductsRepository.prototype.create = mockCreate;
-ProductsRepository.prototype.update = mockUpdate;
-ProductsRepository.prototype.delete = mockDelete;
+ProductsRepository.prototype.load = jest.fn();
+ProductsRepository.prototype.create = jest.fn();
+ProductsRepository.prototype.update = jest.fn();
+ProductsRepository.prototype.delete = jest.fn();
 
 describe(`Given useProducts (custom hook)
             render with a virtual component`, () => {
     let TestComponent: () => JSX.Element;
     let spyConsole: jest.SpyInstance;
-    let buttons: Array<HTMLElement>;
-    const mockProduct: ProductStructure = {
-        productInfo: {
-            id: 2,
-            title: 'test',
-            description: 'test',
-            price: 1,
-            imgUrl: 'test',
-            category: 'test',
-            available: true,
-            ownerName: 'test',
-            ownerUid: 'test',
-            publishedAt: 'test',
-        },
-        firebaseId: 'test',
-    };
+
     const preloadedState: Partial<RootState> = {
         products: [],
     };
@@ -71,7 +44,7 @@ describe(`Given useProducts (custom hook)
     beforeEach(() => {
         TestComponent = () => {
             const products = useSelector((state: RootState) => state.products);
-            console.log('productoss en el componente', products);
+
             const {
                 handleLoadProducts,
                 handleDeleteProduct,
@@ -116,13 +89,6 @@ describe(`Given useProducts (custom hook)
                 </>
             );
         };
-
-        // render(
-        //     <Provider store={mockStore}>
-        //         <TestComponent />
-        //     </Provider>
-        // );
-        // buttons = screen.getAllByRole('button');
 
         spyConsole = jest.spyOn(debug, 'consoleDebug');
     });

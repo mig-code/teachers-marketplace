@@ -5,19 +5,16 @@ import { Provider } from 'react-redux';
 
 import { MemoryRouter } from 'react-router-dom';
 
-import {
-    AppContext,
-    AppContextStructure,
-} from '../../../core/context/app.context';
 import { store } from '../../../core/store/store';
 import { AddProductForm } from './add.product.form';
+import { useProducts } from '../../../core/hooks/use.products';
+
+jest.mock('../../../core/hooks/use.products');
 jest.mock('../../../core/services/storage');
 
 describe('Given render AddProductForm component', () => {
     const handleCreateProduct = jest.fn();
-    const mockAppContext = {
-        handleCreateProduct,
-    } as unknown as AppContextStructure;
+
     const inputMockData = {
         title: 'Titulo del producto',
         description: 'Descripcion del producto',
@@ -25,16 +22,16 @@ describe('Given render AddProductForm component', () => {
         category: 'Libros',
     };
 
-  
     beforeEach(() => {
+        (useProducts as jest.Mock).mockReturnValue({
+            handleCreateProduct,
+        });
         // eslint-disable-next-line testing-library/no-render-in-setup
         render(
             <Provider store={store}>
-            <AppContext.Provider value={mockAppContext}>
                 <MemoryRouter>
                     <AddProductForm></AddProductForm>
                 </MemoryRouter>
-            </AppContext.Provider>
             </Provider>
         );
     });
