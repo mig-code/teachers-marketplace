@@ -1,6 +1,5 @@
-import React, { useContext, SyntheticEvent, useState } from 'react';
+import React, { SyntheticEvent, useState } from 'react';
 
-import { AppContext } from '../../../core/context/app.context';
 import { generateProductWithOnlyInfo } from '../../../core/models/product';
 import { AddProductFormStructure } from '../../../core/types/form.types';
 
@@ -13,9 +12,10 @@ import { RootState } from '../../../core/store/store';
 
 import * as ac from '../../../core/reducer/action.creator';
 import { consoleDebug } from '../../../tools/debug';
+import { useProducts } from '../../../core/hooks/use.products';
 
 export function AddProductForm() {
-    const { handleCreateProduct } = useContext(AppContext);
+    const { handleCreateProduct } = useProducts();
     const user = useSelector((state: RootState) => state.user);
 
     const initialFormProductDetails: AddProductFormStructure = {
@@ -53,8 +53,7 @@ export function AddProductForm() {
             productFormData.imgUrl,
 
             user?.info.firebaseId,
-            user?.info.name as string,
-            user?.token
+            user?.info.name as string
         );
 
         handleCreateProduct(newProduct);

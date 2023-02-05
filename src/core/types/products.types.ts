@@ -8,7 +8,7 @@ export type ProductInfoStructure = {
     available: boolean;
     price: number;
     category: string;
-    publishedAt: Date;
+    publishedAt: string;
 };
 export type ProductLikedStructure = {
     users: Array<string>;
