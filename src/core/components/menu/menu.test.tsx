@@ -11,7 +11,6 @@ import { userReducer } from '../../reducer/user.reducer';
 import { UserStructure } from '../../types/user.type';
 import { useUserAuth } from '../../hooks/use.users.auth';
 
-// import * as useUserAuthMock from '../../hooks/use.users.auth';
 jest.mock('../../hooks/use.users.auth');
 
 describe('Given Menu component', () => {

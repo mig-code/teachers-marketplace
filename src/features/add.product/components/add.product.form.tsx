@@ -35,9 +35,6 @@ export function AddProductForm() {
     );
     const dispatcher = useDispatch();
 
-    // with useState
-    // const [uploadedImagerUrl, setuploadedImagerUrl] = useState('');
-
     const handleInput = (ev: SyntheticEvent) => {
         const element = ev.target as HTMLFormElement;
         setProductFormData({
@@ -55,9 +52,9 @@ export function AddProductForm() {
             productFormData.category,
             productFormData.imgUrl,
 
-            user?.info.firebaseId as string,
+            user?.info.firebaseId,
             user?.info.name as string,
-            user?.token as string
+            user?.token
         );
 
         handleCreateProduct(newProduct);

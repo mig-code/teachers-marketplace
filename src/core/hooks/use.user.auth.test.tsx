@@ -91,7 +91,7 @@ describe(`Given useUserAuth (custom hook)
         });
         test('Then the user should be logged out', async () => {
             const userStore = store.getState().user;
-            expect(await userStore).toEqual(mockEmptyUser);
+            expect(userStore).toEqual(mockEmptyUser);
 
             const name = screen.queryByText('user name test');
             expect(name).not.toBeInTheDocument();
