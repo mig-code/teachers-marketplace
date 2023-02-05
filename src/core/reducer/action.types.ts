@@ -10,6 +10,6 @@ export const actionTypesUser = {
 export const actionTypesProducts = {
     load : 'products@load',
     create : 'products@add',
-    remove : 'products@remove',
+    delete : 'products@delete',
     update : 'products@update',
 };

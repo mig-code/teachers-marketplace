@@ -1,8 +1,12 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { consoleDebug } from '../../tools/debug';
 
 import { ProductsRepository } from '../services/products.repository';
+import { RootState } from '../store/store';
 import { ProductStructure } from '../types/products.types';
+
+import * as ac from '../../core/reducer/action.creator';
 
 export type UseProducts = {
     products: Array<ProductStructure>;
@@ -17,63 +21,72 @@ export type UseProducts = {
 export function useProducts(): UseProducts {
     const repo = useMemo(() => new ProductsRepository(), []);
 
-    const initialProducts = Array<ProductStructure>;
-    const [products, setProducts] = useState(initialProducts);
+    // Old way with useState
+    // const initialProducts = Array<ProductStructure>;
+    // const [products, setProducts] = useState(initialProducts);
+
+    const products = useSelector((state: RootState) => state.products);
+    const dispatcher = useDispatch();
 
     const handleLoadProducts = useCallback(async () => {
         try {
             const products = await repo.load();
-            setProducts(products);
+            // setProducts(products);
+            dispatcher(ac.loadActionCreatorProducts(products));
         } catch (error) {
             handleError(error as Error);
         }
-    }, [repo]);
+    }, [repo, dispatcher]);
 
     const handleDeleteProduct = useCallback(
-        async (id: string) => {
+        async (id: ProductStructure['firebaseId']) => {
             try {
                 const deletedId = await repo.delete(id);
-                setProducts((prev) =>
-                    prev.filter((product) => product.firebaseId !== deletedId)
-                );
+                // setProducts((prev) =>
+                //     prev.filter((product) => product.firebaseId !== deletedId)
+                // );
+                dispatcher(ac.deleteActionCreatorProducts(deletedId));
             } catch (error) {
                 handleError(error as Error);
             }
         },
-        [repo]
+        [repo, dispatcher]
     );
     const handleUpdateProduct = useCallback(
         async (productPayload: Partial<ProductStructure>) => {
             try {
                 await repo.update(productPayload);
 
-                setProducts((prev) =>
-                    prev.map((product) => {
-                        if (product.firebaseId === productPayload.firebaseId) {
-                            return {
-                                ...product,
-                                ...productPayload,
-                            };
-                        }
-                        return product;
-                    })
-                );
+                // setProducts((prev) =>
+                //     prev.map((product) => {
+                //         if (product.firebaseId === productPayload.firebaseId) {
+                //             return {
+                //                 ...product,
+                //                 ...productPayload,
+                //             };
+                //         }
+                //         return product;
+                //     })
+                // );
+
+                dispatcher(ac.updateActionCreatorProducts(productPayload));
             } catch (error) {
                 handleError(error as Error);
             }
         },
-        [repo]
+        [repo, dispatcher]
     );
     const handleCreateProduct = useCallback(
         async (productPayload: ProductStructure) => {
             try {
                 await repo.create(productPayload);
-                // setProducts((prev) => [...prev, productPayload]);
+
+                dispatcher(ac.createActionCreatorProducts(productPayload));
             } catch (error) {
                 handleError(error as Error);
             }
         },
-        [repo]
+        [repo, dispatcher]
     );
 
     const handleError = (error: Error) => {
