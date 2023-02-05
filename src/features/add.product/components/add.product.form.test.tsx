@@ -25,17 +25,7 @@ describe('Given render AddProductForm component', () => {
         category: 'Libros',
     };
 
-    // Object.defineProperty(window, 'File', {
-    //     value: class File {
-    //         constructor() {
-    //             return {
-    //                 name: 'image.png',
-    //                 size: 100,
-    //                 type: 'image/png',
-    //             };
-    //         }
-    //     },
-    // });
+  
     beforeEach(() => {
         // eslint-disable-next-line testing-library/no-render-in-setup
         render(

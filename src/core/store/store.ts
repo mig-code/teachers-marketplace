@@ -1,9 +1,12 @@
 import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
 
 import { uploadImageReducer } from '../reducer/upload.image.reducer';
+import { userReducer } from '../reducer/user.reducer';
 export const store = configureStore({
     reducer: {
         uploadImage: uploadImageReducer,
+        user: userReducer,
+        
     },
 });
 
