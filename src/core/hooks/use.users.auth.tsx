@@ -9,8 +9,6 @@ export type UseUserAuth = {
 };
 
 export function useUserAuth(): UseUserAuth {
-    // Old way with useState
-
     const dispatcher = useDispatch();
 
     const handleLoginWithGoogle = async () => {
