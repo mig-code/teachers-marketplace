@@ -13,14 +13,13 @@ import { useProducts } from './use.products';
 import {
     productMock1,
     productMock2,
-    mockValidRepoResponse,
     mockNoValidRepoResponse,
     productMockUpdate,
     productMockAdd,
 } from './testing.mock';
 
 import * as debug from '../../tools/debug';
-import { Provider } from 'react-redux';
+import { Provider, useSelector } from 'react-redux';
 import { RootState, store } from '../store/store';
 import { ProductStructure } from '../types/products.types';
 import { configureStore } from '@reduxjs/toolkit';
@@ -28,45 +27,51 @@ import { productsReducer } from '../reducer/products.reducer';
 
 jest.mock('../services/products.repository');
 
-ProductsRepository.prototype.load = jest.fn();
-ProductsRepository.prototype.create = jest.fn();
-ProductsRepository.prototype.update = jest.fn();
-ProductsRepository.prototype.delete = jest.fn();
+const mockLoad = jest.fn();
+const mockCreate = jest.fn();
+const mockUpdate = jest.fn();
+const mockDelete = jest.fn();
+
+ProductsRepository.prototype.load = mockLoad;
+ProductsRepository.prototype.create = mockCreate;
+ProductsRepository.prototype.update = mockUpdate;
+ProductsRepository.prototype.delete = mockDelete;
 
 describe(`Given useProducts (custom hook)
             render with a virtual component`, () => {
     let TestComponent: () => JSX.Element;
     let spyConsole: jest.SpyInstance;
     let buttons: Array<HTMLElement>;
-    beforeEach(() => {
-        const mockProduct: ProductStructure = {
-            productInfo: {
-                id: 2,
-                title: 'test',
-                description: 'test',
-                price: 1,
-                imgUrl: 'test',
-                category: 'test',
-                available: true,
-                ownerName: 'test',
-                ownerUid: 'test',
-                publishedAt: 'test',
-            },
-            firebaseId: 'test',
-        };
-        const preloadedState: Partial<RootState> = {
-            products: [mockProduct],
-        };
+    const mockProduct: ProductStructure = {
+        productInfo: {
+            id: 2,
+            title: 'test',
+            description: 'test',
+            price: 1,
+            imgUrl: 'test',
+            category: 'test',
+            available: true,
+            ownerName: 'test',
+            ownerUid: 'test',
+            publishedAt: 'test',
+        },
+        firebaseId: 'test',
+    };
+    const preloadedState: Partial<RootState> = {
+        products: [],
+    };
 
-        const mockStore = configureStore({
-            reducer: {
-                products: productsReducer,
-            },
-            preloadedState,
-        });
+    const mockStore = configureStore({
+        reducer: {
+            products: productsReducer,
+        },
+        preloadedState,
+    });
+
+    beforeEach(() => {
         TestComponent = () => {
-            const { products } = store.getState();
-            console.log('products', products);
+            const products = useSelector((state: RootState) => state.products);
+            console.log('productoss en el componente', products);
             const {
                 handleLoadProducts,
                 handleDeleteProduct,
@@ -111,110 +116,166 @@ describe(`Given useProducts (custom hook)
                 </>
             );
         };
-        render(
-            <Provider store={mockStore}>
-                <TestComponent />
-            </Provider>
-        );
-        buttons = screen.getAllByRole('button');
+
+        // render(
+        //     <Provider store={mockStore}>
+        //         <TestComponent />
+        //     </Provider>
+        // );
+        // buttons = screen.getAllByRole('button');
 
         spyConsole = jest.spyOn(debug, 'consoleDebug');
     });
-    describe(`When the repo is working OK`, () => {
-        beforeEach(mockValidRepoResponse);
 
-        test('Then its function handleLoadProducts should be add products to the state', async () => {
-            expect(await screen.findByText(/loading/i)).toBeInTheDocument();
-            act(() => {
-                fireEvent.click(buttons[0]);
-            });
-            expect(ProductsRepository.prototype.load).toHaveBeenCalled();
-            // expect(
-            //     await screen.findByText(productMock1.productInfo.title)
-            // ).toBeInTheDocument();
-            // expect(
-            //     await screen.findByText(productMock2.productInfo.title)
-            // ).toBeInTheDocument();
+    describe('When products repository is working OK', () => {
+        let buttons: Array<HTMLElement>;
+
+        beforeEach(() => {
+            (ProductsRepository.prototype.load as jest.Mock).mockResolvedValue([
+                productMock1,
+                productMock2,
+            ]);
+            render(
+                <Provider store={mockStore}>
+                    <TestComponent />
+                </Provider>
+            );
+            buttons = screen.getAllByRole('button');
+            jest.clearAllMocks();
         });
 
-        test('Then its function handleDeleteProduct should be used', async () => {
-            fireEvent.click(buttons[0]);
+        test('Then its function handleLoadProducts should be add products to the store', async () => {
+            const loadingText = await screen.findByText('Loading');
+            expect(loadingText).toBeInTheDocument();
+
+            await act(async () => {
+                userEvent.click(buttons[0]);
+            });
+
             expect(ProductsRepository.prototype.load).toHaveBeenCalled();
-            fireEvent.click(buttons[1]);
+
+            const loadedText = await screen.findByText('Loaded');
+            expect(loadedText).toBeInTheDocument();
+            expect(
+                await screen.findByText(productMock1.productInfo.title)
+            ).toBeInTheDocument();
+            expect(
+                await screen.findByText(productMock2.productInfo.title)
+            ).toBeInTheDocument();
+        });
+        test('Then its function handleDeleteProduct should be used', async () => {
+            (
+                ProductsRepository.prototype.delete as jest.Mock
+            ).mockResolvedValue(productMock1.firebaseId);
+            await act(async () => {
+                userEvent.click(buttons[0]);
+            });
+
+            expect(ProductsRepository.prototype.load).toHaveBeenCalled();
+            await act(async () => {
+                userEvent.click(buttons[1]);
+            });
+
             expect(ProductsRepository.prototype.delete).toHaveBeenCalled();
-            // expect(
-            //     await screen.findByText(productMock2.productInfo.title)
-            // ).toBeInTheDocument();
 
-            // await expect(
-            //     async () =>
-            //         await screen.findByText(productMock1.productInfo.title)
-            // ).rejects.toThrowError();
+            expect(
+                await screen.findByText(productMock2.productInfo.title)
+            ).toBeInTheDocument();
 
-            // await waitFor(() => {
-            //     expect(
-            //         screen.queryByText(productMock1.productInfo.title)
-            //     ).toBeNull();
-            // });
+            await expect(
+                async () =>
+                    await screen.findByText(productMock1.productInfo.title)
+            ).rejects.toThrowError();
+
+            await waitFor(() => {
+                expect(
+                    screen.queryByText(productMock1.productInfo.title)
+                ).toBeNull();
+            });
         });
         test('Then its function handleUpdateProduct should be used', async () => {
-            userEvent.click(buttons[0]);
-            userEvent.click(buttons[2]);
+            (
+                ProductsRepository.prototype.update as jest.Mock
+            ).mockResolvedValue(productMockUpdate);
+            await act(async () => {
+                userEvent.click(buttons[0]);
+            });
+
+            expect(ProductsRepository.prototype.load).toHaveBeenCalled();
+            await act(async () => {
+                userEvent.click(buttons[2]);
+            });
             expect(ProductsRepository.prototype.update).toHaveBeenCalled();
-            // expect(
-            //     await screen.findByText(productMockUpdate.productInfo.title)
-            // ).toBeInTheDocument();
+            expect(
+                await screen.findByText(productMockUpdate.productInfo.title)
+            ).toBeInTheDocument();
         });
         test('Then its function handleCreateProduct should be used', async () => {
+            (
+                ProductsRepository.prototype.create as jest.Mock
+            ).mockResolvedValue(productMockAdd);
+            await act(async () => {
+                userEvent.click(buttons[0]);
+            });
+
+            expect(ProductsRepository.prototype.load).toHaveBeenCalled();
+            await act(async () => {
+                userEvent.click(buttons[3]);
+            });
+            expect(ProductsRepository.prototype.create).toHaveBeenCalled();
+            expect(
+                await screen.findByText(productMock1.productInfo.title)
+            ).toBeInTheDocument();
+            expect(
+                await screen.findByText(productMockAdd.productInfo.title)
+            ).toBeInTheDocument();
+        });
+    });
+
+    describe(`When the repo is NOT working OK`, () => {
+        let buttons: Array<HTMLElement>;
+
+        beforeEach(() => {
+            (ProductsRepository.prototype.load as jest.Mock).mockResolvedValue([
+                productMock1,
+                productMock2,
+            ]);
+            render(
+                <Provider store={mockStore}>
+                    <TestComponent />
+                </Provider>
+            );
+            buttons = screen.getAllByRole('button');
+            jest.clearAllMocks();
+        });
+        beforeEach(mockNoValidRepoResponse);
+        test('Then its function handleLoadProducts should be used', async () => {
             userEvent.click(buttons[0]);
-            userEvent.click(buttons[3]);
-            // expect(ProductsRepository.prototype.create).toHaveBeenCalled();
-            // expect(
-            //     await screen.findByText(productMock1.productInfo.title)
-            // ).toBeInTheDocument();
-            // expect(
-            //     await screen.findByText(productMock2.productInfo.title)
-            // ).toBeInTheDocument();
+            expect(ProductsRepository.prototype.load).toHaveBeenCalled();
+            await waitFor(() => {
+                expect(spyConsole).toHaveBeenLastCalledWith('Testing errors');
+            });
         });
 
-        describe(`When the repo is NOT working OK`, () => {
-            beforeEach(mockNoValidRepoResponse);
-            test('Then its function handleLoadProducts should be used', async () => {
-                userEvent.click(buttons[0]);
-                expect(ProductsRepository.prototype.load).toHaveBeenCalled();
-                await waitFor(() => {
-                    expect(spyConsole).toHaveBeenLastCalledWith(
-                        'Testing errors'
-                    );
-                });
+        test('Then its function handleDeleteProducts should be used', async () => {
+            userEvent.click(buttons[1]);
+            expect(ProductsRepository.prototype.delete).toHaveBeenCalled();
+            await waitFor(() => {
+                expect(spyConsole).toHaveBeenLastCalledWith('Testing errors');
             });
-
-            test('Then its function handleDeleteProducts should be used', async () => {
-                userEvent.click(buttons[1]);
-                expect(ProductsRepository.prototype.delete).toHaveBeenCalled();
-                await waitFor(() => {
-                    expect(spyConsole).toHaveBeenLastCalledWith(
-                        'Testing errors'
-                    );
-                });
+        });
+        test('Then its function handleUpdated should be used', async () => {
+            userEvent.click(buttons[2]);
+            expect(ProductsRepository.prototype.update).toHaveBeenCalled();
+            await waitFor(() => {
+                expect(spyConsole).toHaveBeenLastCalledWith('Testing errors');
             });
-            test('Then its function handleUpdated should be used', async () => {
-                userEvent.click(buttons[2]);
-                expect(ProductsRepository.prototype.update).toHaveBeenCalled();
-                await waitFor(() => {
-                    expect(spyConsole).toHaveBeenLastCalledWith(
-                        'Testing errors'
-                    );
-                });
-            });
-            test('Then its function handleCreateProduct should be used', async () => {
-                userEvent.click(buttons[3]);
-                expect(ProductsRepository.prototype.create).toHaveBeenCalled();
-                await waitFor(() => {
-                    expect(spyConsole).toHaveBeenLastCalledWith(
-                        'Testing errors'
-                    );
-                });
+        });
+        test('Then its function handleCreateProduct should be used', async () => {
+            userEvent.click(buttons[3]);
+            expect(ProductsRepository.prototype.create).toHaveBeenCalled();
+            await waitFor(() => {
+                expect(spyConsole).toHaveBeenLastCalledWith('Testing errors');
             });
         });
     });
