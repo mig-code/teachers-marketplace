@@ -53,8 +53,7 @@ export function AddProductForm() {
             productFormData.imgUrl,
 
             user?.info.firebaseId,
-            user?.info.name as string,
-            user?.token
+            user?.info.name as string
         );
 
         handleCreateProduct(newProduct);

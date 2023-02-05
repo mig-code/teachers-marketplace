@@ -9,8 +9,7 @@ export function generateProductWithOnlyInfo(
     imgUrl: string,
 
     ownerUid: string,
-    ownerName: string,
-    token: string
+    ownerName: string
 ): ProductStructure {
     return {
         productInfo: {
@@ -25,7 +24,7 @@ export function generateProductWithOnlyInfo(
             available: true,
             publishedAt: new Date(),
         },
-        firebaseId: token,
+        firebaseId: '',
     };
 }
 
