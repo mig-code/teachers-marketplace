@@ -1,16 +1,20 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { Layout } from './layout';
-import { BrowserRouter } from 'react-router-dom';
+import { MemoryRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { store } from '../../store/store';
 
 describe('Given Layout component', () => {
     test('renders his children', () => {
         render(
-            <BrowserRouter>
-                <Layout>
-                    <div>children Test</div>
-                </Layout>
-            </BrowserRouter>
+            <Provider store={store}>
+                <MemoryRouter>
+                    <Layout>
+                        <div>children Test</div>
+                    </Layout>
+                </MemoryRouter>
+            </Provider>
         );
 
         const textElement = screen.getByText(/children Test/i);
