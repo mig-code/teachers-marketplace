@@ -5,6 +5,7 @@ import {
     actionTypesUser,
     actionTypesUploadImage,
     actionTypesProducts,
+    actionTypesSearch,
 } from './action.types';
 
 /// createAction<number>  El tipo de dato que se espera en el payload
@@ -31,3 +32,13 @@ export const deleteActionCreatorProducts = createAction<
 export const updateActionCreatorProducts = createAction<
     Partial<ProductStructure>
 >(actionTypesProducts.update);
+
+export const setQueryActionCreatorSearch = createAction<string>(
+    actionTypesSearch.setQuery
+);
+
+export const setModeActionCreatorSearch = createAction<boolean>(
+    actionTypesSearch.setMode
+);
+
+export const resetActionCreatorSearch = createAction(actionTypesSearch.reset);

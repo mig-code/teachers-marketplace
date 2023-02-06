@@ -1,5 +1,6 @@
 import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
 import { productsReducer } from '../reducer/products.reducer';
+import { searchReducer } from '../reducer/search.reducer';
 
 import { uploadImageReducer } from '../reducer/upload.image.reducer';
 import { userReducer } from '../reducer/user.reducer';
@@ -8,7 +9,7 @@ export const store = configureStore({
         uploadImage: uploadImageReducer,
         user: userReducer,
         products: productsReducer,
-        
+        search: searchReducer,
     },
 });
 
@@ -21,5 +22,3 @@ export type AppThunk<ReturnType = void> = ThunkAction<
     unknown,
     Action<string>
 >;
-
-
