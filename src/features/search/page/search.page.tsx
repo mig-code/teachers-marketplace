@@ -19,7 +19,7 @@ export function SearchPage() {
         }
 
         dispatcher(ac.setModeActionCreatorSearch(true));
-    }, [handleLoadProducts, dispatcher]);
+    }, [handleLoadProducts, dispatcher, products]);
 
     return (
         <section>

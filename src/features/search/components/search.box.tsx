@@ -27,7 +27,7 @@ export function SearchBox() {
         ev.preventDefault();
         console.log(searchForm);
         navigate('/buscar');
-        //Found path '/buscar' but there was no route config
+      
     };
 
     return (
