@@ -1,4 +1,4 @@
-import { SyntheticEvent, useState } from 'react';
+import { SyntheticEvent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { RootState } from '../../../core/store/store';
@@ -19,16 +19,17 @@ export function SearchBox() {
 
         search.realTimeSearch &&
             dispatcher(ac.setQueryActionCreatorSearch(searchInput.value));
-
-        console.log(searchForm);
     };
 
     const handleSubmit = (ev: SyntheticEvent) => {
         ev.preventDefault();
-        console.log(searchForm);
+        dispatcher(ac.setQueryActionCreatorSearch(searchForm));
         navigate('/buscar');
-      
     };
+
+    useEffect(() => {
+        if (!search.realTimeSearch) setSearchForm(search.searchQuery);
+    }, [search.realTimeSearch, search.searchQuery]);
 
     return (
         <>

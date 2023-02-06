@@ -11,7 +11,7 @@ import * as ac from '../../../core/reducer/action.creator';
 
 export function HomePage() {
     const { handleLoadProducts } = useProducts();
-    const { products, search } = useSelector((state: RootState) => state);
+    const { products } = useSelector((state: RootState) => state);
     const dispatcher = useDispatch();
 
     useEffect(() => {
@@ -19,10 +19,10 @@ export function HomePage() {
             handleLoadProducts();
         }
     }, [handleLoadProducts, products]);
+
     useEffect(() => {
-        if (search.realTimeSearch)
-            dispatcher(ac.setModeActionCreatorSearch(false));
-    }, [dispatcher, search.realTimeSearch]);
+        dispatcher(ac.resetActionCreatorSearch());
+    }, [dispatcher]);
 
     return (
         <section>

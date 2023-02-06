@@ -10,7 +10,7 @@ import * as ac from '../../../core/reducer/action.creator';
 
 export function SearchPage() {
     const { handleLoadProducts } = useProducts();
-    const { products } = useSelector((state: RootState) => state);
+    const { products, search } = useSelector((state: RootState) => state);
     const dispatcher = useDispatch();
 
     useEffect(() => {
@@ -27,11 +27,17 @@ export function SearchPage() {
                 <h1>Búsqueda</h1>
                 <SearchBox></SearchBox>
 
-                {products.map((item) => (
-                    <li key={item.firebaseId}>
-                        <Item item={item} />
-                    </li>
-                ))}
+                {products
+                    .filter((item) =>
+                        item.productInfo.title
+                            .toLowerCase()
+                            .includes(search.searchQuery.toLowerCase())
+                    )
+                    .map((item) => (
+                        <li key={item.firebaseId}>
+                            <Item item={item} />
+                        </li>
+                    ))}
             </div>
         </section>
     );

@@ -17,4 +17,5 @@ export const actionTypesProducts = {
 export const actionTypesSearch={
     setQuery:'search@setQuery',
     setMode:'search@setMode',
+    reset: 'search@reset',
 }
