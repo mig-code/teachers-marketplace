@@ -54,8 +54,12 @@ export const emptyMockSearchState: SearchState = {
     searchQuery: '',
     realTimeSearch: false,
 };
+export const mockSearchStateRealtimeWithQuery: SearchState = {
+    searchQuery: 'test',
+    realTimeSearch: true,
+};
 
-export const preloadedStateMock: Partial<RootState> = {
+export const emptyPreloadedStateMock: Partial<RootState> = {
     user: emptyMockUser,
     search: emptyMockSearchState,
     products: [],
@@ -67,5 +71,5 @@ export const mockStore = configureStore({
         search: searchReducer,
         products: productsReducer,
     },
-    preloadedState: preloadedStateMock,
+    preloadedState: emptyPreloadedStateMock,
 });
