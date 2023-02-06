@@ -75,7 +75,7 @@ export function AddProductForm() {
             dispatcher(
                 ac.setUploadImageUrlActionCreatorUploadImage(url as string)
             );
-            // setuploadedImagerUrl(url as string);
+
             setProductFormData({
                 ...productFormData,
                 imgUrl: url as string,

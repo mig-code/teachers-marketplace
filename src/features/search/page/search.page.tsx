@@ -5,9 +5,9 @@ import Item from '../../../core/components/item/item';
 
 import { useProducts } from '../../../core/hooks/use.products';
 import { RootState } from '../../../core/store/store';
-import { SearchBox } from '../../search/components/search.box';
+import { SearchBox } from '../components/search.box';
 
-export function HomePage() {
+export function SearchPage() {
     const { handleLoadProducts } = useProducts();
     const products = useSelector((state: RootState) => state.products);
 
@@ -18,7 +18,7 @@ export function HomePage() {
     return (
         <section>
             <div>
-                <h1>Dale una segunda vida al material escolar</h1>
+                <h1>Búsqueda</h1>
                 <SearchBox></SearchBox>
 
                 {products.map((item) => (
