@@ -23,7 +23,6 @@ export function useProducts(): UseProducts {
     const dispatcher = useDispatch();
 
     const handleLoadProducts = useCallback(async () => {
-        console.log('handleLoadProducts HOOK');
         try {
             const products = await repo.load();
             // setProducts(products);
