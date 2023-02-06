@@ -1,19 +1,25 @@
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Item from '../../../core/components/item/item';
 
 import { useProducts } from '../../../core/hooks/use.products';
 import { RootState } from '../../../core/store/store';
 import { SearchBox } from '../components/search.box';
+import * as ac from '../../../core/reducer/action.creator';
 
 export function SearchPage() {
     const { handleLoadProducts } = useProducts();
-    const products = useSelector((state: RootState) => state.products);
+    const { products } = useSelector((state: RootState) => state);
+    const dispatcher = useDispatch();
 
     useEffect(() => {
-        handleLoadProducts();
-    }, [handleLoadProducts]);
+        if (products.length === 0) {
+            handleLoadProducts();
+        }
+
+        dispatcher(ac.setModeActionCreatorSearch(true));
+    }, [handleLoadProducts, dispatcher]);
 
     return (
         <section>

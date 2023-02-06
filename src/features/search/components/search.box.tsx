@@ -1,14 +1,25 @@
 import { SyntheticEvent, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { RootState } from '../../../core/store/store';
+import * as ac from '../../../core/reducer/action.creator';
 
 export function SearchBox() {
-    const initialSearchForm = '';
-    const [searchForm, setSearchForm] = useState(initialSearchForm);
     const navigate = useNavigate();
+
+    const { search } = useSelector((state: RootState) => state);
+    const dispatcher = useDispatch();
+
+    const initialSearchForm = search.searchQuery;
+    const [searchForm, setSearchForm] = useState(initialSearchForm);
 
     const handleInput = (ev: SyntheticEvent) => {
         const searchInput = ev.target as HTMLFormElement;
         setSearchForm(searchInput.value);
+
+        search.realTimeSearch &&
+            dispatcher(ac.setQueryActionCreatorSearch(searchInput.value));
+
         console.log(searchForm);
     };
 
@@ -16,6 +27,7 @@ export function SearchBox() {
         ev.preventDefault();
         console.log(searchForm);
         navigate('/buscar');
+        //Found path '/buscar' but there was no route config
     };
 
     return (
@@ -30,7 +42,9 @@ export function SearchBox() {
                     onInput={handleInput}
                     placeholder="Buscar"
                 />
-                <button type="submit">Buscar</button>
+                {!search.realTimeSearch && (
+                    <button type="submit">Buscar</button>
+                )}
             </form>
         </>
     );

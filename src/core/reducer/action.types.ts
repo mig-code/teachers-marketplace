@@ -13,3 +13,8 @@ export const actionTypesProducts = {
     delete : 'products@delete',
     update : 'products@update',
 };
+
+export const actionTypesSearch={
+    setQuery:'search@setQuery',
+    setMode:'search@setMode',
+}
