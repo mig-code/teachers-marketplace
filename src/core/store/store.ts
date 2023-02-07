@@ -1,4 +1,5 @@
 import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
+import { currentReducer } from '../reducer/current.reducer';
 import { productsReducer } from '../reducer/products.reducer';
 import { searchReducer } from '../reducer/search.reducer';
 
@@ -10,6 +11,7 @@ export const store = configureStore({
         user: userReducer,
         products: productsReducer,
         search: searchReducer,
+        current: currentReducer,
     },
 });
 

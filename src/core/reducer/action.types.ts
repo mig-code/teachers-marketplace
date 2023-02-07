@@ -12,6 +12,7 @@ export const actionTypesProducts = {
     create : 'products@create',
     delete : 'products@delete',
     update : 'products@update',
+    setCurrent : 'products@setCurrent',
 };
 
 export const actionTypesSearch={

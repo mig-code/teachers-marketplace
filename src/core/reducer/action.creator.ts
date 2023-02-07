@@ -14,10 +14,14 @@ export const setUploadImageUrlActionCreatorUploadImage = createAction<string>(
     actionTypesUploadImage.setUploadImageUrl
 );
 
+
+
 export const loginActionCreatorUser = createAction<UserStructure>(
     actionTypesUser.login
 );
 export const logoutActionCreatorUser = createAction(actionTypesUser.logout);
+
+
 
 export const loadActionCreatorProducts = createAction<Array<ProductStructure>>(
     actionTypesProducts.load
@@ -32,6 +36,11 @@ export const deleteActionCreatorProducts = createAction<
 export const updateActionCreatorProducts = createAction<
     Partial<ProductStructure>
 >(actionTypesProducts.update);
+
+
+export const setCurrentActionCreatorProducts = createAction<ProductStructure>(
+    actionTypesProducts.setCurrent
+);
 
 export const setQueryActionCreatorSearch = createAction<string>(
     actionTypesSearch.setQuery
