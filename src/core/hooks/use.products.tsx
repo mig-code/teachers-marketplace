@@ -15,7 +15,9 @@ export type UseProducts = {
         productPayload: Partial<ProductStructure>
     ) => Promise<void>;
     handleCreateProduct: (productPayload: ProductStructure) => Promise<void>;
-    handleQueryProduct: (productPayload: ProductStructure["firebaseId"]) => Promise<void>;
+    handleQueryProduct: (
+        productPayload: ProductStructure['firebaseId']
+    ) => Promise<void>;
 };
 
 export function useProducts(): UseProducts {
@@ -70,9 +72,9 @@ export function useProducts(): UseProducts {
         [repo, dispatcher]
     );
     const handleQueryProduct = useCallback(
-        async (productPayload: ProductStructure["firebaseId"]) => {
+        async (productPayload: ProductStructure['firebaseId']) => {
             try {
-               const result= await repo.queryById(productPayload);
+                const result = await repo.queryById(productPayload);
 
                 dispatcher(ac.setCurrentActionCreatorProducts(result));
             } catch (error) {
