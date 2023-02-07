@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
+import { MemoryRouter } from 'react-router-dom';
 
 import { productsMockWithFirebaseId } from '../../../mocks/product.mocks';
 import { useProducts } from '../../hooks/use.products';
@@ -26,7 +27,9 @@ describe('Given Item component', () => {
         test('Then Item info should have been render', () => {
             render(
                 <Provider store={store}>
-                    <Item item={productMock} />
+                    <MemoryRouter>
+                        <Item item={productMock} />
+                    </MemoryRouter>
                 </Provider>
             );
             const textElement = screen.getByText(/Product 1/i);
@@ -35,9 +38,11 @@ describe('Given Item component', () => {
         test('Then user could click on add to favorites button', () => {
             const productMock = productsMockWithFirebaseId[0];
             render(
-                <Provider store={store}>
-                    <Item item={productMock} />
-                </Provider>
+                <MemoryRouter>
+                    <Provider store={store}>
+                        <Item item={productMock} />
+                    </Provider>
+                </MemoryRouter>
             );
 
             const buttonElement = screen.getByText(/Añadir a Favoritos/i);
@@ -48,9 +53,11 @@ describe('Given Item component', () => {
         test('Then user could click on delete button', () => {
             const productMock = productsMockWithFirebaseId[0];
             render(
-                <Provider store={store}>
-                    <Item item={productMock} />
-                </Provider>
+                <MemoryRouter>
+                    <Provider store={store}>
+                        <Item item={productMock} />
+                    </Provider>
+                </MemoryRouter>
             );
 
             const buttonElement = screen.getByText(/Eliminar/i);

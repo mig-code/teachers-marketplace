@@ -1,5 +1,6 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { AddProductPage } from '../../../features/add.product/pages/add.product.page';
+import { DetailsProductsPage } from '../../../features/details.product/pages/details.product.page';
 import { HomePage } from '../../../features/home/pages/home.page';
 import { SearchPage } from '../../../features/search/page/search.page';
 
@@ -12,6 +13,10 @@ export function AppRoutes() {
                 element={<AddProductPage></AddProductPage>}
             ></Route>
             <Route path={'buscar'} element={<SearchPage></SearchPage>}></Route>
+            <Route
+                path={'producto/:id'}
+                element={<DetailsProductsPage></DetailsProductsPage>}
+            ></Route>
 
             <Route
                 path={'*'}
