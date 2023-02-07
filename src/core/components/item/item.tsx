@@ -33,8 +33,8 @@ export default function Item({ item }: { item: ProductStructure }) {
         handleDeleteProduct(item.firebaseId);
     }
     return (
-        <Link to={`/producto/${item.firebaseId}`}>
-            <div>
+        <div>
+            <Link to={`/producto/${item.firebaseId}`}>
                 <h2>{item.productInfo.title}</h2>
 
                 <p>{item.productInfo.description}</p>
@@ -42,23 +42,23 @@ export default function Item({ item }: { item: ProductStructure }) {
                     src={item.productInfo.imgUrl}
                     alt={item.productInfo.title}
                 />
-                <p>Precio : {item.productInfo.price}</p>
-                {item.productInfo.ownerName && (
-                    <p>Subido por: {item.productInfo.ownerName}</p>
-                )}
-                <p>Categoria: {item.productInfo.category}</p>
+            </Link>
+            <p>Precio : {item.productInfo.price}</p>
+            {item.productInfo.ownerName && (
+                <p>Subido por: {item.productInfo.ownerName}</p>
+            )}
+            <p>Categoria: {item.productInfo.category}</p>
 
-                <p>
-                    Favorite by :
-                    {item.isLikedBy
-                        ? item.isLikedBy.users.map((user) => user + ' ')
-                        : 'Nadie lo ha añadido a favoritos'}{' '}
-                </p>
-                <button onClick={handleClickDelete}>Eliminar</button>
-                <button onClick={handleClickAddToFavorites}>
-                    Añadir a Favoritos
-                </button>
-            </div>
-        </Link>
+            <p>
+                Favorite by :
+                {item.isLikedBy
+                    ? item.isLikedBy.users.map((user) => user + ' ')
+                    : 'Nadie lo ha añadido a favoritos'}{' '}
+            </p>
+            <button onClick={handleClickDelete}>Eliminar</button>
+            <button onClick={handleClickAddToFavorites}>
+                Añadir a Favoritos
+            </button>
+        </div>
     );
 }

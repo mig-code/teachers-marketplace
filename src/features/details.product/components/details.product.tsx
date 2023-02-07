@@ -1,31 +1,20 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import { useProducts } from '../../../core/hooks/use.products';
 import { RootState } from '../../../core/store/store';
 import { ProductStructure } from '../../../core/types/products.types';
-import * as ac from '../../../core/reducer/action.creator';
 
 export default function DetailsProduct() {
-    const { handleUpdateProduct } = useProducts();
+    const { handleUpdateProduct, handleQueryProduct } = useProducts();
 
+    const firebaseString = useParams().id as string;
     const item: ProductStructure = useSelector(
         (state: RootState) => state.current.currentProduct
     );
 
-    const dispatcher = useDispatch();
-
-    const firebaseUser = useParams();
-    const firebaseString = firebaseUser.id;
-    console.log(firebaseString);
-    const filterItem =
-     useSelector((state: RootState) =>
-        state.products.filter((item) => item.firebaseId === firebaseString)
-    );
-    console.log('filterItem', filterItem);
-
-    function handleClickAddToFavorites() {
+    async function handleClickAddToFavorites () {
         let AddUserLike: Partial<ProductStructure>;
 
         if (!item.isLikedBy) {
@@ -45,12 +34,13 @@ export default function DetailsProduct() {
             };
         }
 
-        handleUpdateProduct(AddUserLike);
+        await handleUpdateProduct(AddUserLike);
+        handleQueryProduct(firebaseString);
     }
 
     useEffect(() => {
-        dispatcher(ac.setCurrentActionCreatorProducts(filterItem[0]));
-    }, [item, dispatcher,]);
+        handleQueryProduct(firebaseString);
+    }, [handleQueryProduct, firebaseString]);
 
     return (
         <div>

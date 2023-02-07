@@ -15,6 +15,7 @@ export type UseProducts = {
         productPayload: Partial<ProductStructure>
     ) => Promise<void>;
     handleCreateProduct: (productPayload: ProductStructure) => Promise<void>;
+    handleQueryProduct: (productPayload: ProductStructure["firebaseId"]) => Promise<void>;
 };
 
 export function useProducts(): UseProducts {
@@ -68,6 +69,18 @@ export function useProducts(): UseProducts {
         },
         [repo, dispatcher]
     );
+    const handleQueryProduct = useCallback(
+        async (productPayload: ProductStructure["firebaseId"]) => {
+            try {
+               const result= await repo.queryById(productPayload);
+
+                dispatcher(ac.setCurrentActionCreatorProducts(result));
+            } catch (error) {
+                handleError(error as Error);
+            }
+        },
+        [repo, dispatcher]
+    );
 
     const handleError = (error: Error) => {
         consoleDebug(error.message);
@@ -78,5 +91,6 @@ export function useProducts(): UseProducts {
         handleDeleteProduct,
         handleUpdateProduct,
         handleCreateProduct,
+        handleQueryProduct,
     };
 }

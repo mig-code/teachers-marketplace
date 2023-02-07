@@ -7,6 +7,7 @@ interface Repository<T> {
     delete: (id: string) => Promise<string>;
     update: (payload: DeepPartial<T>) => Promise<T>;
     create: (payload: Partial<T>) => Promise<string>;
+    queryById: (id: string) => Promise<T>;
 }
 export class ProductsRepository implements Repository<ProductStructure> {
     constructor(
@@ -81,5 +82,23 @@ export class ProductsRepository implements Repository<ProductStructure> {
         if (!resp.ok)
             throw new Error(`Error ${resp.status}: ${resp.statusText}`);
         return await resp.json();
+    }
+    async queryById(
+        id: ProductStructure['firebaseId']
+    ): Promise<ProductStructure> {
+        if (!id) return Promise.reject(invalidIdError);
+        this.url =
+            'https://teachers-marketplace-default-rtdb.firebaseio.com/products/' +
+            id +
+            '.json';
+        const resp = await fetch(this.url);
+        if (!resp.ok)
+            throw new Error(`Error ${resp.status}: ${resp.statusText}`);
+        const result = await resp.json();
+
+        return {
+            ...result,
+            firebaseId: id,
+        };
     }
 }
