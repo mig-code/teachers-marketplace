@@ -44,7 +44,7 @@ export default function DetailsProduct() {
 
     return (
         <div>
-            {item ? (
+            {item.productInfo ? (
                 <>
                     <h2>{item.productInfo.title}</h2>
 
