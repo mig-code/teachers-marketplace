@@ -58,25 +58,13 @@ export const productMockAdd: ProductStructure = {
 
 export const productMockUpdate = { ...productMock2, title: 'Updated product' };
 
-export const mockValidRepoResponse = () => {
-    (ProductsRepository.prototype.load as jest.Mock).mockResolvedValue([
-        productsMock,
-    ]);
-    (ProductsRepository.prototype.create as jest.Mock).mockResolvedValue(
-        productMockAdd
-    );
-    (ProductsRepository.prototype.update as jest.Mock).mockResolvedValue(
-        productMockUpdate
-    );
-    (ProductsRepository.prototype.delete as jest.Mock).mockResolvedValue(
-        productMock1.firebaseId
-    );
-};
-
 const error = new Error('Testing errors');
 export const mockNoValidRepoResponse = () => {
     (ProductsRepository.prototype.load as jest.Mock).mockRejectedValue(error);
     (ProductsRepository.prototype.create as jest.Mock).mockRejectedValue(error);
     (ProductsRepository.prototype.update as jest.Mock).mockRejectedValue(error);
     (ProductsRepository.prototype.delete as jest.Mock).mockRejectedValue(error);
+    (ProductsRepository.prototype.queryById as jest.Mock).mockRejectedValue(
+        error
+    );
 };

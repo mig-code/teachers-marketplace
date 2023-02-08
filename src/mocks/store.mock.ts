@@ -15,6 +15,22 @@ export const emptyMockUser: UserStructure = {
     },
     token: '',
 };
+
+export const mockProductEmpty: ProductStructure = {
+    productInfo: {
+        id: 0,
+        title: '',
+        description: '',
+        price: 0,
+        imgUrl: '',
+        category: '',
+        available: false,
+        ownerName: '',
+        ownerUid: '',
+        publishedAt: '',
+    },
+    firebaseId: '',
+};
 export const mockProduct1: ProductStructure = {
     productInfo: {
         id: 1,
@@ -45,6 +61,28 @@ export const mockProduct2: ProductStructure = {
     },
     firebaseId: '000002',
 };
+
+export const mockProductWithisLiked: ProductStructure = {
+    productInfo: {
+        id: 4,
+        title: 'Test product with isLiked',
+        description: 'Test description with isLiked',
+        price: 400,
+        imgUrl: 'img4.jpg',
+        category: 'libros',
+        available: true,
+        ownerName: 'ownerName4',
+        ownerUid: 'userUid4',
+        publishedAt: '2021-01-01',
+    },
+    firebaseId: '000004',
+    isLikedBy: { users: ['userUid1', 'userUid2', 'userUid3'] },
+};
+
+export const mockProductWithOnlyFirebaseId: Partial<ProductStructure> = {
+    firebaseId: 'invalidFirebaseId',
+};
+
 export const emptyMockProducts = [];
 export const mockProductsState: Array<ProductStructure> = [
     mockProduct1,
@@ -63,6 +101,9 @@ export const emptyPreloadedStateMock: Partial<RootState> = {
     user: emptyMockUser,
     search: emptyMockSearchState,
     products: [],
+    current: {
+        currentProduct: mockProductEmpty,
+    },
 };
 
 export const mockStore = configureStore({

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useProducts } from '../../hooks/use.products';
 
 import { ProductStructure } from '../../types/products.types';
@@ -33,10 +34,15 @@ export default function Item({ item }: { item: ProductStructure }) {
     }
     return (
         <div>
-            <h2>{item.productInfo.title}</h2>
+            <Link to={`/producto/${item.firebaseId}`}>
+                <h2>{item.productInfo.title}</h2>
 
-            <p>{item.productInfo.description}</p>
-            <img src={item.productInfo.imgUrl} alt={item.productInfo.title} />
+                <p>{item.productInfo.description}</p>
+                <img
+                    src={item.productInfo.imgUrl}
+                    alt={item.productInfo.title}
+                />
+            </Link>
             <p>Precio : {item.productInfo.price}</p>
             {item.productInfo.ownerName && (
                 <p>Subido por: {item.productInfo.ownerName}</p>

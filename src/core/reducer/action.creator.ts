@@ -33,6 +33,10 @@ export const updateActionCreatorProducts = createAction<
     Partial<ProductStructure>
 >(actionTypesProducts.update);
 
+export const setCurrentActionCreatorProducts = createAction<ProductStructure>(
+    actionTypesProducts.loadCurrent
+);
+
 export const setQueryActionCreatorSearch = createAction<string>(
     actionTypesSearch.setQuery
 );
