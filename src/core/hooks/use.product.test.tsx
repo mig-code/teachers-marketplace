@@ -17,6 +17,8 @@ import { Provider, useSelector } from 'react-redux';
 import { RootState } from '../store/store';
 import { configureStore } from '@reduxjs/toolkit';
 import { productsReducer } from '../reducer/products.reducer';
+import { mockProductEmpty } from '../../mocks/store.mock';
+import { currentReducer } from '../reducer/current.reducer';
 
 jest.mock('../services/products.repository');
 
@@ -32,11 +34,15 @@ describe(`Given useProducts (custom hook)
 
     const preloadedState: Partial<RootState> = {
         products: [],
+        current: {
+            currentProduct: mockProductEmpty,
+        },
     };
 
     const mockStore = configureStore({
         reducer: {
             products: productsReducer,
+            current: currentReducer,
         },
         preloadedState,
     });
@@ -44,12 +50,16 @@ describe(`Given useProducts (custom hook)
     beforeEach(() => {
         TestComponent = () => {
             const products = useSelector((state: RootState) => state.products);
+            const currentProduct = useSelector(
+                (state: RootState) => state.current.currentProduct
+            );
 
             const {
                 handleLoadProducts,
                 handleDeleteProduct,
                 handleUpdateProduct,
                 handleCreateProduct,
+                handleQueryProduct,
             } = useProducts();
             return (
                 <>
@@ -70,6 +80,13 @@ describe(`Given useProducts (custom hook)
                     <button onClick={() => handleCreateProduct(productMockAdd)}>
                         Create
                     </button>
+                    <button
+                        onClick={() =>
+                            handleQueryProduct(productMock1.firebaseId)
+                        }
+                    >
+                        Query
+                    </button>
 
                     {products?.length === 0 ? (
                         <p>Loading</p>
@@ -85,6 +102,14 @@ describe(`Given useProducts (custom hook)
                                 ))}
                             </ul>
                         </div>
+                    )}
+
+                    {currentProduct.productInfo.title !== '' ? (
+                        <div>
+                            <p>Current {currentProduct.productInfo.title}</p>
+                        </div>
+                    ) : (
+                        <p>No current product</p>
                     )}
                 </>
             );
@@ -196,6 +221,20 @@ describe(`Given useProducts (custom hook)
                 await screen.findByText(productMockAdd.productInfo.title)
             ).toBeInTheDocument();
         });
+        test('Then its function handleQueryProduct should be used', async () => {
+            (
+                ProductsRepository.prototype.queryById as jest.Mock
+            ).mockResolvedValue(productMock1);
+
+            await act(async () => {
+                userEvent.click(buttons[4]);
+            });
+            expect(ProductsRepository.prototype.queryById).toHaveBeenCalled();
+            expect(await screen.findByText(/Current/)).toBeInTheDocument();
+            expect(
+                await screen.findByText(productMock1.productInfo.title)
+            ).toBeInTheDocument();
+        });
     });
 
     describe(`When the repo is NOT working OK`, () => {
@@ -240,6 +279,13 @@ describe(`Given useProducts (custom hook)
         test('Then its function handleCreateProduct should be used', async () => {
             userEvent.click(buttons[3]);
             expect(ProductsRepository.prototype.create).toHaveBeenCalled();
+            await waitFor(() => {
+                expect(spyConsole).toHaveBeenLastCalledWith('Testing errors');
+            });
+        });
+        test('Then its function handleQueryProduct should be used', async () => {
+            userEvent.click(buttons[4]);
+            expect(ProductsRepository.prototype.queryById).toHaveBeenCalled();
             await waitFor(() => {
                 expect(spyConsole).toHaveBeenLastCalledWith('Testing errors');
             });
