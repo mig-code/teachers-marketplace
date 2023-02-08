@@ -1,3 +1,4 @@
+/* eslint-disable testing-library/no-await-sync-query */
 import { productsMockWithFirebaseId } from '../../mocks/product.mocks';
 import { generateProductWithOnlyInfo } from '../models/product';
 import { DeepPartial, ProductStructure } from '../types/products.types';
@@ -153,7 +154,7 @@ describe('Given ProductsRepo', () => {
                 ok: true,
                 json: jest.fn().mockResolvedValue(mockProducts[0]),
             });
-            // eslint-disable-next-line testing-library/no-await-sync-query
+            
             const data = await repo.queryById(id);
             expect(global.fetch).toHaveBeenCalled();
             expect(data).toEqual(mockProducts[0]);
@@ -164,14 +165,14 @@ describe('Given ProductsRepo', () => {
                 ok: false,
             });
             await expect(async () => {
-                // eslint-disable-next-line testing-library/no-await-sync-query
+               
                 await repo.queryById('bad');
             }).rejects.toThrowError();
             expect(global.fetch).toHaveBeenCalled();
         });
         test(`Then if there are NOT ID, we received a null`, async () => {
             await expect(async () => {
-                // eslint-disable-next-line testing-library/no-await-sync-query
+                
                 await repo.queryById('');
             }).rejects.toThrowError();
             expect(global.fetch).not.toHaveBeenCalled();
