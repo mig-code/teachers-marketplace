@@ -145,4 +145,36 @@ describe('Given ProductsRepo', () => {
             expect(global.fetch).toHaveBeenCalled();
         });
     });
+    describe.only('When we use querybyId method', () => {
+        test(`Then if the ID are VALID, we received the product
+            with that ID`, async () => {
+            const id = mockProducts[0].firebaseId;
+            global.fetch = jest.fn().mockResolvedValue({
+                ok: true,
+                json: jest.fn().mockResolvedValue(mockProducts[0]),
+            });
+            // eslint-disable-next-line testing-library/no-await-sync-query
+            const data = await repo.queryById(id);
+            expect(global.fetch).toHaveBeenCalled();
+            expect(data).toEqual(mockProducts[0]);
+        });
+
+        test(`Then if the ID are NOT VALID, we received a null`, async () => {
+            global.fetch = jest.fn().mockResolvedValue({
+                ok: false,
+            });
+            await expect(async () => {
+                // eslint-disable-next-line testing-library/no-await-sync-query
+                await repo.queryById('bad');
+            }).rejects.toThrowError();
+            expect(global.fetch).toHaveBeenCalled();
+        });
+        test(`Then if there are NOT ID, we received a null`, async () => {
+            await expect(async () => {
+                // eslint-disable-next-line testing-library/no-await-sync-query
+                await repo.queryById('');
+            }).rejects.toThrowError();
+            expect(global.fetch).not.toHaveBeenCalled();
+        });
+    });
 });
