@@ -29,12 +29,13 @@ export function HomePage() {
             <div>
                 <h1>Dale una segunda vida al material escolar</h1>
                 <SearchBox></SearchBox>
-
-                {products.map((item) => (
-                    <li key={item.firebaseId}>
-                        <Item item={item} />
-                    </li>
-                ))}
+                <div className="list">
+                    {products.map((item) => (
+                        <article key={item.firebaseId}>
+                            <Item item={item} />
+                        </article>
+                    ))}
+                </div>
             </div>
         </section>
     );

@@ -1,7 +1,8 @@
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { useUserAuth } from '../../hooks/use.users.auth';
 import { RootState } from '../../store/store';
+import './menu.scss';
 
 export function Menu() {
     const { handleLoginWithGoogle, handleLogout } = useUserAuth();
@@ -13,18 +14,33 @@ export function Menu() {
     const handleLogoutOnClick = () => {
         handleLogout();
     };
+
+    const activeClassName = 'active';
     return (
-        <nav>
+        <nav className="top-menu">
             <ul>
-                <Link to={'/'}>
-                    <li>Inicio </li>
-                </Link>
-                <Link to={'/subir-producto'}>
-                    <li> Publicar</li>
-                </Link>
-                <Link to={'/mis-productos'}>
-                    <li>Mis Productos</li>
-                </Link>
+                <li>
+                    <div className="wrapper-button">
+                        <NavLink
+                            className={({ isActive }) =>
+                                isActive ? activeClassName : undefined
+                            }
+                            to={'/subir-producto'}
+                        >
+                            Subir
+                        </NavLink>
+                    </div>
+                </li>
+                <li>
+                    <NavLink
+                        className={({ isActive }) =>
+                            isActive ? activeClassName : undefined
+                        }
+                        to={'/mis-productos'}
+                    >
+                        <button>Mis Productos</button>
+                    </NavLink>
+                </li>
 
                 <li>
                     {user?.info.firebaseId ? (

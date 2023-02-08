@@ -1,0 +1,28 @@
+@import '../../../sass/variables';
+header {
+    display: flex;
+    flex-direction: row;
+
+    justify-content: space-between;
+    align-items: center;
+
+    margin: 1rem 0;
+    .icon {
+        display: none;
+    }
+    border-bottom: $color-grey-light-1 1px solid;
+}
+
+// media queries
+
+@media (max-width: 630px) {
+    header {
+        .title {
+            display: none;
+            border: 1px solid red;
+        }
+        .icon {
+            display: block;
+        }
+    }
+}
