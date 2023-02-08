@@ -146,7 +146,7 @@ describe('Given ProductsRepo', () => {
             expect(global.fetch).toHaveBeenCalled();
         });
     });
-    describe.only('When we use querybyId method', () => {
+    describe('When we use querybyId method', () => {
         test(`Then if the ID are VALID, we received the product
             with that ID`, async () => {
             const id = mockProducts[0].firebaseId;
