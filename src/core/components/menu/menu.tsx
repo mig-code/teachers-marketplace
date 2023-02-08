@@ -22,6 +22,9 @@ export function Menu() {
                 <Link to={'/subir-producto'}>
                     <li> Publicar</li>
                 </Link>
+                <Link to={'/mis-productos'}>
+                    <li>Mis Productos</li>
+                </Link>
 
                 <li>
                     {user?.info.firebaseId ? (

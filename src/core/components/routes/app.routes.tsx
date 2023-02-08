@@ -3,6 +3,7 @@ import { AddProductPage } from '../../../features/add.product/pages/add.product.
 import { DetailsProductsPage } from '../../../features/details.product/pages/details.product.page';
 import { HomePage } from '../../../features/home/pages/home.page';
 import { SearchPage } from '../../../features/search/page/search.page';
+import { UserPage } from '../../../features/user/pages/user.page';
 
 export function AppRoutes() {
     return (
@@ -12,6 +13,11 @@ export function AppRoutes() {
                 path={'subir-producto'}
                 element={<AddProductPage></AddProductPage>}
             ></Route>
+            <Route
+                path={'mis-productos'}
+                element={<UserPage></UserPage>}
+            ></Route>
+
             <Route path={'buscar'} element={<SearchPage></SearchPage>}></Route>
             <Route
                 path={'producto/:id'}
