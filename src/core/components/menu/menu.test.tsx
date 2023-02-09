@@ -57,6 +57,38 @@ describe('Given Menu component', () => {
 
             expect(mockhandleLoginWithGoogle).toHaveBeenCalled();
         });
+        test('Then we should  check is active class', () => {
+            const mockhandleLogout = jest.fn();
+            (useUserAuth as jest.Mock).mockReturnValue({
+                handleLoginWithGoogle: jest.fn(),
+                handleLogout: mockhandleLogout,
+            });
+
+            render(
+                <Provider store={mockStore}>
+                    <BrowserRouter>
+                        <Menu />
+                    </BrowserRouter>
+                </Provider>
+            );
+            const buttonElement = screen.getAllByText('Subir');
+            expect(buttonElement[0]).toHaveAttribute('class', 'nav-button');
+            userEvent.click(buttonElement[0]);
+
+            expect(buttonElement[0]).toHaveAttribute(
+                'class',
+                'nav-button nav-button--active'
+            );
+
+            const buttonElement2 = screen.getAllByText('Mis Productos');
+            expect(buttonElement2[0]).toHaveAttribute('class', 'nav-button');
+            userEvent.click(buttonElement2[0]);
+
+            expect(buttonElement2[0]).toHaveAttribute(
+                'class',
+                'nav-button nav-button--active'
+            );
+        });
     });
     describe('When it has been render with user', () => {
         const mockUser: UserStructure = {
@@ -97,60 +129,6 @@ describe('Given Menu component', () => {
             userEvent.click(buttonElement[0]);
 
             expect(mockhandleLogout).toHaveBeenCalled();
-        });
-    });
-    describe('When it has been render and navigate', () => {
-        const mockUser: UserStructure = {
-            info: {
-                firebaseId: 'validid',
-                name: '',
-                photoUrl: '',
-            },
-            token: '',
-        };
-        const preloadedState: Partial<RootState> = {
-            user: mockUser,
-        };
-
-        const mockStore = configureStore({
-            reducer: {
-                uploadImage: uploadImageReducer,
-                user: userReducer,
-            },
-            preloadedState,
-        });
-
-        test('Then we should  check is active class', () => {
-            const mockhandleLogout = jest.fn();
-            (useUserAuth as jest.Mock).mockReturnValue({
-                handleLoginWithGoogle: jest.fn(),
-                handleLogout: mockhandleLogout,
-            });
-
-            render(
-                <Provider store={mockStore}>
-                    <BrowserRouter>
-                        <Menu />
-                    </BrowserRouter>
-                </Provider>
-            );
-            const buttonElement = screen.getAllByText('Subir');
-            expect(buttonElement[0]).toHaveAttribute('class', 'nav-button');
-            userEvent.click(buttonElement[0]);
-
-            expect(buttonElement[0]).toHaveAttribute(
-                'class',
-                'nav-button nav-button--active'
-            );
-
-            const buttonElement2 = screen.getAllByText('Mis Productos');
-            expect(buttonElement2[0]).toHaveAttribute('class', 'nav-button');
-            userEvent.click(buttonElement2[0]);
-
-            expect(buttonElement2[0]).toHaveAttribute(
-                'class',
-                'nav-button nav-button--active'
-            );
         });
     });
 });
