@@ -73,7 +73,7 @@ a {
 }
 a:hover,
 a:visited {
-    color: black;
+    color: $color-primary;
 }
 /* 9. Remove List decorations */
 li {
@@ -153,9 +153,4 @@ button {
         background-color: $color-primary;
         color: $color-white;
     }
-}
-
-.active {
-    background-color: $color-secondary;
-    color: $color-white;
 }

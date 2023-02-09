@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useUserAuth } from '../../hooks/use.users.auth';
 import { RootState } from '../../store/store';
 import './menu.scss';
@@ -15,7 +15,7 @@ export function Menu() {
         handleLogout();
     };
 
-    const activeClassName = 'active';
+    const activeClassName = 'nav-button nav-button--active';
     return (
         <nav className="top-menu">
             <ul>
@@ -23,7 +23,9 @@ export function Menu() {
                     <div className="wrapper-button">
                         <NavLink
                             className={({ isActive }) =>
-                                isActive ? activeClassName : undefined
+                                isActive
+                                    ?  activeClassName
+                                    : 'nav-button'
                             }
                             to={'/subir-producto'}
                         >
@@ -34,19 +36,25 @@ export function Menu() {
                 <li>
                     <NavLink
                         className={({ isActive }) =>
-                            isActive ? activeClassName : undefined
+                            isActive
+                                ?  activeClassName
+                                : 'nav-button'
                         }
                         to={'/mis-productos'}
                     >
-                        <button>Mis Productos</button>
+                        Mis Productos
                     </NavLink>
                 </li>
 
                 <li>
                     {user?.info.firebaseId ? (
-                        <button onClick={handleLogoutOnClick}>Logout</button>
+                        <p className="nav-button nav-button--logout" onClick={handleLogoutOnClick}>
+                            Logout
+                        </p>
                     ) : (
-                        <button onClick={handleLoginOnClick}>Login</button>
+                        <p className="nav-button" onClick={handleLoginOnClick}>
+                            Login
+                        </p>
                     )}
                 </li>
             </ul>
