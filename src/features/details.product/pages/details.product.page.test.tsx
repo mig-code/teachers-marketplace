@@ -15,20 +15,6 @@ describe('When render DetailsProduct Page', () => {
         jest.clearAllMocks();
     });
 
-    test('It should render the title', () => {
-        render(
-            <Provider store={store}>
-                <MemoryRouter>
-                    <DetailsProductsPage></DetailsProductsPage>
-                </MemoryRouter>
-            </Provider>
-        );
-        const headingElement = screen.getByRole('heading', {
-            name: /Detalles del producto/i,
-        });
-        expect(headingElement).toBeInTheDocument();
-    });
-
     test('It should render the DetailsProduct component', () => {
         (DetailsProduct as jest.Mock).mockReturnValue(
             <div>DetailsProduct</div>

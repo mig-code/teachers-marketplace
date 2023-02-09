@@ -72,8 +72,8 @@ export default function DetailsProduct() {
                     <div className="details__favorites">
                         {item.isLikedBy
                             ? '¡Le gusta a  ' +
-                              item.isLikedBy.users.length +
-                              ' personas !'
+                            item.isLikedBy.users.length +
+                            ' personas !'
                             : 'A nadie le gusta todavía'}{' '}
                     </div>
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { AddProductForm } from '../components/add.product.form';
 
+
 export function AddProductPage() {
     return (
         <>
