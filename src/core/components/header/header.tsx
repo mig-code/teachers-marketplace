@@ -6,8 +6,20 @@ export function Header() {
     return (
         <header>
             <Link to={'/'}>
-                <h1 className="title">Teachers Marketplace</h1>
-                <p className="icon"></p>
+                <div className="left-container">
+                    <div className="left-container__icon-container">
+                        <img
+                            className="left-container__icon"
+                            src="/assets/tm_icon.png"
+                            alt="logo-small"
+                        />
+                    </div>
+                    <img
+                        className="left-container__logo"
+                        src="/assets/tm_logo.png"
+                        alt="logo"
+                    />
+                </div>
             </Link>
 
             <Menu></Menu>
