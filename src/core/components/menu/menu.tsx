@@ -23,9 +23,7 @@ export function Menu() {
                     <div className="wrapper-button">
                         <NavLink
                             className={({ isActive }) =>
-                                isActive
-                                    ?  activeClassName
-                                    : 'nav-button'
+                                isActive ? activeClassName : 'nav-button'
                             }
                             to={'/subir-producto'}
                         >
@@ -36,9 +34,7 @@ export function Menu() {
                 <li>
                     <NavLink
                         className={({ isActive }) =>
-                            isActive
-                                ?  activeClassName
-                                : 'nav-button'
+                            isActive ? activeClassName : 'nav-button'
                         }
                         to={'/mis-productos'}
                     >
@@ -48,7 +44,10 @@ export function Menu() {
 
                 <li>
                     {user?.info.firebaseId ? (
-                        <p className="nav-button nav-button--logout" onClick={handleLogoutOnClick}>
+                        <p
+                            className="nav-button nav-button--logout"
+                            onClick={handleLogoutOnClick}
+                        >
                             Logout
                         </p>
                     ) : (

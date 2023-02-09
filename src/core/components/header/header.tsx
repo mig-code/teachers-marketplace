@@ -11,13 +11,13 @@ export function Header() {
                         <img
                             className="left-container__icon"
                             src="/assets/tm_icon.png"
-                            alt="logo-small"
+                            alt="logo-icon"
                         />
                     </div>
                     <img
                         className="left-container__logo"
                         src="/assets/tm_logo.png"
-                        alt="logo"
+                        alt="logo-text"
                     />
                 </div>
             </Link>
