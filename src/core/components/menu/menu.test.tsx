@@ -52,11 +52,42 @@ describe('Given Menu component', () => {
                     </BrowserRouter>
                 </Provider>
             );
-            const buttonElement = screen.getAllByRole('button');
+            const buttonElement = screen.getAllByText('Login');
             userEvent.click(buttonElement[0]);
-            expect(buttonElement[0]).toHaveTextContent('Login');
 
             expect(mockhandleLoginWithGoogle).toHaveBeenCalled();
+        });
+        test('Then we should  check is active class', () => {
+            const mockhandleLogout = jest.fn();
+            (useUserAuth as jest.Mock).mockReturnValue({
+                handleLoginWithGoogle: jest.fn(),
+                handleLogout: mockhandleLogout,
+            });
+
+            render(
+                <Provider store={mockStore}>
+                    <BrowserRouter>
+                        <Menu />
+                    </BrowserRouter>
+                </Provider>
+            );
+            const buttonElement = screen.getAllByText('Subir');
+            expect(buttonElement[0]).toHaveAttribute('class', 'nav-button');
+            userEvent.click(buttonElement[0]);
+
+            expect(buttonElement[0]).toHaveAttribute(
+                'class',
+                'nav-button nav-button--active'
+            );
+
+            const buttonElement2 = screen.getAllByText('Mis Productos');
+            expect(buttonElement2[0]).toHaveAttribute('class', 'nav-button');
+            userEvent.click(buttonElement2[0]);
+
+            expect(buttonElement2[0]).toHaveAttribute(
+                'class',
+                'nav-button nav-button--active'
+            );
         });
     });
     describe('When it has been render with user', () => {
@@ -94,9 +125,8 @@ describe('Given Menu component', () => {
                     </BrowserRouter>
                 </Provider>
             );
-            const buttonElement = screen.getAllByRole('button');
+            const buttonElement = screen.getAllByText('Logout');
             userEvent.click(buttonElement[0]);
-            expect(buttonElement[0]).toHaveTextContent('Logout');
 
             expect(mockhandleLogout).toHaveBeenCalled();
         });

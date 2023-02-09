@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { RootState } from '../../../core/store/store';
 import * as ac from '../../../core/reducer/action.creator';
 
+import './search.box.scss';
+
 export function SearchBox() {
     const navigate = useNavigate();
 
@@ -32,7 +34,7 @@ export function SearchBox() {
     }, [search.realTimeSearch, search.searchQuery]);
 
     return (
-        <>
+        <div className="search-box-container">
             <form onSubmit={handleSubmit}>
                 <label htmlFor="search"></label>
                 <input
@@ -41,12 +43,17 @@ export function SearchBox() {
                     id="search"
                     value={searchForm}
                     onInput={handleInput}
-                    placeholder="Buscar"
+                    placeholder="¿Qué estás buscando?"
                 />
                 {!search.realTimeSearch && (
-                    <button type="submit">Buscar</button>
+                    <button
+                        className="search-box-container__button"
+                        type="submit"
+                    >
+                        Buscar
+                    </button>
                 )}
             </form>
-        </>
+        </div>
     );
 }

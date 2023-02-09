@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useProducts } from '../../hooks/use.products';
+import './item.scss';
 
 import { ProductStructure } from '../../types/products.types';
 
@@ -33,32 +34,40 @@ export default function Item({ item }: { item: ProductStructure }) {
         handleDeleteProduct(item.firebaseId);
     }
     return (
-        <div>
+        <>
             <Link to={`/producto/${item.firebaseId}`}>
-                <h2>{item.productInfo.title}</h2>
+                <h2 className="item__title">{item.productInfo.title}</h2>
+                <div className="item__favorites">
+                    {item.isLikedBy
+                        ? '¡Le gusta a  ' +
+                        item.isLikedBy.users.length +
+                        ' personas !'
+                        : 'A nadie le gusta todavía'}{' '}
+                </div>
 
-                <p>{item.productInfo.description}</p>
+                <div className="item__price"> {item.productInfo.price} €</div>
+
                 <img
+                    className="item__image"
                     src={item.productInfo.imgUrl}
                     alt={item.productInfo.title}
                 />
             </Link>
-            <p>Precio : {item.productInfo.price}</p>
-            {item.productInfo.ownerName && (
-                <p>Subido por: {item.productInfo.ownerName}</p>
-            )}
-            <p>Categoria: {item.productInfo.category}</p>
+            <div className="item__description">
+                {item.productInfo.description}
+            </div>
+            <div className="item__category">{item.productInfo.category}</div>
 
-            <p>
-                Favorite by :
-                {item.isLikedBy
-                    ? item.isLikedBy.users.map((user) => user + ' ')
-                    : 'Nadie lo ha añadido a favoritos'}{' '}
-            </p>
-            <button onClick={handleClickDelete}>Eliminar</button>
             <button onClick={handleClickAddToFavorites}>
                 Añadir a Favoritos
             </button>
-        </div>
+            <button onClick={handleClickDelete}>Eliminar</button>
+            {/* Not necesarry right now */}
+            {/* {item.productInfo.ownerName && (
+                <div className="item__uploaded-by">
+                    Subido por: {item.productInfo.ownerName.split(' ')[0]}
+                </div>
+            )} */}
+        </>
     );
 }

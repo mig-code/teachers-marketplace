@@ -1,9 +1,27 @@
-import { Menu } from "../menu/menu";
+import { Link } from 'react-router-dom';
+import { Menu } from '../menu/menu';
+import './header.scss';
 
 export function Header() {
     return (
         <header>
-            <h1>Teachers Marketplace</h1>
+            <Link to={'/'}>
+                <div className="left-container">
+                    <div className="left-container__icon-container">
+                        <img
+                            className="left-container__icon"
+                            src="/assets/tm_icon.png"
+                            alt="logo-icon"
+                        />
+                    </div>
+                    <img
+                        className="left-container__logo"
+                        src="/assets/tm_logo.png"
+                        alt="logo-text"
+                    />
+                </div>
+            </Link>
+
             <Menu></Menu>
         </header>
     );

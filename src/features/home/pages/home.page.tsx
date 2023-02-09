@@ -8,6 +8,7 @@ import { RootState } from '../../../core/store/store';
 import { SearchBox } from '../../search/components/search.box';
 
 import * as ac from '../../../core/reducer/action.creator';
+import './home.page.scss';
 
 export function HomePage() {
     const { handleLoadProducts } = useProducts();
@@ -25,17 +26,16 @@ export function HomePage() {
     }, [dispatcher]);
 
     return (
-        <section>
-            <div>
-                <h1>Dale una segunda vida al material escolar</h1>
-                <SearchBox></SearchBox>
-
+        <>
+            <h1 className='home-title'>Dale una segunda vida al material escolar</h1>
+            <SearchBox></SearchBox>
+            <div className="list">
                 {products.map((item) => (
-                    <li key={item.firebaseId}>
+                    <article className='item' key={item.firebaseId}>
                         <Item item={item} />
-                    </li>
+                    </article>
                 ))}
             </div>
-        </section>
+        </>
     );
 }
