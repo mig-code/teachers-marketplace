@@ -22,11 +22,10 @@ export function SearchPage() {
     }, [handleLoadProducts, dispatcher, products]);
 
     return (
-        <section>
-            <div>
-                <h1>Búsqueda</h1>
-                <SearchBox></SearchBox>
-
+        <>
+            <h1>Búsqueda</h1>
+            <SearchBox></SearchBox>
+            <div className="list">
                 {products
                     .filter((item) =>
                         item.productInfo.title
@@ -39,6 +38,6 @@ export function SearchPage() {
                         </li>
                     ))}
             </div>
-        </section>
+        </>
     );
 }

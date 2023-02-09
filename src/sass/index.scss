@@ -108,19 +108,7 @@ body {
 textarea {
     resize: none;
 }
-input {
-    width: 600px;
-    border: 1px solid $color-grey-light-1;
-    border-radius: 15px;
-    padding: 0.2rem 0.6rem;
-    font-size: 1rem;
-    font-family: $font-stack-secondary;
-    color: $color-primary;
-    font-weight: bold;
-    &:focus {
-        outline: none;
-    }
-}
+
 
 .list {
     display: grid;

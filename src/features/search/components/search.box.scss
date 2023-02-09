@@ -28,17 +28,17 @@
         }
     }
     &__button {
-        background-color: $color-secondary;
-        border: 1px solid $color-secondary;
+        background-color: $color-primary;
+        border: 1px solid $color-primary;
 
         color: $color-white;
         padding: 0.5rem 1rem;
 
         &:hover {
-            background-color: $color-secondary;
-            border: 1px solid $color-secondary;
+            background-color: $color-primary;
+            border: 1px solid $color-primary;
 
-            color: $color-white;
+            color: $color-grey-light-1;
         }
     }
 }

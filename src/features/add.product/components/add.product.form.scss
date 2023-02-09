@@ -1,0 +1,29 @@
+@import '../../../sass/variables';
+@import '../../../sass/mixins';
+
+.add-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: stretch;
+    width: 50%;
+    padding: 1rem;
+    min-height: 500px;
+
+    border: 1px solid $color-grey-dark-1;
+    border-radius: 15px;
+
+    input {
+        width: 100%;
+        border: 1px solid $color-grey-light-1;
+        border-radius: 15px;
+        padding: 0.2rem 0.6rem;
+        font-size: 1rem;
+        font-family: $font-stack-secondary;
+        color: $color-primary;
+        font-weight: bold;
+        &:focus {
+            outline: none;
+        }
+    }
+}
