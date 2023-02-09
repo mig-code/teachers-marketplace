@@ -18,7 +18,7 @@
     li {
         margin: 0 0.2rem;
     }
-    p{
+    p {
         margin: 0;
     }
 }
@@ -45,12 +45,10 @@
         background-color: $color-primary;
         color: $color-white;
     }
-   
 }
- .nav-button--logout {
-        display: none;
-        
-    }
+.nav-button--logout {
+    display: none;
+}
 @media (min-width: 630px) {
     .nav-button--logout {
         display: block;
