@@ -31,7 +31,7 @@ export function HomePage() {
             <SearchBox></SearchBox>
             <div className="list">
                 {products.map((item) => (
-                    <article key={item.firebaseId}>
+                    <article className='item' key={item.firebaseId}>
                         <Item item={item} />
                     </article>
                 ))}

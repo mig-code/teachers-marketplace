@@ -105,14 +105,6 @@ body {
     background-color: $color-white;
 }
 
-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-
-    max-height: 300px;
-    max-width: 300px;
-}
 textarea {
     resize: none;
 }
@@ -132,9 +124,12 @@ input {
 
 .list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     grid-gap: 1rem;
     margin: 1rem;
+    width: 100%;
+    max-width: 1200px;
+    justify-items: center;
 }
 
 button {
@@ -152,5 +147,11 @@ button {
     &:hover {
         background-color: $color-primary;
         color: $color-white;
+    }
+}
+
+@media (min-width: 630px) {
+    .list {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     }
 }
