@@ -1,0 +1,18 @@
+@import '../../../sass/variables';
+
+.home-title {
+    font-size: $font-size-mobile-h1;
+    font-weight: 600;
+    margin: 1rem 0;
+    padding: 0 1rem;
+    max-width: 30rem;
+    text-align: center;
+    color: $color-black;
+}
+
+@media (min-width: 630px) {
+    .home-title {
+        font-size: $font-size-h1;
+        max-width: 60rem;
+    }
+}
