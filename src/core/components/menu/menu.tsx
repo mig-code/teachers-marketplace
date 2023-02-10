@@ -18,45 +18,31 @@ export function Menu() {
     const activeClassName = 'nav-button nav-button--active';
     return (
         <nav className="top-menu">
-            <ul>
-                <li>
-                    <div className="wrapper-button">
-                        <NavLink
-                            className={({ isActive }) =>
-                                isActive ? activeClassName : 'nav-button'
-                            }
-                            to={'/subir-producto'}
-                        >
-                            Subir
-                        </NavLink>
-                    </div>
-                </li>
-                <li>
-                    <NavLink
-                        className={({ isActive }) =>
-                            isActive ? activeClassName : 'nav-button'
-                        }
-                        to={'/mis-productos'}
-                    >
-                        Mis Productos
-                    </NavLink>
-                </li>
+            <NavLink
+                className={({ isActive }) =>
+                    isActive ? activeClassName : 'nav-button'
+                }
+                to={'/subir-producto'}
+            >
+                Publicar
+            </NavLink>
 
-                <li>
-                    {user?.info.firebaseId ? (
-                        <p
-                            className="nav-button nav-button--logout"
-                            onClick={handleLogoutOnClick}
-                        >
-                            Logout
-                        </p>
-                    ) : (
-                        <p className="nav-button" onClick={handleLoginOnClick}>
-                            Login
-                        </p>
-                    )}
-                </li>
-            </ul>
+            {user.info?.firebaseId && (
+                <NavLink
+                    className={({ isActive }) =>
+                        isActive ? activeClassName : 'nav-button'
+                    }
+                    to={'/mis-productos'}
+                >
+                    Mis Productos
+                </NavLink>
+            )}
+
+            {!user?.info.firebaseId && (
+                <p className="nav-button" onClick={handleLoginOnClick}>
+                    Login
+                </p>
+            )}
         </nav>
     );
 }

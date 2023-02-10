@@ -6,21 +6,6 @@
     justify-content: space-between;
     align-items: center;
     padding: 0 1rem;
-
-    ul {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        max-width: 650px;
-        text-align: right;
-    }
-    li {
-        margin: 0 0.2rem;
-    }
-    p {
-        margin: 0;
-    }
 }
 .nav-button {
     background-color: $color-white;
@@ -32,6 +17,7 @@
     color: $color-primary;
     font-weight: bold;
     white-space: nowrap;
+    margin: 0 0.2rem;
 
     cursor: pointer;
     transition: all 0.2s ease-in-out;
