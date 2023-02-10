@@ -4,64 +4,48 @@ import { useProducts } from '../../hooks/use.products';
 import './item.scss';
 
 import { ProductStructure } from '../../types/products.types';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
+import { useUserFavorites } from '../../hooks/use.favorites';
+import * as ac from '../../reducer/action.creator';
 
 export default function Item({ item }: { item: ProductStructure }) {
-    const { handleDeleteProduct, handleUpdateProduct } = useProducts();
+    
+    const { handleDeleteProduct } = useProducts();
+    const { handleAddToFavorites, handleRemoveFromFavorites } =
+        useUserFavorites( item);
     const user = useSelector((state: RootState) => state.user);
 
+    const dispatcher = useDispatch();
+
     function handleClickAddToFavorites() {
-        let AddUserLike: Partial<ProductStructure>;
+        dispatcher(ac.setCurrentActionCreatorProducts(item));
+        handleAddToFavorites();
 
-        if (!item.isLikedBy) {
-            AddUserLike = {
-                ...item,
-                isLikedBy: {
-                    users: [user.info.firebaseId],
-                },
-            };
-        } else {
-            AddUserLike = {
-                ...item,
-                isLikedBy: {
-                    ...item.isLikedBy,
-                    users: [...item.isLikedBy.users, user.info.firebaseId],
-                },
-            };
-        }
+        // let AddUserLike: Partial<ProductStructure>;
 
-        handleUpdateProduct(AddUserLike);
+        // if (!item.isLikedBy) {
+        //     AddUserLike = {
+        //         ...item,
+        //         isLikedBy: {
+        //             users: [user.info.firebaseId],
+        //         },
+        //     };
+        // } else {
+        //     AddUserLike = {
+        //         ...item,
+        //         isLikedBy: {
+        //             ...item.isLikedBy,
+        //             users: [...item.isLikedBy.users, user.info.firebaseId],
+        //         },
+        //     };
+        // }
+
+        // handleUpdateProduct(AddUserLike);
     }
     function handleClickDeleteFromFavorites() {
-        console.log('handleClickDeleteFromFavorites');
-        if (!item.isLikedBy) return;
-        const index = item.isLikedBy.users.indexOf(
-            user.info.firebaseId
-        ) as number;
-        console.log('index', index);
-
-        console.log('item.isLikedBy.users', item.isLikedBy.users);
-        let retunedArray: string[] = [];
-        if (item.isLikedBy.users.length === 1) {
-            retunedArray = [];
-        } else {
-            retunedArray = item.isLikedBy.users.filter(
-                (item, i) => i !== index
-            ) as string[];
-        }
-
-        console.log('retunedArray', retunedArray);
-        const deleteUserLike: Partial<ProductStructure> = {
-            ...item,
-            isLikedBy: {
-                ...item.isLikedBy,
-                users: retunedArray,
-            },
-        };
-        console.log('deleteUserLike', deleteUserLike);
-
-        handleUpdateProduct(deleteUserLike);
+        dispatcher(ac.setCurrentActionCreatorProducts(item));
+        handleRemoveFromFavorites();
     }
 
     function handleClickDelete() {

@@ -17,7 +17,7 @@ export function UserPage() {
     };
     const handleLogoutOnClick = () => {
         handleLogout();
-        navigate('/buscar');
+        navigate('/');
     };
 
     return (

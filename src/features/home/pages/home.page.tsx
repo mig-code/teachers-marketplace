@@ -16,8 +16,10 @@ export function HomePage() {
     const dispatcher = useDispatch();
 
     useEffect(() => {
+      
+
         handleLoadProducts();
-    }, [handleLoadProducts, products]);
+    }, [handleLoadProducts, dispatcher]);
 
     useEffect(() => {
         dispatcher(ac.resetActionCreatorSearch());
