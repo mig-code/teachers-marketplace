@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 import { store } from '../../store/store';
 
 describe('When render App component', () => {
+    window.HTMLElement.prototype.scrollIntoView = jest.fn();
     test('It should render the layout Component', () => {
         render(
             <Provider store={store}>
