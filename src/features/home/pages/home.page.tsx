@@ -16,8 +16,6 @@ export function HomePage() {
     const dispatcher = useDispatch();
 
     useEffect(() => {
-      
-
         handleLoadProducts();
     }, [handleLoadProducts, dispatcher]);
 
@@ -32,11 +30,14 @@ export function HomePage() {
             </h1>
             <SearchBox></SearchBox>
             <div className="list">
-                {products.map((item) => (
-                    <article className="item" key={item.firebaseId}>
-                        <Item item={item} />
-                    </article>
-                ))}
+                {products
+                    .slice(0)
+                    .reverse()
+                    .map((item) => (
+                        <article className="item" key={item.firebaseId}>
+                            <Item item={item} />
+                        </article>
+                    ))}
             </div>
         </>
     );
