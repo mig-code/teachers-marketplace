@@ -22,14 +22,12 @@ export type UseProducts = {
 
 export function useProducts(): UseProducts {
     const repo = useMemo(() => new ProductsRepository(), []);
-    // console.log('REPO', repo);
 
     const dispatcher = useDispatch();
 
     const handleLoadProducts = useCallback(async () => {
         try {
             const products = await repo.load();
-            console.log('LOADIN PRODUCTS', products);
             dispatcher(ac.loadActionCreatorProducts(products));
         } catch (error) {
             handleError(error as Error);
@@ -38,7 +36,6 @@ export function useProducts(): UseProducts {
 
     const handleDeleteProduct = useCallback(
         async (id: ProductStructure['firebaseId']) => {
-            console.log('DECLARANDO HANDLE DELETE PRODUCT');
             try {
                 const deletedId = await repo.delete(id);
 
@@ -55,7 +52,6 @@ export function useProducts(): UseProducts {
                 await repo.update(productPayload);
 
                 dispatcher(ac.updateActionCreatorProducts(productPayload));
-                
             } catch (error) {
                 handleError(error as Error);
             }

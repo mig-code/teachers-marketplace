@@ -10,7 +10,6 @@ export function useUserFavorites(item: ProductStructure) {
     const { handleUpdateProduct } = useProducts();
 
     const handleAddToFavorites = useCallback(async () => {
-        console.log('item', item);
         let AddUserLike: Partial<ProductStructure>;
 
         if (!item.isLikedBy) {
@@ -29,27 +28,23 @@ export function useUserFavorites(item: ProductStructure) {
                 },
             };
         }
-        console.log('AddUserLike from Hook', AddUserLike);
+
         await handleUpdateProduct(AddUserLike);
     }, [handleUpdateProduct, item, user.info.firebaseId]);
 
     const handleRemoveFromFavorites = useCallback(async () => {
         if (!item.isLikedBy) return;
-        const index = item.isLikedBy.users.indexOf(
-            user.info.firebaseId
-        ) as number;
-        console.log('index', index);
+        const index = item.isLikedBy.users.indexOf(user.info.firebaseId);
 
-        console.log('item.isLikedBy.users', item.isLikedBy.users);
         let retunedArray: string[] = [];
         if (item.isLikedBy.users.length === 1) {
             retunedArray = [];
         } else {
             retunedArray = item.isLikedBy.users.filter(
                 (item, i) => i !== index
-            ) as string[];
+            );
         }
-        console.log('retunedArray', retunedArray);
+
         const RemoveUserLike: Partial<ProductStructure> = {
             ...item,
             isLikedBy: {

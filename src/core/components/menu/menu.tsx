@@ -5,14 +5,11 @@ import { RootState } from '../../store/store';
 import './menu.scss';
 
 export function Menu() {
-    const { handleLoginWithGoogle, handleLogout } = useUserAuth();
+    const { handleLoginWithGoogle } = useUserAuth();
     const user = useSelector((state: RootState) => state.user);
 
     const handleLoginOnClick = () => {
         handleLoginWithGoogle();
-    };
-    const handleLogoutOnClick = () => {
-        handleLogout();
     };
 
     const activeClassName = 'nav-button nav-button--active';

@@ -82,7 +82,7 @@ describe(`Given useFavorites (custom hook)
     });
 
     describe('When we click on the button Add to Favorites', () => {
-        test.only('Then its function handleAddToFavorites should be called', async () => {
+        test('Then its function handleAddToFavorites should be called', async () => {
             (useProducts as jest.Mock).mockReturnValue({
                 handleUpdateProduct: mockHandleUpdateProduct,
             });
@@ -125,7 +125,7 @@ describe(`Given useFavorites (custom hook)
         });
     });
     describe('When we click on the button Remove from', () => {
-        test.only('Then its function handleRemoveFromFavorites should be called', async () => {
+        test('Then its function handleRemoveFromFavorites should be called', async () => {
             (useProducts as jest.Mock).mockReturnValue({
                 handleUpdateProduct: mockHandleUpdateProduct,
             });
@@ -166,7 +166,7 @@ describe(`Given useFavorites (custom hook)
         });
     });
     describe('When we click on the button Add to Favorites and there is no favs yet', () => {
-        test.only('Then its function handleAddToFavorites should be add a fav', async () => {
+        test('Then its function handleAddToFavorites should be add a fav', async () => {
             (useProducts as jest.Mock).mockReturnValue({
                 handleUpdateProduct: mockHandleUpdateProduct,
             });
@@ -213,7 +213,7 @@ describe(`Given useFavorites (custom hook)
         });
     });
     describe('When we click on the button Remove to Favorites and there is no favs yet', () => {
-        test.only('Then its function handleAddToFavorites should be add a fav', async () => {
+        test('Then its function handleAddToFavorites should be add a fav', async () => {
             (useProducts as jest.Mock).mockReturnValue({
                 handleUpdateProduct: mockHandleUpdateProduct,
             });
@@ -252,7 +252,7 @@ describe(`Given useFavorites (custom hook)
         });
     });
     describe('When we click on the button Remove to Favorites and there is only one Fav', () => {
-        test.only('Then its function handleAddToFavorites should be add a fav', async () => {
+        test('Then its function handleAddToFavorites should be add a fav', async () => {
             (useProducts as jest.Mock).mockReturnValue({
                 handleUpdateProduct: mockHandleUpdateProduct,
             });
