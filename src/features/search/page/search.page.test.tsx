@@ -14,6 +14,8 @@ import { searchReducer } from '../../../core/reducer/search.reducer';
 import { configureStore } from '@reduxjs/toolkit';
 import { productsReducer } from '../../../core/reducer/products.reducer';
 import { useProducts } from '../../../core/hooks/use.products';
+import { userReducer } from '../../../core/reducer/user.reducer';
+
 jest.mock('../../../core/hooks/use.products');
 
 describe('Given Search Page', () => {
@@ -28,6 +30,7 @@ describe('Given Search Page', () => {
             reducer: {
                 search: searchReducer,
                 products: productsReducer,
+                user: userReducer,
             },
             preloadedState: preloadedState,
         });

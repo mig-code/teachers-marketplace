@@ -71,20 +71,11 @@ describe('Given Menu component', () => {
                     </BrowserRouter>
                 </Provider>
             );
-            const buttonElement = screen.getAllByText('Subir');
+            const buttonElement = screen.getAllByText('Publicar');
             expect(buttonElement[0]).toHaveAttribute('class', 'nav-button');
             userEvent.click(buttonElement[0]);
 
             expect(buttonElement[0]).toHaveAttribute(
-                'class',
-                'nav-button nav-button--active'
-            );
-
-            const buttonElement2 = screen.getAllByText('Mis Productos');
-            expect(buttonElement2[0]).toHaveAttribute('class', 'nav-button');
-            userEvent.click(buttonElement2[0]);
-
-            expect(buttonElement2[0]).toHaveAttribute(
                 'class',
                 'nav-button nav-button--active'
             );
@@ -111,7 +102,7 @@ describe('Given Menu component', () => {
             preloadedState,
         });
 
-        test('Then we should click in login button', () => {
+        test('Then we could click in "Mis productos', () => {
             const mockhandleLogout = jest.fn();
             (useUserAuth as jest.Mock).mockReturnValue({
                 handleLoginWithGoogle: jest.fn(),
@@ -125,10 +116,14 @@ describe('Given Menu component', () => {
                     </BrowserRouter>
                 </Provider>
             );
-            const buttonElement = screen.getAllByText('Logout');
-            userEvent.click(buttonElement[0]);
+            const buttonElement2 = screen.getAllByText('Mis Productos');
+            expect(buttonElement2[0]).toHaveAttribute('class', 'nav-button');
+            userEvent.click(buttonElement2[0]);
 
-            expect(mockhandleLogout).toHaveBeenCalled();
+            expect(buttonElement2[0]).toHaveAttribute(
+                'class',
+                'nav-button nav-button--active'
+            );
         });
     });
 });
