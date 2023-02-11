@@ -10,7 +10,7 @@ import { ProductStructure } from '../../../core/types/products.types';
 import { productsMockWithFirebaseId } from '../../../mocks/product.mocks';
 import {
     mockProduct1,
-    mockProductWithisLiked,
+    mockProductWithIsLikedBy,
     mockProductWithOnlyFirebaseId,
 } from '../../../mocks/store.mock';
 
@@ -68,7 +68,7 @@ describe.only('Given Details Product component', () => {
             );
             const mockPreloadedState: Partial<RootState> = {
                 current: {
-                    currentProduct: mockProductWithisLiked,
+                    currentProduct: mockProductWithIsLikedBy,
                 },
             };
 

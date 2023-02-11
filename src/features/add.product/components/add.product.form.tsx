@@ -13,7 +13,7 @@ import { RootState } from '../../../core/store/store';
 import * as ac from '../../../core/reducer/action.creator';
 import { consoleDebug } from '../../../tools/debug';
 import { useProducts } from '../../../core/hooks/use.products';
-import "./add.product.form.scss"
+import './add.product.form.scss';
 
 export function AddProductForm() {
     const { handleCreateProduct } = useProducts();
@@ -86,7 +86,7 @@ export function AddProductForm() {
         }
     };
     return (
-        <div className='add-form'>
+        <div className="add-form">
             <h3>Añadir Producto</h3>
             <form onSubmit={handleSubmit}>
                 <div>
@@ -115,7 +115,11 @@ export function AddProductForm() {
 
                     <br />
                     {uploadedImagerUrl && (
-                        <img src={uploadedImagerUrl} alt="user" />
+                        <img
+                            className="add-form__image"
+                            src={uploadedImagerUrl}
+                            alt="user"
+                        />
                     )}
                 </div>
 

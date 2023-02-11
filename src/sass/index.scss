@@ -109,7 +109,6 @@ textarea {
     resize: none;
 }
 
-
 .list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -135,6 +134,41 @@ button {
     &:hover {
         background-color: $color-primary;
         color: $color-white;
+    }
+}
+.delete {
+    background-color: $color-white;
+    border: 1px solid $color-secondary;
+    border-radius: 15px;
+    padding: 0.2rem 0.6rem;
+    font-size: 1rem;
+    font-family: $font-stack-secondary;
+    color: $color-secondary;
+    font-weight: bold;
+
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    &:hover {
+        background-color: $color-secondary;
+        color: $color-white;
+    }
+}
+
+.favorite {
+    background-color: $color-tertiary;
+    border: 1px solid $color-tertiary;
+    border-radius: 15px;
+    padding: 0.2rem 0.6rem;
+    font-size: 1rem;
+    font-family: $font-stack-secondary;
+    color: $color-primary;
+    font-weight: bold;
+
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    &:hover {
+        background-color: $color-white;
+        color: $color-primary;
     }
 }
 

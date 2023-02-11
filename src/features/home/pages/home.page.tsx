@@ -16,10 +16,8 @@ export function HomePage() {
     const dispatcher = useDispatch();
 
     useEffect(() => {
-        if (products.length === 0) {
-            handleLoadProducts();
-        }
-    }, [handleLoadProducts, products]);
+        handleLoadProducts();
+    }, [handleLoadProducts, dispatcher]);
 
     useEffect(() => {
         dispatcher(ac.resetActionCreatorSearch());
@@ -27,14 +25,19 @@ export function HomePage() {
 
     return (
         <>
-            <h1 className='home-title'>Dale una segunda vida al material escolar</h1>
+            <h1 className="home-title">
+                Dale una segunda vida al material escolar
+            </h1>
             <SearchBox></SearchBox>
             <div className="list">
-                {products.map((item) => (
-                    <article className='item' key={item.firebaseId}>
-                        <Item item={item} />
-                    </article>
-                ))}
+                {products
+                    .slice(0)
+                    .reverse()
+                    .map((item) => (
+                        <article className="item" key={item.firebaseId}>
+                            <Item item={item} />
+                        </article>
+                    ))}
             </div>
         </>
     );

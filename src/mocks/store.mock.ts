@@ -62,7 +62,7 @@ export const mockProduct2: ProductStructure = {
     firebaseId: '000002',
 };
 
-export const mockProductWithisLiked: ProductStructure = {
+export const mockProductWithIsLikedBy: ProductStructure = {
     productInfo: {
         id: 4,
         title: 'Test product with isLiked',
@@ -78,6 +78,74 @@ export const mockProductWithisLiked: ProductStructure = {
     firebaseId: '000004',
     isLikedBy: { users: ['userUid1', 'userUid2', 'userUid3'] },
 };
+export const mockProductWithIsLikedByOneUser: ProductStructure = {
+    productInfo: {
+        id: 4,
+        title: 'Test product with isLiked',
+        description: 'Test description with isLiked',
+        price: 400,
+        imgUrl: 'img4.jpg',
+        category: 'libros',
+        available: true,
+        ownerName: 'ownerName4',
+        ownerUid: 'userUid4',
+        publishedAt: '2021-01-01',
+    },
+    firebaseId: '000004',
+    isLikedBy: { users: ['userUid1'] },
+};
+
+export const mockProductWithIsLikedByUpdated: ProductStructure = {
+    productInfo: {
+        id: 4,
+        title: 'Test product with isLiked',
+        description: 'Test description with isLiked',
+        price: 400,
+        imgUrl: 'img4.jpg',
+        category: 'libros',
+        available: true,
+        ownerName: 'ownerName4',
+        ownerUid: 'userUid4',
+        publishedAt: '2021-01-01',
+    },
+    firebaseId: '000004',
+    isLikedBy: { users: ['userUid1', 'userUid2', 'userUid3', 'UpdatedFav'] },
+};
+export const mockProductWithIsLikedByDeleted: ProductStructure = {
+    productInfo: {
+        id: 4,
+        title: 'Test product with isLiked',
+        description: 'Test description with isLiked',
+        price: 400,
+        imgUrl: 'img4.jpg',
+        category: 'libros',
+        available: true,
+        ownerName: 'ownerName4',
+        ownerUid: 'userUid4',
+        publishedAt: '2021-01-01',
+    },
+    firebaseId: '000004',
+    isLikedBy: { users: ['userUid1', 'userUid2'] },
+};
+export const mockProductWithIsLikedByDeletedEmpty: ProductStructure = {
+    productInfo: {
+        id: 4,
+        title: 'Test product with isLiked',
+        description: 'Test description with isLiked',
+        price: 400,
+        imgUrl: 'img4.jpg',
+        category: 'libros',
+        available: true,
+        ownerName: 'ownerName4',
+        ownerUid: 'userUid4',
+        publishedAt: '2021-01-01',
+    },
+    firebaseId: '000004',
+    isLikedBy: { users: [] },
+};
+export const mockProductsStateWithIsLikedBy: Array<ProductStructure> = [
+    mockProductWithIsLikedBy,
+];
 
 export const mockProductWithOnlyFirebaseId: Partial<ProductStructure> = {
     firebaseId: 'invalidFirebaseId',

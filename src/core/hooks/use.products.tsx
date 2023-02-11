@@ -28,7 +28,6 @@ export function useProducts(): UseProducts {
     const handleLoadProducts = useCallback(async () => {
         try {
             const products = await repo.load();
-            // setProducts(products);
             dispatcher(ac.loadActionCreatorProducts(products));
         } catch (error) {
             handleError(error as Error);

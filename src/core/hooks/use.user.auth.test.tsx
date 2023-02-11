@@ -5,12 +5,13 @@ import userEvent from '@testing-library/user-event';
 import { Provider } from 'react-redux';
 import { store } from '../store/store';
 
-import { useUserAuth } from './use.users.auth';
+import { useUserAuth } from './use.user.auth';
 
-jest.mock('../services/login');
+jest.mock('./use.products');
 
 const mockLoginWithGoogle = jest.fn();
 const mockLogout = jest.fn();
+
 jest.mock('../services/login', () => ({
     loginWithGoogle: () => mockLoginWithGoogle(),
     logout: () => mockLogout(),
