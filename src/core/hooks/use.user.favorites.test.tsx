@@ -4,9 +4,16 @@ import { configureStore } from '@reduxjs/toolkit';
 import { render, screen, act, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Provider } from 'react-redux';
-import { mockProduct1 } from '../../mocks/store.mock';
+import {
+    mockProductWithIsLikedBy,
+    mockProductWithIsLikedByDeleted,
+    mockProductWithIsLikedByDeletedEmpty,
+    mockProductWithIsLikedByOneUser,
+    mockProductWithIsLikedByUpdated,
+} from '../../mocks/store.mock';
+
 import { userReducer } from '../reducer/user.reducer';
-import { RootState, store } from '../store/store';
+import { RootState } from '../store/store';
 import { ProductStructure } from '../types/products.types';
 import { UserStructure } from '../types/user.type';
 import { useProducts } from './use.products';
@@ -21,33 +28,17 @@ describe(`Given useFavorites (custom hook)
     beforeEach(() => {
         jest.clearAllMocks();
     });
-    let TestComponent: () => JSX.Element;
+    let TestComponentWithProducts: () => JSX.Element;
+    let TestComponetsWithoutProducts: () => JSX.Element;
+    let TestComponentWithOneProduct: () => JSX.Element;
 
     let buttons: Array<HTMLElement>;
-    const mockProduct: ProductStructure = mockProduct1;
-    const mockUser: UserStructure = {
-        info: {
-            firebaseId: 'validId',
-            name: '',
-            photoUrl: '',
-        },
-        token: '',
-    };
-    const preloadedState: Partial<RootState> = {
-        user: mockUser,
-    };
-
-    const mockStore = configureStore({
-        reducer: {
-            user: userReducer,
-        },
-        preloadedState,
-    });
+    const mockProductWithIslike: ProductStructure = mockProductWithIsLikedBy;
 
     beforeEach(() => {
-        TestComponent = () => {
+        TestComponentWithProducts = () => {
             const { handleAddToFavorites, handleRemoveFromFavorites } =
-                useUserFavorites(mockProduct);
+                useUserFavorites(mockProductWithIslike);
 
             return (
                 <>
@@ -57,7 +48,34 @@ describe(`Given useFavorites (custom hook)
                     <button onClick={handleRemoveFromFavorites}>
                         Remove from favorites
                     </button>
-                    <div>{mockProduct.isLikedBy?.users}</div>
+                </>
+            );
+        };
+        TestComponetsWithoutProducts = () => {
+            const { handleAddToFavorites, handleRemoveFromFavorites } =
+                useUserFavorites({} as ProductStructure);
+
+            return (
+                <>
+                    <button onClick={handleAddToFavorites}>
+                        Add to Favorites
+                    </button>
+                    <button onClick={handleRemoveFromFavorites}>
+                        Remove from favorites
+                    </button>
+                </>
+            );
+        };
+        TestComponentWithOneProduct = () => {
+            const { handleRemoveFromFavorites } = useUserFavorites(
+                mockProductWithIsLikedByOneUser
+            );
+
+            return (
+                <>
+                    <button onClick={handleRemoveFromFavorites}>
+                        Remove from favorites
+                    </button>
                 </>
             );
         };
@@ -68,17 +86,208 @@ describe(`Given useFavorites (custom hook)
             (useProducts as jest.Mock).mockReturnValue({
                 handleUpdateProduct: mockHandleUpdateProduct,
             });
+            const mockUser: UserStructure = {
+                info: {
+                    firebaseId: 'UpdatedFav',
+                    name: '',
+                    photoUrl: '',
+                },
+                token: '',
+            };
+            const preloadedState: Partial<RootState> = {
+                user: mockUser,
+            };
+
+            const mockStore = configureStore({
+                reducer: {
+                    user: userReducer,
+                },
+                preloadedState,
+            });
+
             render(
                 <Provider store={mockStore}>
-                    <TestComponent />
+                    <TestComponentWithProducts />
                 </Provider>
             );
-            screen.debug();
-            buttons = screen.getAllByRole('button');
-            userEvent.click(buttons[0]);
+            await act(async () => {
+                buttons = screen.getAllByRole('button');
+                userEvent.click(buttons[0]);
+            });
+
             await waitFor(() => {
                 expect(mockHandleUpdateProduct).toHaveBeenCalled();
             });
+
+            expect(mockHandleUpdateProduct).toHaveBeenCalledWith(
+                mockProductWithIsLikedByUpdated
+            );
+        });
+    });
+    describe('When we click on the button Remove from', () => {
+        test.only('Then its function handleRemoveFromFavorites should be called', async () => {
+            (useProducts as jest.Mock).mockReturnValue({
+                handleUpdateProduct: mockHandleUpdateProduct,
+            });
+            const mockUser: UserStructure = {
+                info: {
+                    firebaseId: 'userUid3',
+                    name: '',
+                    photoUrl: '',
+                },
+                token: '',
+            };
+            const preloadedState: Partial<RootState> = {
+                user: mockUser,
+            };
+
+            const mockStore = configureStore({
+                reducer: {
+                    user: userReducer,
+                },
+                preloadedState,
+            });
+
+            render(
+                <Provider store={mockStore}>
+                    <TestComponentWithProducts />
+                </Provider>
+            );
+
+            buttons = screen.getAllByRole('button');
+            userEvent.click(buttons[1]);
+            await waitFor(() => {
+                expect(mockHandleUpdateProduct).toHaveBeenCalled();
+            });
+
+            expect(mockHandleUpdateProduct).toHaveBeenCalledWith(
+                mockProductWithIsLikedByDeleted
+            );
+        });
+    });
+    describe('When we click on the button Add to Favorites and there is no favs yet', () => {
+        test.only('Then its function handleAddToFavorites should be add a fav', async () => {
+            (useProducts as jest.Mock).mockReturnValue({
+                handleUpdateProduct: mockHandleUpdateProduct,
+            });
+            const mockUser: UserStructure = {
+                info: {
+                    firebaseId: 'UpdatedFav',
+                    name: '',
+                    photoUrl: '',
+                },
+                token: '',
+            };
+            const preloadedState: Partial<RootState> = {
+                user: mockUser,
+            };
+
+            const mockStore = configureStore({
+                reducer: {
+                    user: userReducer,
+                },
+                preloadedState,
+            });
+
+            render(
+                <Provider store={mockStore}>
+                    <TestComponetsWithoutProducts />
+                </Provider>
+            );
+            await act(async () => {
+                buttons = screen.getAllByRole('button');
+                userEvent.click(buttons[0]);
+            });
+
+            await waitFor(() => {
+                expect(mockHandleUpdateProduct).toHaveBeenCalled();
+            });
+            const expectedProduct = {
+                isLikedBy: {
+                    users: [mockUser.info.firebaseId],
+                },
+            };
+            expect(mockHandleUpdateProduct).toHaveBeenCalledWith(
+                expectedProduct
+            );
+        });
+    });
+    describe('When we click on the button Remove to Favorites and there is no favs yet', () => {
+        test.only('Then its function handleAddToFavorites should be add a fav', async () => {
+            (useProducts as jest.Mock).mockReturnValue({
+                handleUpdateProduct: mockHandleUpdateProduct,
+            });
+            const mockUser: UserStructure = {
+                info: {
+                    firebaseId: 'UpdatedFav',
+                    name: '',
+                    photoUrl: '',
+                },
+                token: '',
+            };
+            const preloadedState: Partial<RootState> = {
+                user: mockUser,
+            };
+
+            const mockStore = configureStore({
+                reducer: {
+                    user: userReducer,
+                },
+                preloadedState,
+            });
+
+            render(
+                <Provider store={mockStore}>
+                    <TestComponetsWithoutProducts />
+                </Provider>
+            );
+            await act(async () => {
+                buttons = screen.getAllByRole('button');
+                userEvent.click(buttons[1]);
+            });
+
+            await waitFor(() => {
+                expect(mockHandleUpdateProduct).not.toHaveBeenCalled();
+            });
+        });
+    });
+    describe('When we click on the button Remove to Favorites and there is only one Fav', () => {
+        test.only('Then its function handleAddToFavorites should be add a fav', async () => {
+            (useProducts as jest.Mock).mockReturnValue({
+                handleUpdateProduct: mockHandleUpdateProduct,
+            });
+            const mockUser: UserStructure = {
+                info: {
+                    firebaseId: 'userUid1',
+                    name: '',
+                    photoUrl: '',
+                },
+                token: '',
+            };
+            const preloadedState: Partial<RootState> = {
+                user: mockUser,
+            };
+
+            const mockStore = configureStore({
+                reducer: {
+                    user: userReducer,
+                },
+                preloadedState,
+            });
+
+            render(
+                <Provider store={mockStore}>
+                    <TestComponentWithOneProduct />
+                </Provider>
+            );
+            await act(async () => {
+                buttons = screen.getAllByRole('button');
+                userEvent.click(buttons[0]);
+            });
+
+            expect(mockHandleUpdateProduct).toHaveBeenCalledWith(
+                mockProductWithIsLikedByDeletedEmpty
+            );
         });
     });
 });
