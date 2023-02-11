@@ -10,10 +10,9 @@ import { useUserFavorites } from '../../hooks/use.favorites';
 import * as ac from '../../reducer/action.creator';
 
 export default function Item({ item }: { item: ProductStructure }) {
-    
     const { handleDeleteProduct } = useProducts();
     const { handleAddToFavorites, handleRemoveFromFavorites } =
-        useUserFavorites( item);
+        useUserFavorites(item);
     const user = useSelector((state: RootState) => state.user);
 
     const dispatcher = useDispatch();
@@ -21,27 +20,6 @@ export default function Item({ item }: { item: ProductStructure }) {
     function handleClickAddToFavorites() {
         dispatcher(ac.setCurrentActionCreatorProducts(item));
         handleAddToFavorites();
-
-        // let AddUserLike: Partial<ProductStructure>;
-
-        // if (!item.isLikedBy) {
-        //     AddUserLike = {
-        //         ...item,
-        //         isLikedBy: {
-        //             users: [user.info.firebaseId],
-        //         },
-        //     };
-        // } else {
-        //     AddUserLike = {
-        //         ...item,
-        //         isLikedBy: {
-        //             ...item.isLikedBy,
-        //             users: [...item.isLikedBy.users, user.info.firebaseId],
-        //         },
-        //     };
-        // }
-
-        // handleUpdateProduct(AddUserLike);
     }
     function handleClickDeleteFromFavorites() {
         dispatcher(ac.setCurrentActionCreatorProducts(item));
