@@ -27,10 +27,24 @@ describe(`Given useFavorites (custom hook)
             render with a virtual component`, () => {
     beforeEach(() => {
         jest.clearAllMocks();
+        (useProducts as jest.Mock).mockReturnValue({
+            handleUpdateProduct: mockHandleUpdateProduct,
+        });
     });
 
     let buttons: Array<HTMLElement>;
     const mockProductWithIslike: ProductStructure = mockProductWithIsLikedBy;
+    const mockUserUpdatedFav: UserStructure = {
+        info: {
+            firebaseId: 'UpdatedFav',
+            name: 'UpdatedFav-Name',
+            photoUrl: ' UpdatedFav-PhotoUrl',
+        },
+        token: ' UpdatedFav-Token',
+    };
+    const mockPreloadStateWithUpdatedFav: Partial<RootState> = {
+        user: mockUserUpdatedFav,
+    };
 
     const TestComponentWithProducts = () => {
         const { handleAddToFavorites, handleRemoveFromFavorites } =
@@ -71,28 +85,17 @@ describe(`Given useFavorites (custom hook)
             </>
         );
     };
+
     describe('When we use TesTComponentWithProducts', () => {
         test('then its function handleAddToFavorites should be called and update a Fav', async () => {
-            (useProducts as jest.Mock).mockReturnValue({
-                handleUpdateProduct: mockHandleUpdateProduct,
-            });
-            const mockUser: UserStructure = {
-                info: {
-                    firebaseId: 'UpdatedFav',
-                    name: '',
-                    photoUrl: '',
-                },
-                token: '',
-            };
-            const preloadedState: Partial<RootState> = {
-                user: mockUser,
-            };
+            const preloadedStateWithUpdateFav: Partial<RootState> =
+                mockPreloadStateWithUpdatedFav;
 
             const mockStore = configureStore({
                 reducer: {
                     user: userReducer,
                 },
-                preloadedState,
+                preloadedState: preloadedStateWithUpdateFav,
             });
 
             render(
@@ -115,26 +118,22 @@ describe(`Given useFavorites (custom hook)
         });
 
         test('then its function handleRemoveFromFavorites should be called and delete a Fav', async () => {
-            (useProducts as jest.Mock).mockReturnValue({
-                handleUpdateProduct: mockHandleUpdateProduct,
-            });
-            const mockUser: UserStructure = {
-                info: {
-                    firebaseId: 'userUid3',
-                    name: '',
-                    photoUrl: '',
+            const preloadedStateWithUserToRemove: Partial<RootState> = {
+                user: {
+                    info: {
+                        firebaseId: 'userUid3',
+                        name: 'userUid3-Name',
+                        photoUrl: 'userUid3-PhotoUrl',
+                    },
+                    token: 'userUid3-Token',
                 },
-                token: '',
-            };
-            const preloadedState: Partial<RootState> = {
-                user: mockUser,
             };
 
             const mockStore = configureStore({
                 reducer: {
                     user: userReducer,
                 },
-                preloadedState,
+                preloadedState: preloadedStateWithUserToRemove,
             });
 
             render(
@@ -156,26 +155,22 @@ describe(`Given useFavorites (custom hook)
     });
     describe('When we use TestComponentWithOneProduct', () => {
         test('When we click on the button Remove to Favorites and there is only one Fav , then its function handleAddToFavorites should be add a fav', async () => {
-            (useProducts as jest.Mock).mockReturnValue({
-                handleUpdateProduct: mockHandleUpdateProduct,
-            });
-            const mockUser: UserStructure = {
-                info: {
-                    firebaseId: 'userUid1',
-                    name: '',
-                    photoUrl: '',
+            const preloadedStateWithFirsUserToRemove: Partial<RootState> = {
+                user: {
+                    info: {
+                        firebaseId: 'userUid1',
+                        name: 'userUid1-Name',
+                        photoUrl: 'userUid1-PhotoUrl',
+                    },
+                    token: 'userUid1-Token',
                 },
-                token: '',
-            };
-            const preloadedState: Partial<RootState> = {
-                user: mockUser,
             };
 
             const mockStore = configureStore({
                 reducer: {
                     user: userReducer,
                 },
-                preloadedState,
+                preloadedState: preloadedStateWithFirsUserToRemove,
             });
 
             render(
@@ -194,17 +189,8 @@ describe(`Given useFavorites (custom hook)
         });
     });
     describe('When we use TestComponetsWithoutProducts', () => {
-        const mockUser: UserStructure = {
-            info: {
-                firebaseId: 'UpdatedFav',
-                name: '',
-                photoUrl: '',
-            },
-            token: '',
-        };
-        const preloadedState: Partial<RootState> = {
-            user: mockUser,
-        };
+        const preloadedState: Partial<RootState> =
+            mockPreloadStateWithUpdatedFav;
 
         const mockStore = configureStore({
             reducer: {
@@ -213,10 +199,6 @@ describe(`Given useFavorites (custom hook)
             preloadedState,
         });
         test('Then its function handleAddToFavorites should be add a fav', async () => {
-            (useProducts as jest.Mock).mockReturnValue({
-                handleUpdateProduct: mockHandleUpdateProduct,
-            });
-
             render(
                 <Provider store={mockStore}>
                     <TestComponetsWithoutProducts />
@@ -232,7 +214,7 @@ describe(`Given useFavorites (custom hook)
             });
             const expectedProduct = {
                 isLikedBy: {
-                    users: [mockUser.info.firebaseId],
+                    users: [mockUserUpdatedFav.info.firebaseId],
                 },
             };
             expect(mockHandleUpdateProduct).toHaveBeenCalledWith(
@@ -240,10 +222,6 @@ describe(`Given useFavorites (custom hook)
             );
         });
         test('Then when click in remove button, shouldn call handleUpdate', async () => {
-            (useProducts as jest.Mock).mockReturnValue({
-                handleUpdateProduct: mockHandleUpdateProduct,
-            });
-
             render(
                 <Provider store={mockStore}>
                     <TestComponetsWithoutProducts />
