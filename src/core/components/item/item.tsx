@@ -42,9 +42,9 @@ export default function Item({ item }: { item: ProductStructure }) {
                 <h2 className="item__title">{item.productInfo.title}</h2>
                 <div className="item__favorites">
                     {item.isLikedBy
-                        ? '¡Le gusta a  ' +
-                          item.isLikedBy.users.length +
-                          ' personas !'
+                        ? '¡Le gusta a ' +
+                        item.isLikedBy.users.length +
+                        ' personas !'
                         : 'A nadie le gusta todavía'}{' '}
                 </div>
 
