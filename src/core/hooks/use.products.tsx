@@ -1,5 +1,5 @@
 import { useCallback, useMemo } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { consoleDebug } from '../../tools/debug';
 
 import { ProductsRepository } from '../services/products.repository';
@@ -7,6 +7,7 @@ import { ProductsRepository } from '../services/products.repository';
 import { ProductStructure } from '../types/products.types';
 
 import * as ac from '../../core/reducer/action.creator';
+import { RootState } from '../store/store';
 
 export type UseProducts = {
     handleLoadProducts: () => Promise<void>;
@@ -22,6 +23,7 @@ export type UseProducts = {
 
 export function useProducts(): UseProducts {
     const repo = useMemo(() => new ProductsRepository(), []);
+    const userToken = useSelector((state: RootState) => state.user.token);
 
     const dispatcher = useDispatch();
 
@@ -37,38 +39,38 @@ export function useProducts(): UseProducts {
     const handleDeleteProduct = useCallback(
         async (id: ProductStructure['firebaseId']) => {
             try {
-                const deletedId = await repo.delete(id);
+                const deletedId = await repo.delete(id, userToken);
 
                 dispatcher(ac.deleteActionCreatorProducts(deletedId));
             } catch (error) {
                 handleError(error as Error);
             }
         },
-        [repo, dispatcher]
+        [repo, dispatcher, userToken]
     );
     const handleUpdateProduct = useCallback(
         async (productPayload: Partial<ProductStructure>) => {
             try {
-                await repo.update(productPayload);
+                await repo.update(productPayload, userToken);
 
                 dispatcher(ac.updateActionCreatorProducts(productPayload));
             } catch (error) {
                 handleError(error as Error);
             }
         },
-        [repo, dispatcher]
+        [repo, dispatcher, userToken]
     );
     const handleCreateProduct = useCallback(
         async (productPayload: ProductStructure) => {
             try {
-                await repo.create(productPayload);
+                await repo.create(productPayload, userToken);
 
                 dispatcher(ac.createActionCreatorProducts(productPayload));
             } catch (error) {
                 handleError(error as Error);
             }
         },
-        [repo, dispatcher]
+        [repo, dispatcher, userToken]
     );
     const handleQueryProduct = useCallback(
         async (productPayload: ProductStructure['firebaseId']) => {
