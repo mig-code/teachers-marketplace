@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useUserAuth } from '../../../core/hooks/use.users.auth';
+import { useUserAuth } from '../../../core/hooks/use.user.auth';
 import { RootState } from '../../../core/store/store';
 import { UserFavorites } from '../components/user.favorites/user.favorites';
 import { UserUploadedProducts } from '../components/user.uploaded.products/user.uploaded.products';

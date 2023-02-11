@@ -6,7 +6,7 @@ import './item.scss';
 import { ProductStructure } from '../../types/products.types';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
-import { useUserFavorites } from '../../hooks/use.favorites';
+import { useUserFavorites } from '../../hooks/use.user.favorites';
 import * as ac from '../../reducer/action.creator';
 
 export default function Item({ item }: { item: ProductStructure }) {

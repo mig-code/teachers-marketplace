@@ -9,9 +9,9 @@ import { configureStore } from '@reduxjs/toolkit';
 import { uploadImageReducer } from '../../reducer/upload.image.reducer';
 import { userReducer } from '../../reducer/user.reducer';
 import { UserStructure } from '../../types/user.type';
-import { useUserAuth } from '../../hooks/use.users.auth';
+import { useUserAuth } from '../../hooks/use.user.auth';
 
-jest.mock('../../hooks/use.users.auth');
+jest.mock('../../hooks/use.user.auth');
 
 describe('Given Menu component', () => {
     beforeEach(() => {

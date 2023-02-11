@@ -6,7 +6,7 @@ import { useProducts } from './use.products';
 
 export function useUserFavorites(item: ProductStructure) {
     const user = useSelector((state: RootState) => state.user);
-    console.log('USERHOOK');
+  
     const { handleUpdateProduct } = useProducts();
 
     const handleAddToFavorites = useCallback(async () => {

@@ -1,7 +1,7 @@
 import { UserStructure } from '../types/user.type';
 import { loginWithGoogle, logout } from '../services/login';
 import { useDispatch } from 'react-redux';
-import * as ac from '../../core/reducer/action.creator';
+import * as ac from '../reducer/action.creator';
 import { useCallback } from 'react';
 
 export type UseUserAuth = {

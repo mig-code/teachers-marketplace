@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { useUserAuth } from '../../hooks/use.users.auth';
+import { useUserAuth } from '../../hooks/use.user.auth';
 import { RootState } from '../../store/store';
 import './menu.scss';
 
