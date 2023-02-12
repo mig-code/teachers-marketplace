@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import { useUserFavorites } from '../../hooks/use.user.favorites';
 import { ButtonFavorite } from '../button.favorite/button.favorite';
+import { ButtonDelete } from '../button.delete/button.delete';
 
 export default function Item({ item }: { item: ProductStructure }) {
     const { handleDeleteProduct } = useProducts();
@@ -52,11 +53,11 @@ export default function Item({ item }: { item: ProductStructure }) {
             </div>
             <div className="item__category">{item.productInfo.category}</div>
 
-            {user.info.firebaseId === item.productInfo.ownerUid && (
-                <button className="delete" onClick={handleClickDelete}>
-                    Eliminar
-                </button>
-            )}
+            <ButtonDelete
+                item={item}
+                user={user}
+                handleClickDelete={handleClickDelete}
+            />
 
             <ButtonFavorite
                 item={item}
