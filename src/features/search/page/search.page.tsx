@@ -27,15 +27,19 @@ export function SearchPage() {
             <SearchBox></SearchBox>
             <div className="list">
                 {products
-                    .filter((item) =>
-                        item.productInfo.title
-                            .toLowerCase()
-                            .includes(search.searchQuery.toLowerCase())
+                    .filter(
+                        (item) =>
+                            item.productInfo.title
+                                .toLowerCase()
+                                .includes(search.searchQuery.toLowerCase()) ||
+                            item.productInfo.description
+                                .toLowerCase()
+                                .includes(search.searchQuery.toLowerCase())
                     )
                     .map((item) => (
-                        <li key={item.firebaseId}>
+                        <article className="item" key={item.firebaseId}>
                             <Item item={item} />
-                        </li>
+                        </article>
                     ))}
             </div>
         </>
