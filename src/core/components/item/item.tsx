@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useProducts } from '../../hooks/use.products';
+
 import './item.scss';
 
 import { ProductStructure } from '../../types/products.types';
@@ -8,10 +8,8 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import { useUserFavorites } from '../../hooks/use.user.favorites';
 import { ButtonFavorite } from '../button.favorite/button.favorite';
-import { ButtonDelete } from '../button.delete/button.delete';
 
 export default function Item({ item }: { item: ProductStructure }) {
-    const { handleDeleteProduct } = useProducts();
     const { handleAddToFavorites, handleRemoveFromFavorites } =
         useUserFavorites(item);
 
@@ -22,10 +20,6 @@ export default function Item({ item }: { item: ProductStructure }) {
     }
     async function handleClickDeleteFromFavorites() {
         await handleRemoveFromFavorites();
-    }
-
-    async function handleClickDelete() {
-        await handleDeleteProduct(item.firebaseId);
     }
 
     return (
@@ -52,12 +46,6 @@ export default function Item({ item }: { item: ProductStructure }) {
                 {item.productInfo.description}
             </div>
             <div className="item__category">{item.productInfo.category}</div>
-
-            <ButtonDelete
-                item={item}
-                user={user}
-                handleClickDelete={handleClickDelete}
-            />
 
             <ButtonFavorite
                 item={item}
