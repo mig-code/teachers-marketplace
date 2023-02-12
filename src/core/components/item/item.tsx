@@ -4,37 +4,28 @@ import { useProducts } from '../../hooks/use.products';
 import './item.scss';
 
 import { ProductStructure } from '../../types/products.types';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import { useUserFavorites } from '../../hooks/use.user.favorites';
-import * as ac from '../../reducer/action.creator';
+import { ButtonFavorite } from '../button.favorite/button.favorite';
 
 export default function Item({ item }: { item: ProductStructure }) {
     const { handleDeleteProduct } = useProducts();
     const { handleAddToFavorites, handleRemoveFromFavorites } =
         useUserFavorites(item);
+
     const user = useSelector((state: RootState) => state.user);
 
-    const dispatcher = useDispatch();
-
-    function handleClickAddToFavorites() {
-        dispatcher(ac.setCurrentActionCreatorProducts(item));
-        handleAddToFavorites();
+    async function handleClickAddToFavorites() {
+        await handleAddToFavorites();
     }
-    function handleClickDeleteFromFavorites() {
-        dispatcher(ac.setCurrentActionCreatorProducts(item));
-        handleRemoveFromFavorites();
+    async function handleClickDeleteFromFavorites() {
+        await handleRemoveFromFavorites();
     }
 
-    function handleClickDelete() {
-        handleDeleteProduct(item.firebaseId);
+    async function handleClickDelete() {
+        await handleDeleteProduct(item.firebaseId);
     }
-    const getIfUserLiked = () => {
-        if (item.isLikedBy) {
-            return item.isLikedBy.users.includes(user.info.firebaseId);
-        }
-        return false;
-    };
 
     return (
         <>
@@ -43,8 +34,8 @@ export default function Item({ item }: { item: ProductStructure }) {
                 <div className="item__favorites">
                     {item.isLikedBy
                         ? '¡Le gusta a ' +
-                        item.isLikedBy.users.length +
-                        ' personas !'
+                          item.isLikedBy.users.length +
+                          ' personas !'
                         : 'A nadie le gusta todavía'}{' '}
                 </div>
 
@@ -67,29 +58,12 @@ export default function Item({ item }: { item: ProductStructure }) {
                 </button>
             )}
 
-            {getIfUserLiked() && user?.info.firebaseId && (
-                <button
-                    className="favorite"
-                    onClick={handleClickDeleteFromFavorites}
-                >
-                    Eliminar de Favoritos
-                </button>
-            )}
-            {!getIfUserLiked() && user?.info.firebaseId && (
-                <button
-                    className="favorite"
-                    onClick={handleClickAddToFavorites}
-                >
-                    Añadir a Favoritos
-                </button>
-            )}
-
-            {/* Not necesarry right now */}
-            {/* {item.productInfo.ownerName && (
-                <div className="item__uploaded-by">
-                    Subido por: {item.productInfo.ownerName.split(' ')[0]}
-                </div>
-            )} */}
+            <ButtonFavorite
+                item={item}
+                user={user}
+                handleClickAddToFavorites={handleClickAddToFavorites}
+                handleClickDeleteFromFavorites={handleClickDeleteFromFavorites}
+            />
         </>
     );
 }
