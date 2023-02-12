@@ -3,22 +3,24 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useUserAuth } from '../../../core/hooks/use.user.auth';
 import { RootState } from '../../../core/store/store';
-import { UserFavorites } from '../components/user.favorites/user.favorites';
-import { UserUploadedProducts } from '../components/user.uploaded.products/user.uploaded.products';
+
+import { UserList } from '../components/user.list/user.list';
+
 
 export function UserPage() {
-    const [userMenu, setUserMenu] = useState('uploadedProductsTab');
+    const [userMenuTab, setUserMenuTab] = useState('userProductsTab');
     const user = useSelector((state: RootState) => state.user);
     const { handleLogout } = useUserAuth();
     const navigate = useNavigate();
 
     const handleUserMenu = (menu: string) => {
-        setUserMenu(menu);
+        setUserMenuTab(menu);
     };
     const handleLogoutOnClick = () => {
         handleLogout();
         navigate('/');
     };
+    console.log(userMenuTab)
 
     return (
         <section>
@@ -35,26 +37,14 @@ export function UserPage() {
                     </p>
                 )}
                 <div>
-                    <button
-                        onClick={() => handleUserMenu('uploadedProductsTab')}
-                    >
+                    <button onClick={() => handleUserMenu('userProductsTab')}>
                         Mis productos
                     </button>
-                    <button onClick={() => handleUserMenu('favoritesTab')}>
+                    <button onClick={() => handleUserMenu('userFavoritesTab')}>
                         Mis favoritos
                     </button>
                 </div>
-
-                {userMenu === 'uploadedProductsTab' && (
-                    <>
-                        <UserUploadedProducts></UserUploadedProducts>
-                    </>
-                )}
-                {userMenu === 'favoritesTab' && (
-                    <>
-                        <UserFavorites></UserFavorites>
-                    </>
-                )}
+                <UserList typeOfList={userMenuTab}></UserList>
             </div>
         </section>
     );
