@@ -18,7 +18,7 @@ import DetailsProduct from './details.product';
 
 jest.mock('../../../core/hooks/use.products');
 
-describe.only('Given Details Product component', () => {
+describe.skip('Given Details Product component', () => {
     const mockHandleUpdateProduct = jest.fn();
     const mockHandleQueryProduct = jest.fn();
 

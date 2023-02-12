@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useUserAuth } from '../../../../core/hooks/use.user.auth';
 import { RootState } from '../../../../core/store/store';
+import './user.info.scss';
 
 export function UserInfo() {
     const user = useSelector((state: RootState) => state.user);
@@ -14,18 +15,24 @@ export function UserInfo() {
     };
 
     return (
-        <>
-            <h4>Página de Usuario</h4>
-            <p>Nombre: {user.info?.name}</p>
+        <div className="user-info">
             {user.info.photoUrl && user.info.name && (
-                <img src={user.info.photoUrl} alt={user.info.name}></img>
+                <img
+                    className="user-info__img"
+                    src={user.info.photoUrl}
+                    alt={user.info.name}
+                ></img>
             )}
+            <p className="user-info__name"> {user.info?.name}</p>
 
             {user?.info.firebaseId && (
-                <p className="nav-button" onClick={handleLogoutOnClick}>
+                <button
+                    className="user-info__botton"
+                    onClick={handleLogoutOnClick}
+                >
                     Cerrar sesión
-                </p>
+                </button>
             )}
-        </>
+        </div>
     );
 }

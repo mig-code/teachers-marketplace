@@ -7,6 +7,8 @@ import { useUserFavorites } from '../../../../core/hooks/use.user.favorites';
 import { RootState } from '../../../../core/store/store';
 import { ProductStructure } from '../../../../core/types/products.types';
 
+import './user.item.scss';
+
 export default function UserItem({
     item,
     userMenuTab,
@@ -34,14 +36,19 @@ export default function UserItem({
     return (
         <>
             <img
-                className="item__image"
+                className="user-item__image"
                 src={item.productInfo.imgUrl}
                 alt={item.productInfo.title}
             />
-            <h2 className="item__title">{item.productInfo.title}</h2>
-            <div className="item__price"> {item.productInfo.price} €</div>
-            <div className="item__description">
-                {item.productInfo.description}
+            <div className="user-item__container">
+                <h2 className="user-item__title">{item.productInfo.title}</h2>
+                <div className="user-item__price">
+                    {' '}
+                    {item.productInfo.price} €
+                </div>
+                <div className="user-item__description">
+                    {item.productInfo.description}
+                </div>
             </div>
 
             {userMenuTab === 'userProductsTab' && (
