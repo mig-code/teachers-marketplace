@@ -48,13 +48,13 @@ describe('Given ProductsRepo', () => {
                 ok: true,
                 json: jest.fn().mockResolvedValue(id),
             });
-            const data = await repo.delete(id);
+            const data = await repo.delete(id, "token");
             expect(global.fetch).toHaveBeenCalled();
             expect(data).toBe(id);
         });
         test(`Then if there are NOT ID, we received a null`, async () => {
             await expect(async () => {
-                await repo.delete('');
+                await repo.delete('', "token");
             }).rejects.toThrowError();
             expect(global.fetch).not.toHaveBeenCalled();
         });
@@ -63,7 +63,7 @@ describe('Given ProductsRepo', () => {
                 ok: false,
             });
             await expect(async () => {
-                await repo.delete('bad');
+                await repo.delete('bad', "token");
             }).rejects.toThrowError();
             expect(global.fetch).toHaveBeenCalled();
         });
@@ -81,13 +81,13 @@ describe('Given ProductsRepo', () => {
                 ok: true,
                 json: jest.fn().mockResolvedValue(updatePayload),
             });
-            const data = await repo.update(updatePayload);
+            const data = await repo.update(updatePayload, "token");
             expect(global.fetch).toHaveBeenCalled();
             expect(data).toEqual(updatePayload);
         });
         test(`Then if there are NOT ID, we received a null`, async () => {
             await expect(async () => {
-                await repo.update({});
+                await repo.update({}, "token");
             }).rejects.toThrowError();
             expect(global.fetch).not.toHaveBeenCalled();
         });
@@ -102,7 +102,7 @@ describe('Given ProductsRepo', () => {
                 ok: false,
             });
             await expect(async () => {
-                await repo.update(updatePayload);
+                await repo.update(updatePayload, "token");
             }).rejects.toThrowError();
             expect(global.fetch).toHaveBeenCalled();
         });
@@ -125,7 +125,7 @@ describe('Given ProductsRepo', () => {
                 json: jest.fn().mockResolvedValue(mockNewProductPayload),
             });
 
-            const data = await repo.create(mockNewProductPayload);
+            const data = await repo.create(mockNewProductPayload, "token");
             expect(data).toHaveProperty(
                 'productInfo.title',
                 mockNewProductPayload.productInfo.title
@@ -141,7 +141,7 @@ describe('Given ProductsRepo', () => {
             });
 
             await expect(async () => {
-                await repo.create({} as ProductStructure);
+                await repo.create({} as ProductStructure, "token");
             }).rejects.toThrowError();
             expect(global.fetch).toHaveBeenCalled();
         });

@@ -17,8 +17,9 @@ import { Provider, useSelector } from 'react-redux';
 import { RootState } from '../store/store';
 import { configureStore } from '@reduxjs/toolkit';
 import { productsReducer } from '../reducer/products.reducer';
-import { mockProductEmpty } from '../../mocks/store.mock';
+import { emptyMockUser, mockProductEmpty } from '../../mocks/store.mock';
 import { currentReducer } from '../reducer/current.reducer';
+import { userReducer } from '../reducer/user.reducer';
 
 jest.mock('../services/products.repository');
 
@@ -37,12 +38,14 @@ describe(`Given useProducts (custom hook)
         current: {
             currentProduct: mockProductEmpty,
         },
+        user: emptyMockUser,
     };
 
     const mockStore = configureStore({
         reducer: {
             products: productsReducer,
             current: currentReducer,
+            user: userReducer,
         },
         preloadedState,
     });
