@@ -12,17 +12,14 @@ import * as ac from '../../../core/reducer/action.creator';
 import { ButtonFavorite } from '../../../core/components/button.favorite/button.favorite';
 
 export default function DetailsProduct() {
-    const { handleQueryProduct } = useProducts();
-    
-    console.log('LOAD DETAILS PRODUCT');
-
     const firebaseString = useParams().id as string;
+
     const item: ProductStructure = useSelector(
         (state: RootState) => state.current.currentProduct
     );
     const user = useSelector((state: RootState) => state.user);
-   
 
+    const { handleQueryProduct } = useProducts();
     const { handleAddToFavorites, handleRemoveFromFavorites } =
         useUserFavorites(item);
 
@@ -38,7 +35,6 @@ export default function DetailsProduct() {
         dispatcher(ac.setCurrentActionCreatorProducts(item));
         handleQueryProduct(firebaseString);
     }
-
 
     useEffect(() => {
         handleQueryProduct(firebaseString);
@@ -74,8 +70,8 @@ export default function DetailsProduct() {
                     <div className="details__favorites">
                         {item.isLikedBy
                             ? '¡Le gusta a  ' +
-                              item.isLikedBy.users.length +
-                              ' personas !'
+                            item.isLikedBy.users.length +
+                            ' personas !'
                             : 'A nadie le gusta todavía'}{' '}
                     </div>
 

@@ -116,7 +116,7 @@ describe('Given Menu component', () => {
                     </BrowserRouter>
                 </Provider>
             );
-            const buttonElement2 = screen.getAllByText('Mis Productos');
+            const buttonElement2 = screen.getAllByText('Mi cuenta');
             expect(buttonElement2[0]).toHaveAttribute('class', 'nav-button');
             userEvent.click(buttonElement2[0]);
 
