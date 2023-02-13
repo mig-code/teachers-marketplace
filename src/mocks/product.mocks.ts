@@ -49,7 +49,7 @@ export const productsMockWithFirebaseId: Array<ProductStructure> = [
 export const productMockWithSameOwner: ProductStructure = {
     productInfo: {
         id: 1,
-        title: 'Test product with samw owner',
+        title: 'Test product with same owner',
         description: 'Test description with same owner',
         price: 100,
         imgUrl: 'img4.jpg',
