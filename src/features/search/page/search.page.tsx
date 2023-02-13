@@ -34,7 +34,12 @@ export function SearchPage() {
         <>
             <h1>Búsqueda</h1>
             <SearchBox></SearchBox>
-            <List products={filteredProducts}></List>
+            <h2>Resultados</h2>
+
+            {filteredProducts.length === 0 && <p>No hay resultados</p>}
+            {filteredProducts.length > 0 && (
+                <List products={filteredProducts}></List>
+            )}
         </>
     );
 }
