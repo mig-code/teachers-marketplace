@@ -5,7 +5,7 @@ import { ProductStructure } from '../../types/products.types';
 import { UserStructure } from '../../types/user.type';
 import {
     productMockWithEmptyIsLikedBy,
-    productMockWithSameOwner,
+    productMockWithIsLikedBySameOwner,
 } from '../../../mocks/product.mocks';
 import { userMockSameOwner } from '../../../mocks/user.mock';
 import userEvent from '@testing-library/user-event';
@@ -38,7 +38,7 @@ describe('When render Button Favorite component with valid user and product', ()
         });
     });
     describe('When product its already favorite', () => {
-        const mockProduct: ProductStructure = productMockWithSameOwner;
+        const mockProduct: ProductStructure = productMockWithIsLikedBySameOwner;
 
         test('It should be on the screen Delete from Favorites', () => {
             render(

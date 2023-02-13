@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 
 import {
-    productMockWithSameOwner,
+    productMockWithIsLikedBySameOwner,
     productWithoutIsLikedBy,
 } from '../../../mocks/product.mocks';
 
@@ -66,7 +66,7 @@ describe('Given Item component', () => {
         });
     });
     describe('When it has been render with a favourite product', () => {
-        const productMock = productMockWithSameOwner;
+        const productMock = productMockWithIsLikedBySameOwner;
 
         test('Then Item info should have been render', () => {
             render(

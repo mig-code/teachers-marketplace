@@ -13,13 +13,13 @@ import { userReducer } from '../../../../core/reducer/user.reducer';
 import { productsReducer } from '../../../../core/reducer/products.reducer';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
-import { productMockWithSameOwner } from '../../../../mocks/product.mocks';
+import { productMockWithIsLikedBySameOwner } from '../../../../mocks/product.mocks';
 import userEvent from '@testing-library/user-event';
 jest.mock('../user.item/user.item');
 
 describe('When render UserList component wit products', () => {
     const mockUser: UserStructure = userMockSameOwner;
-    const mockProducts = [productMockWithSameOwner];
+    const mockProducts = [productMockWithIsLikedBySameOwner];
     const preloadedState: Partial<RootState> = {
         user: mockUser,
         products: mockProducts,
@@ -72,7 +72,6 @@ describe('When render UserList component wit products', () => {
             expect(listTitleElement).toBeInTheDocument();
             const itemElement = screen.getAllByRole('article');
             expect(itemElement).toHaveLength(mockProducts.length);
-           
         });
         test("then we can click on the tab 'Mis Productos'", () => {
             const myFavoritessTab = screen.getByRole('button', {

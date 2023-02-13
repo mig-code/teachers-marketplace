@@ -11,7 +11,7 @@ import { ProductStructure } from '../../../core/types/products.types';
 
 import {
     productMockWithEmptyIsLikedBy,
-    productMockWithSameOwner,
+    productMockWithIsLikedBySameOwner,
     productsMockWithFirebaseId,
 } from '../../../mocks/product.mocks';
 import {
@@ -75,7 +75,7 @@ describe('Given Details Product component', () => {
             const mockPreloadedState: Partial<RootState> = {
                 user: userMockSameOwner,
                 current: {
-                    currentProduct: productMockWithSameOwner,
+                    currentProduct: productMockWithIsLikedBySameOwner,
                 },
             };
 

@@ -10,7 +10,7 @@ import { RootState } from '../../../../core/store/store';
 import { UserStructure } from '../../../../core/types/user.type';
 import {
     productMockWithEmptyIsLikedBy,
-    productMockWithSameOwner,
+    productMockWithIsLikedBySameOwner,
 } from '../../../../mocks/product.mocks';
 import { userMockSameOwner } from '../../../../mocks/user.mock';
 import UserItem from './user.item';
@@ -46,7 +46,7 @@ describe('Given User Item component', () => {
     });
 
     describe('When it has been render with products and userProducts Tab', () => {
-        const productMock = productMockWithSameOwner;
+        const productMock = productMockWithIsLikedBySameOwner;
         const mockUserMenuTab = 'userProductsTab';
         test('Then we can remove it', () => {
             render(
@@ -92,7 +92,7 @@ describe('Given User Item component', () => {
             expect(mockHandleAddToFavorites).toHaveBeenCalled();
         });
         test('Then if product is already favorite button remove from favorites should be on screen', () => {
-            const productMock = productMockWithSameOwner;
+            const productMock = productMockWithIsLikedBySameOwner;
             render(
                 <Provider store={mockStore}>
                     <MemoryRouter>
