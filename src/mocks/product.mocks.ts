@@ -62,6 +62,21 @@ export const productMockWithSameOwner: ProductStructure = {
     firebaseId: '000001',
     isLikedBy: { users: ['sameOwnerUid'] },
 };
+export const productWithoutIsLikedBy: ProductStructure = {
+    productInfo: {
+        id: 1,
+        title: 'Test product with empty isLikedBy',
+        description: 'Test description with empty isLikedBy',
+        price: 100,
+        imgUrl: 'img1.jpg',
+        category: 'libros',
+        available: true,
+        ownerName: 'sameOwner',
+        ownerUid: 'sameOwnerUid',
+        publishedAt: '2021-01-01',
+    },
+    firebaseId: '000001',
+};
 
 export const productMockWithEmptyIsLikedBy: ProductStructure = {
     productInfo: {
