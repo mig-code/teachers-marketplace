@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 
 import { Menu } from './menu';
 import userEvent from '@testing-library/user-event';
-import { BrowserRouter } from 'react-router-dom';
+import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { RootState } from '../../store/store';
 import { configureStore } from '@reduxjs/toolkit';
@@ -47,9 +47,9 @@ describe('Given Menu component', () => {
 
             render(
                 <Provider store={mockStore}>
-                    <BrowserRouter>
+                    <MemoryRouter>
                         <Menu />
-                    </BrowserRouter>
+                    </MemoryRouter>
                 </Provider>
             );
             const buttonElement = screen.getAllByText('Login');
@@ -66,9 +66,9 @@ describe('Given Menu component', () => {
 
             render(
                 <Provider store={mockStore}>
-                    <BrowserRouter>
+                    <MemoryRouter>
                         <Menu />
-                    </BrowserRouter>
+                    </MemoryRouter>
                 </Provider>
             );
             const buttonElement = screen.getAllByText('Publicar');
@@ -111,9 +111,9 @@ describe('Given Menu component', () => {
 
             render(
                 <Provider store={mockStore}>
-                    <BrowserRouter>
+                    <MemoryRouter>
                         <Menu />
-                    </BrowserRouter>
+                    </MemoryRouter>
                 </Provider>
             );
             const buttonElement2 = screen.getAllByText('Mi cuenta');

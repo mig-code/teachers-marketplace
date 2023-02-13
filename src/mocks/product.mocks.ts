@@ -45,3 +45,20 @@ export const productsMockWithFirebaseId: Array<ProductStructure> = [
         firebaseId: '3',
     },
 ];
+
+export const productMockWithSameOwner: ProductStructure = {
+    productInfo: {
+        id: 1,
+        title: 'Test product with samw owner',
+        description: 'Test description with same owner',
+        price: 100,
+        imgUrl: 'img4.jpg',
+        category: 'libros',
+        available: true,
+        ownerName: 'sameOwner',
+        ownerUid: 'sameOwnerUid',
+        publishedAt: '2021-01-01',
+    },
+    firebaseId: '000001',
+    isLikedBy: { users: ['sameOwnerUid'] },
+};
