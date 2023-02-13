@@ -29,7 +29,9 @@ export function UserList() {
         );
     }
     const title =
-        userMenuTab === 'userFavoritesTab' ? 'Favoritos' : 'Mis productos';
+        userMenuTab === 'userFavoritesTab'
+            ? 'Mis productos Favoritos'
+            : 'Mis productos subidos';
 
     return (
         <div className="user-list">
