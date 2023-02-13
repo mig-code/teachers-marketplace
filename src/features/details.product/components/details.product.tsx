@@ -1,47 +1,44 @@
 import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import { useProducts } from '../../../core/hooks/use.products';
+import { useUserFavorites } from '../../../core/hooks/use.user.favorites';
 import { RootState } from '../../../core/store/store';
 import { ProductStructure } from '../../../core/types/products.types';
 import './details.product.scss';
+import * as ac from '../../../core/reducer/action.creator';
+
+import { ButtonFavorite } from '../../../core/components/button.favorite/button.favorite';
 
 export default function DetailsProduct() {
-    const { handleUpdateProduct, handleQueryProduct } = useProducts();
-
     const firebaseString = useParams().id as string;
+
     const item: ProductStructure = useSelector(
         (state: RootState) => state.current.currentProduct
     );
+    const user = useSelector((state: RootState) => state.user);
+
+    const { handleQueryProduct } = useProducts();
+    const { handleAddToFavorites, handleRemoveFromFavorites } =
+        useUserFavorites(item);
+
+    const dispatcher = useDispatch();
 
     async function handleClickAddToFavorites() {
-        let AddUserLike: Partial<ProductStructure>;
-
-        if (!item.isLikedBy) {
-            AddUserLike = {
-                ...item,
-                isLikedBy: {
-                    users: ['user1'],
-                },
-            };
-        } else {
-            AddUserLike = {
-                ...item,
-                isLikedBy: {
-                    ...item.isLikedBy,
-                    users: [...item.isLikedBy.users, 'user1'],
-                },
-            };
-        }
-
-        await handleUpdateProduct(AddUserLike);
+        await handleAddToFavorites();
+        dispatcher(ac.setCurrentActionCreatorProducts(item));
+        handleQueryProduct(firebaseString);
+    }
+    async function handleClickDeleteFromFavorites() {
+        await handleRemoveFromFavorites();
+        dispatcher(ac.setCurrentActionCreatorProducts(item));
         handleQueryProduct(firebaseString);
     }
 
     useEffect(() => {
         handleQueryProduct(firebaseString);
-    }, [handleQueryProduct, firebaseString]);
+    }, [firebaseString, handleQueryProduct]);
 
     return (
         <article className="details">
@@ -65,7 +62,8 @@ export default function DetailsProduct() {
                     </div>
                     {item.productInfo.ownerName && (
                         <div className="details__uploaded-by">
-                            Subido por: {item.productInfo.ownerName}
+                            Subido por:{' '}
+                            {item.productInfo.ownerName.split(' ')[0]}
                         </div>
                     )}
 
@@ -77,9 +75,14 @@ export default function DetailsProduct() {
                             : 'A nadie le gusta todavía'}{' '}
                     </div>
 
-                    <button onClick={handleClickAddToFavorites}>
-                        Añadir a Favoritos
-                    </button>
+                    <ButtonFavorite
+                        item={item}
+                        user={user}
+                        handleClickAddToFavorites={handleClickAddToFavorites}
+                        handleClickDeleteFromFavorites={
+                            handleClickDeleteFromFavorites
+                        }
+                    />
                 </>
             ) : (
                 <h2>Producto no encontrado</h2>

@@ -1,3 +1,6 @@
+/* eslint-disable testing-library/await-async-utils */
+/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable testing-library/no-unnecessary-act */
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
@@ -84,33 +87,28 @@ describe('Given render AddProductForm component', () => {
                 type: 'image/png',
             });
 
-            // eslint-disable-next-line testing-library/no-unnecessary-act
             const saveImageInStorageMock = jest.fn();
             const getUrlsFromStorageMock = jest.fn();
             saveImageInStorageMock.mockResolvedValue('testImage.png');
             getUrlsFromStorageMock.mockResolvedValue('testIResmage.png');
             jest.spyOn(
-                // eslint-disable-next-line @typescript-eslint/no-var-requires
                 require('../../../core/services/storage'),
                 'saveImageInStorage'
             ).mockImplementation(saveImageInStorageMock);
             jest.spyOn(
-                // eslint-disable-next-line @typescript-eslint/no-var-requires
                 require('../../../core/services/storage'),
                 'getUrlsFromStorage'
             ).mockImplementation(getUrlsFromStorageMock);
 
-            // eslint-disable-next-line testing-library/no-unnecessary-act
             await act(async () => {
                 userEvent.upload(uploadImageInput, file);
             });
             expect(saveImageInStorageMock).toHaveBeenCalled();
 
-            // eslint-disable-next-line testing-library/await-async-utils
             waitFor(async () => {
                 await expect(getUrlsFromStorageMock).toHaveBeenCalled();
             });
-            // eslint-disable-next-line testing-library/await-async-utils
+
             waitFor(() => {
                 expect(uploadImageInput).toHaveValue('testImage.png');
             });
@@ -146,10 +144,8 @@ describe('Given render AddProductForm component', () => {
             const uploadImageInput = screen.getByLabelText(/Subir Imagen/i);
             expect(uploadImageInput).toBeInTheDocument();
 
-            const file = new File([''], 'testImage.png', {
-                type: 'image/png',
-            });
-            // eslint-disable-next-line testing-library/no-unnecessary-act
+            const file = null as unknown as File;
+
             act(() => {
                 userEvent.upload(uploadImageInput, file);
             });

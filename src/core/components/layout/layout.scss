@@ -1,14 +1,14 @@
 @import '../../../sass/variables';
 .layout-container {
     margin: 0 auto;
-    max-width: 1250px;
+    max-width: 1350px;
 }
 .layout-children {
-    max-width: 950px;
+    max-width: 1050px;
     margin: 0 auto;
+    padding: 0 1rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
-
+    align-items: stretch;
 }

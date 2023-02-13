@@ -1,0 +1,34 @@
+@import '../../../../sass/variables';
+@import '../../../../sass/mixins';
+
+.user-list {
+    padding: 0 1rem;
+
+    &__title {
+        font-size: $font-size-h2;
+        font-weight: 600;
+    }
+    &__options {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 1rem;
+
+        border-radius: 1rem;
+    }
+    &__button {
+        margin-right: 1rem;
+    }
+}
+
+.item-list__list {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: stretch;
+    padding: 1rem;
+    margin-top: 1rem;
+    border-radius: 1rem;
+    justify-content: flex-start;
+}

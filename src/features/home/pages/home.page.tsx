@@ -1,14 +1,13 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Item from '../../../core/components/item/item';
-
 import { useProducts } from '../../../core/hooks/use.products';
 import { RootState } from '../../../core/store/store';
 import { SearchBox } from '../../search/components/search.box';
 
 import * as ac from '../../../core/reducer/action.creator';
 import './home.page.scss';
+import { List } from '../../../core/components/list/list';
 
 export function HomePage() {
     const { handleLoadProducts } = useProducts();
@@ -29,7 +28,8 @@ export function HomePage() {
                 Dale una segunda vida al material escolar
             </h1>
             <SearchBox></SearchBox>
-            <div className="list">
+            <List products={products.slice(0).reverse()}></List>
+            {/* <div className="list">
                 {products
                     .slice(0)
                     .reverse()
@@ -38,7 +38,7 @@ export function HomePage() {
                             <Item item={item} />
                         </article>
                     ))}
-            </div>
+            </div> */}
         </>
     );
 }

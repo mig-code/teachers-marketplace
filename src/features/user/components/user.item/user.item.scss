@@ -1,0 +1,56 @@
+@import '../../../../sass/variables';
+@import '../../../../sass/mixins';
+
+.user-item {
+    border: 1px solid $color-grey-dark-1;
+    background-color: $color-grey-light-1;
+    border-radius: 15px;
+    padding: 0.5rem 1rem;
+    margin: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    transition: all 0.1s ease-in-out;
+    align-items: center;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    .user-item__container {
+        width: 60%;
+        margin: 0 1rem;
+    }
+
+    &__image {
+        width: 10rem;
+        height: 10rem;
+        border-radius: 1rem;
+        object-fit: cover;
+    }
+    &__title {
+        font-size: $font-size-h2;
+        font-weight: 600;
+    }
+    &__price {
+        background-color: $color-secondary;
+        color: $color-white;
+        font-family: $font-stack-secondary;
+        padding: 0.2em 0.5em;
+        border-radius: 5px;
+        width: fit-content;
+    }
+    &__description {
+        font-size: $font-size-small;
+        font-weight: 400;
+        margin: 0.5rem 0;
+        display: -webkit-box;
+
+        height: 40px;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: horizontal;
+        overflow: hidden;
+    }
+    &__botton {
+        color: $color-secondary;
+        background-color: $color-tertiary;
+    }
+}

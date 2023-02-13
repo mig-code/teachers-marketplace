@@ -45,3 +45,52 @@ export const productsMockWithFirebaseId: Array<ProductStructure> = [
         firebaseId: '3',
     },
 ];
+
+export const productMockWithIsLikedBySameOwner: ProductStructure = {
+    productInfo: {
+        id: 1,
+        title: 'Test product with same owner',
+        description: 'Test description with same owner',
+        price: 100,
+        imgUrl: 'img4.jpg',
+        category: 'libros',
+        available: true,
+        ownerName: 'sameOwner',
+        ownerUid: 'sameOwnerUid',
+        publishedAt: '2021-01-01',
+    },
+    firebaseId: '000001',
+    isLikedBy: { users: ['sameOwnerUid'] },
+};
+export const productWithoutIsLikedBy: ProductStructure = {
+    productInfo: {
+        id: 1,
+        title: 'Test product with empty isLikedBy',
+        description: 'Test description with empty isLikedBy',
+        price: 100,
+        imgUrl: 'img1.jpg',
+        category: 'libros',
+        available: true,
+        ownerName: 'sameOwner',
+        ownerUid: 'sameOwnerUid',
+        publishedAt: '2021-01-01',
+    },
+    firebaseId: '000001',
+};
+
+export const productMockWithEmptyIsLikedBy: ProductStructure = {
+    productInfo: {
+        id: 1,
+        title: 'Test product with empty isLikedBy',
+        description: 'Test description with empty isLikedBy',
+        price: 100,
+        imgUrl: 'img1.jpg',
+        category: 'libros',
+        available: true,
+        ownerName: 'sameOwner',
+        ownerUid: 'sameOwnerUid',
+        publishedAt: '2021-01-01',
+    },
+    firebaseId: '000001',
+    isLikedBy: { users: [] },
+};

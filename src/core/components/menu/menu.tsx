@@ -31,7 +31,7 @@ export function Menu() {
                     }
                     to={'/mis-productos'}
                 >
-                    Mis Productos
+                    Mi cuenta
                 </NavLink>
             )}
 
