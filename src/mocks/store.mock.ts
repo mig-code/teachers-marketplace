@@ -61,6 +61,21 @@ export const mockProduct2: ProductStructure = {
     },
     firebaseId: '000002',
 };
+export const mockProductWithoutTitle: ProductStructure = {
+    productInfo: {
+        id: 3,
+        title: '',
+        description: 'Test description 3',
+        price: 300,
+        imgUrl: 'img3.jpg',
+        category: 'libros',
+        available: true,
+        ownerName: 'ownerName3',
+        ownerUid: 'userUid3',
+        publishedAt: '2021-01-01',
+    },
+    firebaseId: '000003',
+};
 
 export const mockProductWithIsLikedBy: ProductStructure = {
     productInfo: {
