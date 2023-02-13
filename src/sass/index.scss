@@ -114,10 +114,13 @@ textarea {
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     grid-gap: 1rem;
     margin: 1rem;
-    width: 100%;
     max-width: 1200px;
     justify-items: center;
 }
+.user-list {
+    max-width: 100%;
+}
+
 
 button {
     background-color: $color-white;

@@ -162,6 +162,7 @@ export function AddProductForm() {
                         <option value="material escolar">
                             Material Escolar
                         </option>
+                        <option value="material escolar">Otros</option>
                     </select>
                 </div>
 
