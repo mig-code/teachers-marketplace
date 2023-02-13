@@ -25,7 +25,7 @@ export class ProductsRepository implements Repository<ProductStructure> {
             throw new Error(`Error ${resp.status}: ${resp.statusText}`);
 
         const result = await resp.json();
-        if (!result) return [];
+
         return Object.keys(result).map((key) => ({
             ...result[key],
             firebaseId: key,

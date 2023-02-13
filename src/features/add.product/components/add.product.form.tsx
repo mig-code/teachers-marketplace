@@ -65,10 +65,8 @@ export function AddProductForm() {
     const handleUploadImage = async (
         event: React.ChangeEvent<HTMLInputElement>
     ) => {
-        let file: File | null = null;
         try {
-            if (!event.target.files) return;
-            file = event.target.files[0];
+            const file = event.target.files?.[0] as File;
 
             await saveImageInStorage(file, 'test/', file.name);
             const url = await getUrlsFromStorage('test/', file.name);
