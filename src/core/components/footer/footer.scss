@@ -1,0 +1,17 @@
+@import '../../../sass/variables';
+@import '../../../sass/mixins';
+
+footer {
+    color: $color-black;
+    padding: 1rem 0;
+    text-align: center;
+    font-size: 0.8rem;
+    border-top: $color-grey-dark-1 1px solid;
+    a {
+        color: $color-secondary;
+        text-decoration: none;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
