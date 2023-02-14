@@ -1,33 +1,38 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { AddProductPage } from '../../../features/add.product/pages/add.product.page';
-import { DetailsProductsPage } from '../../../features/details.product/pages/details.product.page';
-import { HomePage } from '../../../features/home/pages/home.page';
-import { SearchPage } from '../../../features/search/page/search.page';
-import { UserPage } from '../../../features/user/pages/user.page';
+import { lazy, Suspense } from 'react';
 
-export function AppRoutes() {
+const Home = lazy(() => import('../../../features/home/pages/home.page'));
+const AddProduct = lazy(
+    () => import('../../../features/add.product/pages/add.product.page')
+);
+const DetailsProducts = lazy(
+    () => import('../../../features/details.product/pages/details.product.page')
+);
+const Search = lazy(() => import('../../../features/search/page/search.page'));
+const User = lazy(() => import('../../../features/user/pages/user.page'));
+
+export function AppLazyRoutes() {
     return (
-        <Routes>
-            <Route path={''} element={<HomePage></HomePage>}></Route>
-            <Route
-                path={'subir-producto'}
-                element={<AddProductPage></AddProductPage>}
-            ></Route>
-            <Route
-                path={'mis-productos'}
-                element={<UserPage></UserPage>}
-            ></Route>
+        <Suspense fallback={<div>Loading</div>}>
+            <Routes>
+                <Route path={''} element={<Home></Home>}></Route>
+                <Route
+                    path={'subir-producto'}
+                    element={<AddProduct></AddProduct>}
+                ></Route>
+                <Route path={'mis-productos'} element={<User></User>}></Route>
 
-            <Route path={'buscar'} element={<SearchPage></SearchPage>}></Route>
-            <Route
-                path={'producto/:id'}
-                element={<DetailsProductsPage></DetailsProductsPage>}
-            ></Route>
+                <Route path={'buscar'} element={<Search></Search>}></Route>
+                <Route
+                    path={'producto/:id'}
+                    element={<DetailsProducts></DetailsProducts>}
+                ></Route>
 
-            <Route
-                path={'*'}
-                element={<Navigate to="" replace></Navigate>}
-            ></Route>
-        </Routes>
+                <Route
+                    path={'*'}
+                    element={<Navigate to="" replace></Navigate>}
+                ></Route>
+            </Routes>
+        </Suspense>
     );
 }

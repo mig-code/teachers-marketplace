@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 
 import { MemoryRouter } from 'react-router-dom';
-import { HomePage } from './home.page';
+import HomePage from './home.page';
 import { store } from '../../../core/store/store';
 import { Provider } from 'react-redux';
 

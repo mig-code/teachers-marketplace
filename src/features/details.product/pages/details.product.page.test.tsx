@@ -5,7 +5,7 @@ import { MemoryRouter } from 'react-router-dom';
 
 import { Provider } from 'react-redux';
 import { store } from '../../../core/store/store';
-import { DetailsProductsPage } from './details.product.page';
+import DetailsProductsPage from './details.product.page';
 import DetailsProduct from '../components/details.product';
 
 jest.mock('../components/details.product');

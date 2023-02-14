@@ -40,6 +40,7 @@ export default function Item({ item }: { item: ProductStructure }) {
                     className="item__image"
                     src={item.productInfo.imgUrl}
                     alt={item.productInfo.title}
+                    loading="lazy"
                 />
             </Link>
             <div className="item__description">
