@@ -1,39 +1,40 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 
-const HomePage = lazy(() => import('../../../features/home/pages/home.page'));
-const AddProductPage = lazy(
+const Home = lazy(() => import('../../../features/home/pages/home.page'));
+const AddProduct
+ = lazy(
     () => import('../../../features/add.product/pages/add.product.page')
 );
-const DetailsProductsPage = lazy(
+const DetailsProducts = lazy(
     () => import('../../../features/details.product/pages/details.product.page')
 );
-const SearchPage = lazy(
+const Search = lazy(
     () => import('../../../features/search/page/search.page')
 );
-const UserPage = lazy(() => import('../../../features/user/pages/user.page'));
+const User = lazy(() => import('../../../features/user/pages/user.page'));
 
 export function AppLazyRoutes() {
     return (
         <Suspense fallback={<div>Loading</div>}>
             <Routes>
-                <Route path={''} element={<HomePage></HomePage>}></Route>
+                <Route path={''} element={<Home></Home>}></Route>
                 <Route
                     path={'subir-producto'}
-                    element={<AddProductPage></AddProductPage>}
+                    element={<AddProduct></AddProduct>}
                 ></Route>
                 <Route
                     path={'mis-productos'}
-                    element={<UserPage></UserPage>}
+                    element={<User></User>}
                 ></Route>
 
                 <Route
                     path={'buscar'}
-                    element={<SearchPage></SearchPage>}
+                    element={<Search></Search>}
                 ></Route>
                 <Route
                     path={'producto/:id'}
-                    element={<DetailsProductsPage></DetailsProductsPage>}
+                    element={<DetailsProducts></DetailsProducts>}
                 ></Route>
 
                 <Route
