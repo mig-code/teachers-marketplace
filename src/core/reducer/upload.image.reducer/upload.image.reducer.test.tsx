@@ -1,4 +1,4 @@
-import { actionTypesUploadImage } from './action.types';
+import { actionTypesUploadImage } from '../action.types';
 import { uploadImageReducer } from './upload.image.reducer';
 
 describe('Given the function uploadImageReducer', () => {

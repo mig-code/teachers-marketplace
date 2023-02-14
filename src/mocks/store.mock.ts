@@ -1,8 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { productsReducer } from '../core/reducer/products.reducer';
-import { searchReducer, SearchState } from '../core/reducer/search.reducer';
+import { productsReducer } from '../core/reducer/products.reducer/products.reducer';
+import {
+    searchReducer,
+    SearchState,
+} from '../core/reducer/search.reducer/search.reducer';
 
-import { userReducer } from '../core/reducer/user.reducer';
+import { userReducer } from '../core/reducer/user.reducer/user.reducer';
 import { RootState } from '../core/store/store';
 import { ProductStructure } from '../core/types/products.types';
 import { UserStructure } from '../core/types/user.type';

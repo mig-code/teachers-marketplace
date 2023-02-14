@@ -13,7 +13,7 @@ import { useUserFavorites } from '../../hooks/use.user.favorites';
 import { userMockSameOwner } from '../../../mocks/user.mock';
 import { UserStructure } from '../../types/user.type';
 import { configureStore } from '@reduxjs/toolkit';
-import { userReducer } from '../../reducer/user.reducer';
+import { userReducer } from '../../reducer/user.reducer/user.reducer';
 import userEvent from '@testing-library/user-event';
 
 jest.mock('../../hooks/use.products');

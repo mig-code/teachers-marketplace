@@ -8,9 +8,9 @@ import { UserStructure } from '../../../../core/types/user.type';
 import { userMockSameOwner } from '../../../../mocks/user.mock';
 import { RootState } from '../../../../core/store/store';
 import { configureStore } from '@reduxjs/toolkit';
-import { userReducer } from '../../../../core/reducer/user.reducer';
+import { userReducer } from '../../../../core/reducer/user.reducer/user.reducer';
 
-import { productsReducer } from '../../../../core/reducer/products.reducer';
+import { productsReducer } from '../../../../core/reducer/products.reducer/products.reducer';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import { productMockWithIsLikedBySameOwner } from '../../../../mocks/product.mocks';

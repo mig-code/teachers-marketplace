@@ -3,11 +3,14 @@ import {
     mockProduct1Updated,
     mockProduct2,
     mockProductWithIsLikedBy,
-} from '../../mocks/store.mock';
-import { ProductStructure } from '../types/products.types';
-import { actionTypesProducts } from './action.types';
+} from '../../../mocks/store.mock';
+import { ProductStructure } from '../../types/products.types';
+import { actionTypesProducts } from '../action.types';
 
-import { productsReducer, productstState } from './products.reducer';
+import {
+    productsReducer,
+    productstState,
+} from './products.reducer';
 
 describe('Given the function productReducer', () => {
     let action: { type: string; payload: unknown };

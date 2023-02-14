@@ -12,11 +12,11 @@ import {
     mockProductsState,
     mockProductWithoutTitle,
 } from '../../../mocks/store.mock';
-import { searchReducer } from '../../../core/reducer/search.reducer';
+import { searchReducer } from '../../../core/reducer/search.reducer/search.reducer';
 import { configureStore } from '@reduxjs/toolkit';
-import { productsReducer } from '../../../core/reducer/products.reducer';
+import { productsReducer } from '../../../core/reducer/products.reducer/products.reducer';
 import { useProducts } from '../../../core/hooks/use.products';
-import { userReducer } from '../../../core/reducer/user.reducer';
+import { userReducer } from '../../../core/reducer/user.reducer/user.reducer';
 import userEvent from '@testing-library/user-event';
 
 jest.mock('../../../core/hooks/use.products');

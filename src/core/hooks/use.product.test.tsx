@@ -16,10 +16,10 @@ import * as debug from '../../tools/debug';
 import { Provider, useSelector } from 'react-redux';
 import { RootState } from '../store/store';
 import { configureStore } from '@reduxjs/toolkit';
-import { productsReducer } from '../reducer/products.reducer';
+import { productsReducer } from '../reducer/products.reducer/products.reducer';
 import { emptyMockUser, mockProductEmpty } from '../../mocks/store.mock';
-import { currentReducer } from '../reducer/current.reducer';
-import { userReducer } from '../reducer/user.reducer';
+import { currentReducer } from '../reducer/current.reducer/current.reducer';
+import { userReducer } from '../reducer/user.reducer/user.reducer';
 
 jest.mock('../services/products.repository');
 

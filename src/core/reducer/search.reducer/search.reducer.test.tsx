@@ -1,4 +1,4 @@
-import { actionTypesSearch } from './action.types';
+import { actionTypesSearch } from '../action.types';
 
 import { searchReducer, SearchState } from './search.reducer';
 

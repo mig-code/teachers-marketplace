@@ -1,6 +1,6 @@
-import { mockProduct1, mockProductEmpty } from '../../mocks/store.mock';
-import { ProductStructure } from '../types/products.types';
-import { actionTypesProducts } from './action.types';
+import { mockProduct1, mockProductEmpty } from '../../../mocks/store.mock';
+import { ProductStructure } from '../../types/products.types';
+import { actionTypesProducts } from '../action.types';
 
 import { currentReducer, currentState } from './current.reducer';
 

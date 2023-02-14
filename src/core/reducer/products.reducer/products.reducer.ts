@@ -1,7 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { ProductStructure } from '../types/products.types';
+import { ProductStructure } from '../../types/products.types';
 
-import * as ac from './action.creator';
+import * as ac from '../action.creator';
 
 const initialState: Array<ProductStructure> = [];
 export type productstState = {

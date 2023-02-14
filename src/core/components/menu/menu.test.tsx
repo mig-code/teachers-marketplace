@@ -6,8 +6,8 @@ import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { RootState } from '../../store/store';
 import { configureStore } from '@reduxjs/toolkit';
-import { uploadImageReducer } from '../../reducer/upload.image.reducer';
-import { userReducer } from '../../reducer/user.reducer';
+import { uploadImageReducer } from '../../reducer/upload.image.reducer/upload.image.reducer';
+import { userReducer } from '../../reducer/user.reducer/user.reducer';
 import { UserStructure } from '../../types/user.type';
 import { useUserAuth } from '../../hooks/use.user.auth';
 

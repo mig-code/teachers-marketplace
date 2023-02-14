@@ -1,7 +1,7 @@
-import { emptyMockUser } from '../../mocks/store.mock';
-import { userMockSameOwner } from '../../mocks/user.mock';
-import { UserStructure } from '../types/user.type';
-import { actionTypesUser } from './action.types';
+import { emptyMockUser } from '../../../mocks/store.mock';
+import { userMockSameOwner } from '../../../mocks/user.mock';
+import { UserStructure } from '../../types/user.type';
+import { actionTypesUser } from '../action.types';
 
 import { userReducer } from './user.reducer';
 

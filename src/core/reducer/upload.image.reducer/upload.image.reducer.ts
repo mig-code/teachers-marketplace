@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 
-import * as ac from './action.creator';
+import * as ac from '../action.creator';
 
 const initialState = '';
 
