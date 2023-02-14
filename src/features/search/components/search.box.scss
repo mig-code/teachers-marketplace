@@ -11,21 +11,23 @@
         @include flex-center;
         input {
             width: 100%;
-            border: 1px solid $color-primary;
+            border: 2px solid $color-grey-dark-1;
             border-radius: 15px;
             padding: 0.5rem 1rem;
             font-size: $font-size-base;
-            font-family: $font-stack-secondary;
-            color: $color-primary;
-            font-weight: bold;
+            font-family: $font-stack-primary;
+            color: $color-black-light-1;
+            
             margin: 0 0.5rem;
             &:focus {
                 outline: none;
+                border: 2px solid $color-black-light-1;
             }
         }
         ::placeholder {
             color: $color-grey-dark-1;
         }
+        
     }
     &__button {
         background-color: $color-primary;

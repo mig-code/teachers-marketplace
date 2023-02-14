@@ -111,11 +111,12 @@ textarea {
 
 .list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     grid-gap: 1rem;
     margin: 1rem;
     max-width: 1200px;
     justify-items: center;
+    flex-wrap: wrap;
 }
 .user-list {
     max-width: 100%;
@@ -131,6 +132,7 @@ button {
     font-family: $font-stack-secondary;
     color: $color-primary;
     font-weight: bold;
+    margin: 0.5;
 
     cursor: pointer;
     transition: all 0.2s ease-in-out;

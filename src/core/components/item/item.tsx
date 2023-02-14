@@ -29,8 +29,8 @@ export default function Item({ item }: { item: ProductStructure }) {
                 <div className="item__favorites">
                     {item.isLikedBy
                         ? '¡Le gusta a ' +
-                        item.isLikedBy.users.length +
-                        ' personas !'
+                          item.isLikedBy.users.length +
+                          ' personas !'
                         : 'A nadie le gusta todavía'}{' '}
                 </div>
 
@@ -42,12 +42,14 @@ export default function Item({ item }: { item: ProductStructure }) {
                     alt={item.productInfo.title}
                     loading="lazy"
                 />
-            </Link>
-            <div className="item__description">
-                {item.productInfo.description}
-            </div>
-            <div className="item__category">{item.productInfo.category}</div>
 
+                <div className="item__description">
+                    {item.productInfo.description}
+                </div>
+                <div className="item__category">
+                    {item.productInfo.category}
+                </div>
+            </Link>
             <ButtonFavorite
                 item={item}
                 user={user}

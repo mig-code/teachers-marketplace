@@ -28,17 +28,8 @@ export default function HomePage() {
                 Dale una segunda vida al material escolar
             </h1>
             <SearchBox></SearchBox>
+            <h2 className='home-subtitle'>¡Últimos productos subidos!</h2>
             <List products={products.slice(0).reverse()}></List>
-            {/* <div className="list">
-                {products
-                    .slice(0)
-                    .reverse()
-                    .map((item) => (
-                        <article className="item" key={item.firebaseId}>
-                            <Item item={item} />
-                        </article>
-                    ))}
-            </div> */}
         </>
     );
 }
