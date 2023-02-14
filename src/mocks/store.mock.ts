@@ -46,6 +46,21 @@ export const mockProduct1: ProductStructure = {
     },
     firebaseId: '000001',
 };
+export const mockProduct1Updated: ProductStructure = {
+    productInfo: {
+        id: 1,
+        title: 'Test product 1 updated',
+        description: 'Test description 1',
+        price: 100,
+        imgUrl: 'img1.jpg',
+        category: 'libros',
+        available: true,
+        ownerName: 'ownerName1',
+        ownerUid: 'userUid1',
+        publishedAt: '2021-01-01',
+    },
+    firebaseId: '000001',
+};
 export const mockProduct2: ProductStructure = {
     productInfo: {
         id: 2,

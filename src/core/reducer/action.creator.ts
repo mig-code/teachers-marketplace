@@ -8,7 +8,6 @@ import {
     actionTypesSearch,
 } from './action.types';
 
-/// createAction<number>  El tipo de dato que se espera en el payload
 
 export const setUploadImageUrlActionCreatorUploadImage = createAction<string>(
     actionTypesUploadImage.setUploadImageUrl
