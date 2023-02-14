@@ -8,7 +8,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { UserStructure } from '../../../../core/types/user.type';
 import { RootState } from '../../../../core/store/store';
 import { UserInfo } from './user.info';
-import { userReducer } from '../../../../core/reducer/user.reducer';
+import { userReducer } from '../../../../core/reducer/user.reducer/user.reducer';
 import { useUserAuth } from '../../../../core/hooks/use.user.auth';
 import { MemoryRouter } from 'react-router-dom';
 

@@ -12,7 +12,7 @@ import {
     mockProductWithIsLikedByUpdated,
 } from '../../mocks/store.mock';
 
-import { userReducer } from '../reducer/user.reducer';
+import { userReducer } from '../reducer/user.reducer/user.reducer';
 import { RootState } from '../store/store';
 import { ProductStructure } from '../types/products.types';
 import { UserStructure } from '../types/user.type';

@@ -9,7 +9,7 @@ import {
 } from '../../../mocks/store.mock';
 import { SearchBox } from './search.box';
 
-import { searchReducer } from '../../../core/reducer/search.reducer';
+import { searchReducer } from '../../../core/reducer/search.reducer/search.reducer';
 import { RootState } from '../../../core/store/store';
 
 describe('Given SearchBox component', () => {

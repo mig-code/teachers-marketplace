@@ -4,8 +4,8 @@ import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import { useProducts } from '../../../core/hooks/use.products';
 import { useUserFavorites } from '../../../core/hooks/use.user.favorites';
-import { currentReducer } from '../../../core/reducer/current.reducer';
-import { userReducer } from '../../../core/reducer/user.reducer';
+import { currentReducer } from '../../../core/reducer/current.reducer/current.reducer';
+import { userReducer } from '../../../core/reducer/user.reducer/user.reducer';
 import { RootState } from '../../../core/store/store';
 import { ProductStructure } from '../../../core/types/products.types';
 

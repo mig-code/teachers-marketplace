@@ -1,8 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { productsReducer } from '../core/reducer/products.reducer';
-import { searchReducer, SearchState } from '../core/reducer/search.reducer';
+import { productsReducer } from '../core/reducer/products.reducer/products.reducer';
+import {
+    searchReducer,
+    SearchState,
+} from '../core/reducer/search.reducer/search.reducer';
 
-import { userReducer } from '../core/reducer/user.reducer';
+import { userReducer } from '../core/reducer/user.reducer/user.reducer';
 import { RootState } from '../core/store/store';
 import { ProductStructure } from '../core/types/products.types';
 import { UserStructure } from '../core/types/user.type';
@@ -35,6 +38,21 @@ export const mockProduct1: ProductStructure = {
     productInfo: {
         id: 1,
         title: 'Test product 1',
+        description: 'Test description 1',
+        price: 100,
+        imgUrl: 'img1.jpg',
+        category: 'libros',
+        available: true,
+        ownerName: 'ownerName1',
+        ownerUid: 'userUid1',
+        publishedAt: '2021-01-01',
+    },
+    firebaseId: '000001',
+};
+export const mockProduct1Updated: ProductStructure = {
+    productInfo: {
+        id: 1,
+        title: 'Test product 1 updated',
         description: 'Test description 1',
         price: 100,
         imgUrl: 'img1.jpg',

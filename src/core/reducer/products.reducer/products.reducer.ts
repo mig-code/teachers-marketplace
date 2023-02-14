@@ -1,9 +1,12 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { ProductStructure } from '../types/products.types';
+import { ProductStructure } from '../../types/products.types';
 
-import * as ac from './action.creator';
+import * as ac from '../action.creator';
 
 const initialState: Array<ProductStructure> = [];
+export type productstState = {
+    products: Array<ProductStructure>;
+};
 
 export const productsReducer = createReducer(initialState, (builder) => {
     builder.addCase(ac.loadActionCreatorProducts, (state, action) => {
@@ -25,7 +28,6 @@ export const productsReducer = createReducer(initialState, (builder) => {
     });
     builder.addCase(ac.createActionCreatorProducts, (state, action) => {
         return [...state, action.payload];
-
     });
 
     builder.addDefaultCase((state) => state);
