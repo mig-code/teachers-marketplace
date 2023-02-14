@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { UserPage } from './user.page';
+import UserPage from './user.page';
 import { UserInfo } from '../components/user.info/user.info';
 import { UserList } from '../components/user.list/user.list';
 

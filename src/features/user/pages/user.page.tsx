@@ -3,7 +3,7 @@ import { UserInfo } from '../components/user.info/user.info';
 
 import { UserList } from '../components/user.list/user.list';
 
-export function UserPage() {
+export default function UserPage() {
     return (
         <>
             <UserInfo></UserInfo>

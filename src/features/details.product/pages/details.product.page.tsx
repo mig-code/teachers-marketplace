@@ -1,6 +1,6 @@
 import DetailsProduct from '../components/details.product';
 
-export function DetailsProductsPage() {
+export default function DetailsProductsPage() {
     return (
         <>
             <DetailsProduct></DetailsProduct>

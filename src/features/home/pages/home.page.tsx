@@ -9,7 +9,7 @@ import * as ac from '../../../core/reducer/action.creator';
 import './home.page.scss';
 import { List } from '../../../core/components/list/list';
 
-export function HomePage() {
+export default function HomePage() {
     const { handleLoadProducts } = useProducts();
     const { products } = useSelector((state: RootState) => state);
     const dispatcher = useDispatch();

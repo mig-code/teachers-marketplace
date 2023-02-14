@@ -16,9 +16,7 @@ describe('When render App component', () => {
                 </MemoryRouter>
             </Provider>
         );
-        const textElement = screen.getByText(
-            /Dale una segunda vida al material escolar/i
-        );
+        const textElement = screen.getByText(/Loading/i);
         expect(textElement).toBeInTheDocument();
     });
 });

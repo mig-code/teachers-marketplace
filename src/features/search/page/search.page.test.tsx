@@ -5,7 +5,7 @@ import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 
 import { Provider } from 'react-redux';
-import { SearchPage } from './search.page';
+import SearchPage from './search.page';
 import {
     emptyMockSearchState,
     mockProduct1,

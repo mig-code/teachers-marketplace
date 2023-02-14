@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 
 import { MemoryRouter } from 'react-router-dom';
-import { AddProductPage } from './add.product.page';
+import AddProductPage from './add.product.page';
 import { Provider } from 'react-redux';
 import { store } from '../../../core/store/store';
 

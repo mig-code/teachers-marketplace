@@ -7,7 +7,7 @@ import { SearchBox } from '../components/search.box';
 import * as ac from '../../../core/reducer/action.creator';
 import { List } from '../../../core/components/list/list';
 
-export function SearchPage() {
+export default function SearchPage() {
     const { handleLoadProducts } = useProducts();
     const { products, search } = useSelector((state: RootState) => state);
     const filteredProducts = products.filter(
