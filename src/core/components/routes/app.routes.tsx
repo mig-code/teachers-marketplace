@@ -2,16 +2,13 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 
 const Home = lazy(() => import('../../../features/home/pages/home.page'));
-const AddProduct
- = lazy(
+const AddProduct = lazy(
     () => import('../../../features/add.product/pages/add.product.page')
 );
 const DetailsProducts = lazy(
     () => import('../../../features/details.product/pages/details.product.page')
 );
-const Search = lazy(
-    () => import('../../../features/search/page/search.page')
-);
+const Search = lazy(() => import('../../../features/search/page/search.page'));
 const User = lazy(() => import('../../../features/user/pages/user.page'));
 
 export function AppLazyRoutes() {
@@ -23,15 +20,9 @@ export function AppLazyRoutes() {
                     path={'subir-producto'}
                     element={<AddProduct></AddProduct>}
                 ></Route>
-                <Route
-                    path={'mis-productos'}
-                    element={<User></User>}
-                ></Route>
+                <Route path={'mis-productos'} element={<User></User>}></Route>
 
-                <Route
-                    path={'buscar'}
-                    element={<Search></Search>}
-                ></Route>
+                <Route path={'buscar'} element={<Search></Search>}></Route>
                 <Route
                     path={'producto/:id'}
                     element={<DetailsProducts></DetailsProducts>}
