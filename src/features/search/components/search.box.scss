@@ -17,8 +17,8 @@
             font-size: $font-size-base;
             font-family: $font-stack-primary;
             color: $color-black-light-1;
-            
-            margin: 0 0.5rem;
+
+            margin: 0.5rem;
             &:focus {
                 outline: none;
                 border: 2px solid $color-black-light-1;
@@ -27,7 +27,6 @@
         ::placeholder {
             color: $color-grey-dark-1;
         }
-        
     }
     &__button {
         background-color: $color-primary;

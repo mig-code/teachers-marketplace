@@ -6,13 +6,12 @@
     flex-direction: column;
     justify-content: space-evenly;
     align-items: stretch;
-   
     padding: 2rem;
-
     min-height: 500px;
     border: 1px solid $color-grey-dark-1;
     border-radius: 1rem;
-    background-color: $color-white;
+    background-color: $color-background;
+    margin: 1rem 0;
 
     label {
         font-size: 1rem;
@@ -29,16 +28,17 @@
 
     input {
         width: 100%;
-        border: 1px solid $color-grey-light-1;
+        border: 2px solid $color-grey-dark-1;
         border-radius: 15px;
-        padding: 0.2rem 0.6rem;
-        font-size: 1rem;
-        font-family: $font-stack-secondary;
-        color: $color-primary;
-        font-weight: bold;
-        display: block;
+        padding: 0.5rem 1rem;
+        font-size: $font-size-base;
+        font-family: $font-stack-primary;
+        color: $color-black-light-1;
+
+        margin: 0 0.5rem;
         &:focus {
             outline: none;
+            border: 2px solid $color-black-light-1;
         }
     }
     textarea {
@@ -55,6 +55,19 @@
             outline: none;
         }
     }
+
+    select {
+        width: 70%;
+        border: 2px solid $color-grey-dark-1;
+        border-radius: 15px;
+        padding: 0.5rem 1rem;
+        font-size: $font-size-base;
+        font-family: $font-stack-primary;
+        color: $color-black-light-1;
+        &:focus {
+            outline: none;
+        }
+    }
     &__image {
         width: 100%;
         height: 200px;
@@ -62,8 +75,21 @@
         object-fit: cover;
         z-index: 2;
     }
-}
 
+    &__product-price {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        margin: 0.5rem 0;
+
+        input {
+            width: fit-content;
+        }
+    }
+    &__upload-image-input {
+        display: none;
+    }
+}
 
 @media screen and (min-width: 630px) {
     .add-form {

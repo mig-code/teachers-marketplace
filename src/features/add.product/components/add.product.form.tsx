@@ -85,25 +85,25 @@ export function AddProductForm() {
     };
     return (
         <div className="add-form">
-            <h3>Añadir Producto</h3>
             <form onSubmit={handleSubmit}>
-                <div>
+                <div className="add-form__product-title">
                     <label htmlFor="title">Titulo del producto</label>
                     <input
                         type="text"
                         name="title"
                         id="title"
-                        placeholder="Titulo del producto"
+                        placeholder="Elige un titulo para tu producto"
                         value={productFormData.title}
                         onInput={handleInput}
                         required
                     />
                 </div>
-                <div>
+                <div className="add-form__upload-image">
                     <label htmlFor="uploadImage"> Subir Imagen</label>
 
                     <br />
                     <input
+                        className="add-form__upload-image-input"
                         id="uploadImage"
                         name="uploadImage"
                         type="file"
@@ -121,20 +121,17 @@ export function AddProductForm() {
                     )}
                 </div>
 
-                <div>
-                    <label htmlFor="description">
-                        Descripción del producto
-                    </label>
+                <div className="add-form__product-description">
                     <textarea
                         name="description"
                         id="description"
                         value={productFormData.description}
                         onInput={handleInput}
-                        placeholder="Descripcion del producto"
+                        placeholder="Describe en unas líneas el producto que quieres vender."
                         required
                     ></textarea>
                 </div>
-                <div>
+                <div className="add-form__product-price">
                     <label htmlFor="price">Precio</label>
                     <input
                         type="number"
@@ -147,8 +144,7 @@ export function AddProductForm() {
                         required
                     />
                 </div>
-                <div>
-                    <label htmlFor="category">Categoría</label>
+                <div className="add-form__product-category">
                     <select
                         name="category"
                         id="category"
@@ -167,7 +163,9 @@ export function AddProductForm() {
                 </div>
 
                 <div>
-                    <button type="submit">Añadir</button>
+                    <button className="add-form__submit-button" type="submit">
+                        Añadir
+                    </button>
                 </div>
             </form>
         </div>
