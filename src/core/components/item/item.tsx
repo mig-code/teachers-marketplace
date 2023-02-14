@@ -30,7 +30,7 @@ export default function Item({ item }: { item: ProductStructure }) {
                     {item.isLikedBy
                         ? '¡Le gusta a ' +
                           item.isLikedBy.users.length +
-                          ' personas !'
+                          ' personas!'
                         : 'A nadie le gusta todavía'}{' '}
                 </div>
 

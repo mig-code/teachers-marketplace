@@ -122,7 +122,6 @@ textarea {
     max-width: 100%;
 }
 
-
 button {
     background-color: $color-white;
     border: 1px solid $color-primary;
@@ -132,7 +131,7 @@ button {
     font-family: $font-stack-secondary;
     color: $color-primary;
     font-weight: bold;
-    margin: 0.5;
+    margin: 0.5rem 0rem;
 
     cursor: pointer;
     transition: all 0.2s ease-in-out;
