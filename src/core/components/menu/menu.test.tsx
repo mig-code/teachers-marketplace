@@ -6,12 +6,14 @@ import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { RootState } from '../../store/store';
 import { configureStore } from '@reduxjs/toolkit';
-import { uploadImageReducer } from '../../reducer/upload.image.reducer/upload.image.reducer';
+
 import { userReducer } from '../../reducer/user.reducer/user.reducer';
 import { UserStructure } from '../../types/user.type';
-import { useUserAuth } from '../../hooks/use.user.auth';
 
-jest.mock('../../hooks/use.user.auth');
+import {
+    modalReducer,
+    ModalState,
+} from '../../reducer/modal.reducer/modal.reducer';
 
 describe('Given Menu component', () => {
     beforeEach(() => {
@@ -26,25 +28,23 @@ describe('Given Menu component', () => {
             },
             token: '',
         };
+        const mockModalState: ModalState = {
+            loginModal: false,
+        };
         const preloadedState: Partial<RootState> = {
             user: mockUser,
+            modal: mockModalState,
         };
 
         const mockStore = configureStore({
             reducer: {
-                uploadImage: uploadImageReducer,
                 user: userReducer,
+                modal: modalReducer,
             },
             preloadedState,
         });
 
         test('Then we should click in login button', () => {
-            const mockhandleLoginWithGoogle = jest.fn();
-            (useUserAuth as jest.Mock).mockReturnValue({
-                handleLoginWithGoogle: mockhandleLoginWithGoogle,
-                handleLogout: jest.fn(),
-            });
-
             render(
                 <Provider store={mockStore}>
                     <MemoryRouter>
@@ -55,30 +55,8 @@ describe('Given Menu component', () => {
             const buttonElement = screen.getAllByText('Login');
             userEvent.click(buttonElement[0]);
 
-            expect(mockhandleLoginWithGoogle).toHaveBeenCalled();
-        });
-        test('Then we should  check is active class', () => {
-            const mockhandleLogout = jest.fn();
-            (useUserAuth as jest.Mock).mockReturnValue({
-                handleLoginWithGoogle: jest.fn(),
-                handleLogout: mockhandleLogout,
-            });
-
-            render(
-                <Provider store={mockStore}>
-                    <MemoryRouter>
-                        <Menu />
-                    </MemoryRouter>
-                </Provider>
-            );
-            const buttonElement = screen.getAllByText('Publicar');
-            expect(buttonElement[0]).toHaveAttribute('class', 'nav-button');
-            userEvent.click(buttonElement[0]);
-
-            expect(buttonElement[0]).toHaveAttribute(
-                'class',
-                'nav-button nav-button--active'
-            );
+            const modalStore = mockStore.getState().modal;
+            expect(modalStore.loginModal).toBe(true);
         });
     });
     describe('When it has been render with user', () => {
@@ -96,19 +74,12 @@ describe('Given Menu component', () => {
 
         const mockStore = configureStore({
             reducer: {
-                uploadImage: uploadImageReducer,
                 user: userReducer,
             },
             preloadedState,
         });
 
-        test('Then we could click in "Mis productos', () => {
-            const mockhandleLogout = jest.fn();
-            (useUserAuth as jest.Mock).mockReturnValue({
-                handleLoginWithGoogle: jest.fn(),
-                handleLogout: mockhandleLogout,
-            });
-
+        test('Then we could click in "Mis Cuenta', () => {
             render(
                 <Provider store={mockStore}>
                     <MemoryRouter>
@@ -121,6 +92,23 @@ describe('Given Menu component', () => {
             userEvent.click(buttonElement2[0]);
 
             expect(buttonElement2[0]).toHaveAttribute(
+                'class',
+                'nav-button nav-button--active'
+            );
+        });
+        test('Then we should in "Publicar"  check is active class', () => {
+            render(
+                <Provider store={mockStore}>
+                    <MemoryRouter>
+                        <Menu />
+                    </MemoryRouter>
+                </Provider>
+            );
+            const buttonElement = screen.getAllByText('Publicar');
+            expect(buttonElement[0]).toHaveAttribute('class', 'nav-button');
+            userEvent.click(buttonElement[0]);
+
+            expect(buttonElement[0]).toHaveAttribute(
                 'class',
                 'nav-button nav-button--active'
             );
