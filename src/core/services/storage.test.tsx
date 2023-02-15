@@ -31,7 +31,7 @@ describe('Given saveImageInStorage function', () => {
             expect(ref).toHaveBeenCalled();
             expect(uploadBytesResumable).toHaveBeenCalled();
 
-            await expect(result).toEqual(mockStoragePath);
+            expect(result).toEqual(mockStoragePath);
         });
     });
     describe('Given "saveImageInStorage with NOT  ID"', () => {
@@ -43,7 +43,7 @@ describe('Given saveImageInStorage function', () => {
         test('Then "saveImageInStorage" if its NOT VALID should be return a Upload task', async () => {
             await saveImageInStorage(mockFile, mockStoragePath, mockFileName);
 
-            await expect(spyConsole).toHaveBeenCalled();
+            expect(spyConsole).toHaveBeenCalled();
         });
     });
 });
@@ -63,7 +63,7 @@ describe('Given getUrlsFromStorage function', () => {
             expect(ref).toHaveBeenCalled();
             expect(getDownloadURL).toHaveBeenCalled();
 
-            await expect(result).toEqual('url');
+            expect(result).toEqual('url');
         });
     });
     describe('Given a not valid ref', () => {
@@ -74,7 +74,7 @@ describe('Given getUrlsFromStorage function', () => {
         test('Then "getUrlsFromStorage" should throw error when rejected', async () => {
             await getUrlsFromStorage(mockStoragePath, mockFileName);
 
-            await expect(spyConsole).toHaveBeenCalled();
+            expect(spyConsole).toHaveBeenCalled();
         });
     });
 });

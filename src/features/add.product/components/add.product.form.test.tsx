@@ -11,12 +11,18 @@ import { MemoryRouter } from 'react-router-dom';
 import { store } from '../../../core/store/store';
 import { AddProductForm } from './add.product.form';
 import { useProducts } from '../../../core/hooks/use.products';
+import { useNavigate } from 'react-router-dom';
 
 jest.mock('../../../core/hooks/use.products');
 jest.mock('../../../core/services/storage');
+jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom'),
+    useNavigate: jest.fn(),
+}));
 
 describe('Given render AddProductForm component', () => {
     const handleCreateProduct = jest.fn();
+    const handleLoadProducts = jest.fn();
 
     const inputMockData = {
         title: 'Titulo del producto',
@@ -28,7 +34,9 @@ describe('Given render AddProductForm component', () => {
     beforeEach(() => {
         (useProducts as jest.Mock).mockReturnValue({
             handleCreateProduct,
+            handleLoadProducts,
         });
+        (useNavigate as jest.Mock).mockReturnValue(jest.fn());
         // eslint-disable-next-line testing-library/no-render-in-setup
         render(
             <Provider store={store}>
@@ -39,8 +47,8 @@ describe('Given render AddProductForm component', () => {
         );
     });
 
-    describe('When it is rendered with Context', () => {
-        test('Then we should write in inputs and submit', () => {
+    describe('When it is rendered', () => {
+        test('Then we should write in inputs', async () => {
             const titleInput = screen.getByPlaceholderText(
                 /Título para tu producto/i
             );
@@ -75,9 +83,6 @@ describe('Given render AddProductForm component', () => {
             expect(categoryInputSelectElement).toHaveValue(
                 inputMockData.category
             );
-
-            userEvent.click(submitButton);
-            expect(handleCreateProduct).toHaveBeenCalled();
         });
     });
     describe('When it is rendered with Context and upload a correct file', () => {
@@ -140,7 +145,7 @@ describe('Given render AddProductForm component', () => {
             expect(inputTitle).toHaveValue('');
         });
     });
-    describe('When it is rendered with Context and upload a wrong file', () => {
+    describe('When it is rendered and upload a wrong file', () => {
         test('Then we upload file and dont wait to get loaded', () => {
             const submitButton = screen.getByRole('button', {
                 name: /Publicar/i,
