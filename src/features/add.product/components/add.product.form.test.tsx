@@ -6,12 +6,11 @@ import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import { Provider } from 'react-redux';
 
-import { MemoryRouter } from 'react-router-dom';
+import { MemoryRouter, useNavigate } from 'react-router-dom';
 
 import { store } from '../../../core/store/store';
 import { AddProductForm } from './add.product.form';
 import { useProducts } from '../../../core/hooks/use.products';
-import { useNavigate } from 'react-router-dom';
 
 jest.mock('../../../core/hooks/use.products');
 jest.mock('../../../core/services/storage');

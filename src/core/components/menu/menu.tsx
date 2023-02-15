@@ -7,20 +7,15 @@ import * as ac from '../../reducer/action.creator';
 import './menu.scss';
 
 export function Menu() {
-    // const { handleLoginWithGoogle } = useUserAuth();
     const user = useSelector((state: RootState) => state.user);
-
     const dispatch = useDispatch();
 
-    // const handleLoginOnClick = () => {
-    //     handleLoginWithGoogle();
-    // };
+    const activeClassName = 'nav-button nav-button--active';
 
     const handleOpenModalClick = () => {
         dispatch(ac.openActionCreatorModal());
     };
 
-    const activeClassName = 'nav-button nav-button--active';
     return (
         <nav className="top-menu">
             {user.info?.firebaseId ? (
