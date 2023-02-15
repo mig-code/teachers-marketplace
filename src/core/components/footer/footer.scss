@@ -7,11 +7,20 @@ footer {
     text-align: center;
     font-size: 0.8rem;
     border-top: $color-grey-dark-1 1px solid;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 2.5rem;
     a {
         color: $color-secondary;
         text-decoration: none;
+ 
         &:hover {
             text-decoration: underline;
         }
+    }
+    p{
+        margin: 0;
+        padding: 1rem;
     }
 }

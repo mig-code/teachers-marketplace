@@ -22,7 +22,7 @@ export function AddProductForm() {
     const initialFormProductDetails: AddProductFormStructure = {
         title: '',
         description: '',
-        price: 0,
+        price: '' as unknown as number,
         category: '',
         imgUrl: '',
     };
@@ -86,22 +86,28 @@ export function AddProductForm() {
     return (
         <div className="add-form">
             <form onSubmit={handleSubmit}>
+                <h3 className="add-form__title">
+                    ¡Rellena los campos y sube tu producto!
+                </h3>
                 <div className="add-form__product-title">
-                    <label htmlFor="title">Titulo del producto</label>
                     <input
                         type="text"
                         name="title"
                         id="title"
-                        placeholder="Elige un titulo para tu producto"
+                        placeholder="Título para tu producto"
                         value={productFormData.title}
                         onInput={handleInput}
                         required
                     />
                 </div>
                 <div className="add-form__upload-image">
-                    <label htmlFor="uploadImage"> Subir Imagen</label>
+                    <label
+                        className="add-form__upload-image-input"
+                        htmlFor="uploadImage"
+                    >
+                        Haz click para subir una imagen
+                    </label>
 
-                    <br />
                     <input
                         className="add-form__upload-image-input"
                         id="uploadImage"
@@ -111,14 +117,15 @@ export function AddProductForm() {
                         required
                     />
 
-                    <br />
-                    {uploadedImagerUrl && (
-                        <img
-                            className="add-form__image"
-                            src={uploadedImagerUrl}
-                            alt="user"
-                        />
-                    )}
+                    <div className="add-form__upload-image-image">
+                        {uploadedImagerUrl && (
+                            <img
+                                className="add-form__image"
+                                src={uploadedImagerUrl}
+                                alt="user"
+                            />
+                        )}
+                    </div>
                 </div>
 
                 <div className="add-form__product-description">
@@ -132,7 +139,6 @@ export function AddProductForm() {
                     ></textarea>
                 </div>
                 <div className="add-form__product-price">
-                    <label htmlFor="price">Precio</label>
                     <input
                         type="number"
                         name="price"
@@ -152,7 +158,7 @@ export function AddProductForm() {
                         onInput={handleInput}
                         required
                     >
-                        <option value="">Seleccione una categoría</option>
+                        <option value="">Categoría</option>
                         <option value="Juguetes">Juguetes</option>
                         <option value="Libros">Libros</option>
                         <option value="material escolar">
@@ -164,7 +170,7 @@ export function AddProductForm() {
 
                 <div>
                     <button className="add-form__submit-button" type="submit">
-                        Añadir
+                        Publicar
                     </button>
                 </div>
             </form>

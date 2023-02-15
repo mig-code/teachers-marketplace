@@ -6,23 +6,44 @@
     flex-direction: column;
     justify-content: space-evenly;
     align-items: stretch;
-    padding: 2rem;
+    padding: 1rem 2rem;
     min-height: 500px;
     border: 1px solid $color-grey-dark-1;
     border-radius: 1rem;
     background-color: $color-background;
     margin: 1rem 0;
+    &__title {
+        font-size: $font-size-h2;
+
+        font-weight: bold;
+        margin: 0 0 1.5rem 0;
+        color: $color-black;
+    }
 
     label {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: stretch;
+        margin: 1rem 0;
+        cursor: pointer;
+
         font-size: 1rem;
         font-family: $font-stack-secondary;
-        color: $color-black;
+        color: $color-primary;
         font-weight: bold;
-        margin: 0.5rem 0;
-        display: block;
+
+        min-height: 70px;
+        padding: 1rem;
+        margin: 1rem 0;
+        width: fit-content;
+
+        border-radius: 15px;
+        border: $color-grey-dark-1 solid 1px;
+        background-color: $color-white;
     }
     ::-webkit-input-placeholder {
-        color: $color-grey-dark-1;
+        color: $color-black-light-2;
         background-color: $color-white;
     }
 
@@ -35,7 +56,6 @@
         font-family: $font-stack-primary;
         color: $color-black-light-1;
 
-        margin: 0 0.5rem;
         &:focus {
             outline: none;
             border: 2px solid $color-black-light-1;
@@ -43,22 +63,25 @@
     }
     textarea {
         width: 100%;
-        min-height: 100px;
-        border: 1px solid $color-grey-light-1;
+        border: 2px solid $color-grey-dark-1;
         border-radius: 15px;
-        padding: 0.2rem 0.6rem;
-        font-size: 1rem;
-        font-family: $font-stack-secondary;
-        color: $color-primary;
-        font-weight: bold;
+        padding: 0.5rem 1rem;
+        font-size: $font-size-base;
+        font-family: $font-stack-primary;
+        color: $color-black-light-1;
+        resize: none;
+        min-height: 100px;
+
         &:focus {
             outline: none;
+            border: 2px solid $color-black-light-1;
         }
     }
 
     select {
-        width: 70%;
+        width: 100%;
         border: 2px solid $color-grey-dark-1;
+        background-color: $color-white;
         border-radius: 15px;
         padding: 0.5rem 1rem;
         font-size: $font-size-base;
@@ -74,6 +97,7 @@
         border-radius: 15px;
         object-fit: cover;
         z-index: 2;
+        margin: 0.5rem 0;
     }
 
     &__product-price {
@@ -89,13 +113,43 @@
     &__upload-image-input {
         display: none;
     }
+    &__submit-button {
+        cursor: pointer;
+
+        font-size: 1rem;
+        font-family: $font-stack-secondary;
+        color: $color-white;
+        font-weight: bold;
+
+        margin: 2rem 0;
+        padding: 1rem 2.5rem;
+        width: fit-content;
+
+        border-radius: 15px;
+        border: $color-grey-dark-1 solid 1px;
+        background-color: $color-primary;
+    }
 }
 
 @media screen and (min-width: 630px) {
     .add-form {
+        input {
+            width: 70%;
+        }
+        textarea {
+            width: 70%;
+        }
+        select {
+            width: 70%;
+        }
         &__image {
             width: 70%;
             height: 400px;
+        }
+        &__product-price {
+            input {
+                width: fit-content;
+            }
         }
     }
 }
