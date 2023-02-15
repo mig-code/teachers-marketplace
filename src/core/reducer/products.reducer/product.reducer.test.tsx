@@ -7,10 +7,7 @@ import {
 import { ProductStructure } from '../../types/products.types';
 import { actionTypesProducts } from '../action.types';
 
-import {
-    productsReducer,
-    productstState,
-} from './products.reducer';
+import { productsReducer, productstState } from './products.reducer';
 
 describe('Given the function productReducer', () => {
     let action: { type: string; payload: unknown };
@@ -63,7 +60,6 @@ describe('Given the function productReducer', () => {
             };
             const result = productsReducer(state.products, action);
             expect(result).toEqual([mockProduct1Updated]);
-            console.log(result);
         });
         test('and there is not a valid id, the retuned state should be the same', () => {
             action = {
@@ -75,7 +71,6 @@ describe('Given the function productReducer', () => {
             };
             const result = productsReducer(state.products, action);
             expect(result).toEqual([mockProduct1]);
-            console.log(result);
         });
     });
     describe('When the action is create', () => {

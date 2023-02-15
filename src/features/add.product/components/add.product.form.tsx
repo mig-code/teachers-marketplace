@@ -18,7 +18,7 @@ import { useNavigate } from 'react-router-dom';
 
 export function AddProductForm() {
     const navigate = useNavigate();
-    const { handleCreateProduct } = useProducts();
+    const { handleCreateProduct, handleLoadProducts } = useProducts();
     const user = useSelector((state: RootState) => state.user);
 
     const initialFormProductDetails: AddProductFormStructure = {
@@ -46,8 +46,9 @@ export function AddProductForm() {
         });
     };
 
-    const handleSubmit = (ev: SyntheticEvent) => {
+    const handleSubmit = async (ev: SyntheticEvent) => {
         ev.preventDefault();
+
         const newProduct = generateProductWithOnlyInfo(
             productFormData.title,
             productFormData.description,
@@ -62,6 +63,7 @@ export function AddProductForm() {
         handleCreateProduct(newProduct);
         setProductFormData(initialFormProductDetails);
         dispatcher(ac.setUploadImageUrlActionCreatorUploadImage(''));
+        await handleLoadProducts();
 
         navigate('/');
     };
@@ -75,7 +77,7 @@ export function AddProductForm() {
             await saveImageInStorage(file, 'test/', file.name);
             const url = await getUrlsFromStorage('test/', file.name);
 
-            dispatcher(
+            await dispatcher(
                 ac.setUploadImageUrlActionCreatorUploadImage(url as string)
             );
 
@@ -119,6 +121,7 @@ export function AddProductForm() {
                         type="file"
                         onChange={handleUploadImage}
                         placeholder="Subir Imagen"
+                        accept="image/*"
                         required
                     />
 
@@ -175,7 +178,18 @@ export function AddProductForm() {
                 </div>
 
                 <div>
-                    <button className="add-form__submit-button" type="submit">
+                    <button
+                        className="add-form__submit-button"
+                        type="submit"
+                        disabled={
+                            productFormData.title === '' ||
+                            productFormData.description === '' ||
+                            productFormData.price ===
+                                ('' as unknown as number) ||
+                            productFormData.category === '' ||
+                            productFormData.imgUrl === ''
+                        }
+                    >
                         Publicar
                     </button>
                 </div>
