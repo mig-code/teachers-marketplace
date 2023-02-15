@@ -1,5 +1,6 @@
 import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
 import { currentReducer } from '../reducer/current.reducer/current.reducer';
+import { modalReducer } from '../reducer/modal.reducer/modal.reducer';
 import { productsReducer } from '../reducer/products.reducer/products.reducer';
 import { searchReducer } from '../reducer/search.reducer/search.reducer';
 
@@ -12,6 +13,7 @@ export const store = configureStore({
         products: productsReducer,
         search: searchReducer,
         current: currentReducer,
+        modal: modalReducer
     },
 });
 

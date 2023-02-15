@@ -20,3 +20,8 @@ export const actionTypesSearch = {
     setMode: 'search@setMode',
     reset: 'search@reset',
 };
+
+export const actionTypesModal = {
+    open: 'modal@open',
+    close: 'modal@close',
+};

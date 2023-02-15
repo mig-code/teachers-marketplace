@@ -54,7 +54,7 @@ export function AddProductForm() {
             productFormData.description,
             productFormData.price,
             productFormData.category,
-            productFormData.imgUrl,
+            uploadedImagerUrl,
 
             user?.info.firebaseId,
             user?.info.name as string
@@ -80,11 +80,6 @@ export function AddProductForm() {
             await dispatcher(
                 ac.setUploadImageUrlActionCreatorUploadImage(url as string)
             );
-
-            setProductFormData({
-                ...productFormData,
-                imgUrl: url as string,
-            });
         } catch (error) {
             handleError(error as Error);
         }
@@ -187,7 +182,7 @@ export function AddProductForm() {
                             productFormData.price ===
                                 ('' as unknown as number) ||
                             productFormData.category === '' ||
-                            productFormData.imgUrl === ''
+                            uploadedImagerUrl === ''
                         }
                     >
                         Publicar

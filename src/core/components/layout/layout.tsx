@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Footer } from '../footer/footer';
 import { Header } from '../header/header';
+import { LoginModal } from '../login.modal/login.modal';
 import './layout.scss';
 
 export function Layout({ children }: { children: JSX.Element }) {
@@ -16,6 +17,7 @@ export function Layout({ children }: { children: JSX.Element }) {
             <section className="layout-children">{children}</section>
 
             <Footer></Footer>
+            <LoginModal></LoginModal>
         </div>
     );
 }
