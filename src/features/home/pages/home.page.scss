@@ -9,6 +9,13 @@
     text-align: center;
     color: $color-black;
 }
+.home-subtitle {
+    font-size: $font-size-mobile-h2;
+    margin: 0 1rem;
+    max-width: 30rem;
+    font-weight: 400;
+    color: $color-black;
+}
 
 @media (min-width: 630px) {
     .home-title {

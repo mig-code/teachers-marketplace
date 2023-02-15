@@ -67,25 +67,28 @@ export default function DetailsProduct() {
                         </div>
                     )}
 
-                    <div className="details__favorites">
-                        {item.isLikedBy
-                            ? '¡Le gusta a  ' +
-                            item.isLikedBy.users.length +
-                            ' personas !'
-                            : 'A nadie le gusta todavía'}{' '}
+                    <div className="details__button-coninter">
+                        <div className="details__favorites">
+                            {item.isLikedBy
+                                ? '¡Le gusta a  ' +
+                                item.isLikedBy.users.length +
+                                ' personas!'
+                                : 'A nadie le gusta todavía'}{' '}
+                        </div>
+                        <ButtonFavorite
+                            item={item}
+                            user={user}
+                            handleClickAddToFavorites={
+                                handleClickAddToFavorites
+                            }
+                            handleClickDeleteFromFavorites={
+                                handleClickDeleteFromFavorites
+                            }
+                        />
                     </div>
-
-                    <ButtonFavorite
-                        item={item}
-                        user={user}
-                        handleClickAddToFavorites={handleClickAddToFavorites}
-                        handleClickDeleteFromFavorites={
-                            handleClickDeleteFromFavorites
-                        }
-                    />
                 </>
             ) : (
-                <h2>Producto no encontrado</h2>
+                <h2 className="details">Producto no encontrado</h2>
             )}
         </article>
     );

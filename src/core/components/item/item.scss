@@ -3,15 +3,13 @@
 
 .item {
     width: 300px;
-    height: 500px;
     border: 1px solid $color-grey-dark-1;
-
     border-radius: 15px;
     padding: 0.5rem 1rem;
     margin: 1rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: stretch;
     transition: all 0.1s ease-in-out;
 
@@ -46,7 +44,6 @@
         background-color: $color-primary;
         color: $color-white;
         text-transform: uppercase;
-
         font-family: $font-stack-secondary;
         padding: 0.3em 0.5em;
         border-radius: 5px;
@@ -58,7 +55,7 @@
         font-size: $font-size-small;
         font-weight: 400;
         margin: 0.5rem 0;
-        color: $color-grey-dark-1;
+        color: $color-black-light-1;
         display: -webkit-box;
         max-width: 200px;
         height: 40px;
@@ -68,7 +65,7 @@
     }
     &__favorites {
         color: $color-secondary;
-        font-size: $font-size-h4;
+        font-size: $font-size-small;
         font-weight: bold;
         margin: 0.5rem 0;
     }
@@ -76,11 +73,5 @@
 
 .item:hover {
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-    cursor: pointer;
 }
 
-@media (min-width: 630px) {
-    .item {
-        width: 100%;
-    }
-}

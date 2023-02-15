@@ -22,7 +22,7 @@ export function AddProductForm() {
     const initialFormProductDetails: AddProductFormStructure = {
         title: '',
         description: '',
-        price: 0,
+        price: '' as unknown as number,
         category: '',
         imgUrl: '',
     };
@@ -85,57 +85,61 @@ export function AddProductForm() {
     };
     return (
         <div className="add-form">
-            <h3>Añadir Producto</h3>
             <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="title">Titulo del producto</label>
+                <h3 className="add-form__title">
+                    ¡Rellena los campos y sube tu producto!
+                </h3>
+                <div className="add-form__product-title">
                     <input
                         type="text"
                         name="title"
                         id="title"
-                        placeholder="Titulo del producto"
+                        placeholder="Título para tu producto"
                         value={productFormData.title}
                         onInput={handleInput}
                         required
                     />
                 </div>
-                <div>
-                    <label htmlFor="uploadImage"> Subir Imagen</label>
+                <div className="add-form__upload-image">
+                    <label
+                        className="add-form__upload-image-input"
+                        htmlFor="uploadImage"
+                    >
+                        Haz click para subir una imagen
+                    </label>
 
-                    <br />
                     <input
+                        className="add-form__upload-image-input"
                         id="uploadImage"
                         name="uploadImage"
                         type="file"
                         onChange={handleUploadImage}
+                        placeholder="Subir Imagen"
                         required
                     />
 
-                    <br />
-                    {uploadedImagerUrl && (
-                        <img
-                            className="add-form__image"
-                            src={uploadedImagerUrl}
-                            alt="user"
-                        />
-                    )}
+                    <div className="add-form__upload-image-image">
+                        {uploadedImagerUrl && (
+                            <img
+                                className="add-form__image"
+                                src={uploadedImagerUrl}
+                                alt="user"
+                            />
+                        )}
+                    </div>
                 </div>
 
-                <div>
-                    <label htmlFor="description">
-                        Descripción del producto
-                    </label>
+                <div className="add-form__product-description">
                     <textarea
                         name="description"
                         id="description"
                         value={productFormData.description}
                         onInput={handleInput}
-                        placeholder="Descripcion del producto"
+                        placeholder="Describe en unas líneas el producto que quieres vender"
                         required
                     ></textarea>
                 </div>
-                <div>
-                    <label htmlFor="price">Precio</label>
+                <div className="add-form__product-price">
                     <input
                         type="number"
                         name="price"
@@ -147,27 +151,29 @@ export function AddProductForm() {
                         required
                     />
                 </div>
-                <div>
-                    <label htmlFor="category">Categoría</label>
+                <div className="add-form__product-category">
                     <select
                         name="category"
                         id="category"
                         value={productFormData.category}
                         onInput={handleInput}
+                        placeholder="Categoría"
                         required
                     >
-                        <option value="">Seleccione una categoría</option>
+                        <option value="">Categoría</option>
                         <option value="Juguetes">Juguetes</option>
                         <option value="Libros">Libros</option>
                         <option value="material escolar">
                             Material Escolar
                         </option>
-                        <option value="material escolar">Otros</option>
+                        <option value="Otros">Otros</option>
                     </select>
                 </div>
 
                 <div>
-                    <button type="submit">Añadir</button>
+                    <button className="add-form__submit-button" type="submit">
+                        Publicar
+                    </button>
                 </div>
             </form>
         </div>

@@ -6,8 +6,9 @@
     flex-direction: column;
     justify-content: space-evenly;
     align-items: stretch;
-    width: 80%;
+    width: 300px;
     padding-bottom: 10rem;
+    margin: 0 auto;
     &__title {
         font-size: $font-size-h1;
         text-transform: capitalize;
@@ -29,7 +30,8 @@
         position: relative;
         width: 100%;
         max-width: 500px;
-        height: 300px;
+        min-height: 300px;
+        max-height: 600px;
         border-radius: 5px;
         object-fit: cover;
         z-index: 2;
@@ -47,9 +49,31 @@
         margin: 0.5rem 0;
     }
     &__description {
-        font-size: $font-size-h4;
+        font-size: $font-size-mobile-base;
         font-weight: 400;
         margin: 0.5rem 0;
-        color: $color-black;
+        color: $color-black-light-1;
+        max-width: 500px;
+        text-align: justify;
+    }
+    &__favorites {
+        color: $color-secondary;
+        font-size: $font-size-small;
+        font-weight: bold;
+        margin: 0.5rem 0;
+    }
+    &__button-coninter {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        width: 100%;
+        margin: 1rem 0;
+    }
+}
+
+@media (min-width: 630px) {
+    .details {
+        width: 70%;
     }
 }

@@ -2,10 +2,14 @@
 .layout-container {
     margin: 0 auto;
     max-width: 1350px;
+    position: relative;
+    min-height: 100vh;
+    padding-bottom: 2.5rem;
+
 }
 .layout-children {
     max-width: 1050px;
-    margin: 0 auto;
+    margin: 0 auto 1rem auto;
     padding: 0 1rem;
     display: flex;
     flex-direction: column;
