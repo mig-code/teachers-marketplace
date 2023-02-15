@@ -11,9 +11,14 @@ import { MemoryRouter } from 'react-router-dom';
 import { store } from '../../../core/store/store';
 import { AddProductForm } from './add.product.form';
 import { useProducts } from '../../../core/hooks/use.products';
+import { useNavigate } from 'react-router-dom';
 
 jest.mock('../../../core/hooks/use.products');
 jest.mock('../../../core/services/storage');
+jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom'),
+    useNavigate: jest.fn(),
+}));
 
 describe('Given render AddProductForm component', () => {
     const handleCreateProduct = jest.fn();
@@ -29,6 +34,7 @@ describe('Given render AddProductForm component', () => {
         (useProducts as jest.Mock).mockReturnValue({
             handleCreateProduct,
         });
+        (useNavigate as jest.Mock).mockReturnValue(jest.fn());
         // eslint-disable-next-line testing-library/no-render-in-setup
         render(
             <Provider store={store}>
@@ -40,7 +46,7 @@ describe('Given render AddProductForm component', () => {
     });
 
     describe('When it is rendered with Context', () => {
-        test('Then we should write in inputs and submit', () => {
+        test('Then we should write in inputs and submit', async () => {
             const titleInput = screen.getByPlaceholderText(
                 /Título para tu producto/i
             );
@@ -77,6 +83,7 @@ describe('Given render AddProductForm component', () => {
             );
 
             userEvent.click(submitButton);
+
             expect(handleCreateProduct).toHaveBeenCalled();
         });
     });

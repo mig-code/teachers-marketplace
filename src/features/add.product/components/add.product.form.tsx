@@ -14,8 +14,10 @@ import * as ac from '../../../core/reducer/action.creator';
 import { consoleDebug } from '../../../tools/debug';
 import { useProducts } from '../../../core/hooks/use.products';
 import './add.product.form.scss';
+import { useNavigate } from 'react-router-dom';
 
 export function AddProductForm() {
+    const navigate = useNavigate();
     const { handleCreateProduct } = useProducts();
     const user = useSelector((state: RootState) => state.user);
 
@@ -60,6 +62,8 @@ export function AddProductForm() {
         handleCreateProduct(newProduct);
         setProductFormData(initialFormProductDetails);
         dispatcher(ac.setUploadImageUrlActionCreatorUploadImage(''));
+
+        navigate('/');
     };
 
     const handleUploadImage = async (

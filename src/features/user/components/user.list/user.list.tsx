@@ -53,11 +53,14 @@ export function UserList() {
             </div>
 
             <div className="item-list__list">
-                {filterByTypeOfList.map((item) => (
-                    <article className="user-item" key={item.firebaseId}>
-                        <UserItem item={item} userMenuTab={userMenuTab} />
-                    </article>
-                ))}
+                {filterByTypeOfList
+                    .slice(0)
+                    .reverse()
+                    .map((item) => (
+                        <article className="user-item" key={item.firebaseId}>
+                            <UserItem item={item} userMenuTab={userMenuTab} />
+                        </article>
+                    ))}
             </div>
         </div>
     );
