@@ -6,7 +6,7 @@ export type ModalState = {
     loginModal: boolean;
 };
 const initialState = {
-    loginModal: true,
+    loginModal: false,
 };
 
 export const modalReducer = createReducer(initialState, (builder) => {

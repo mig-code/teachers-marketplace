@@ -28,7 +28,7 @@ export function LoginModal() {
                         <h2 className="login-modal__title">Bienvenido</h2>
                         <p className="login-modal__info">
                             Para poder publicar tus artículos o añadirlos
-                            favoritos necesitas estar registrado
+                            favoritos necesitas haber iniciado sesión.
                         </p>
                         <button
                             onClick={handleCloseModal}
@@ -40,7 +40,7 @@ export function LoginModal() {
                             onClick={handleLoginOnClick}
                             className="login-modal__google-button"
                         >
-                            <span>Login con Google</span>
+                            <span>Iniciar sesión con Google</span>
                         </button>
                     </div>
                 </div>

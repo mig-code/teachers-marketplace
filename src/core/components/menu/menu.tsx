@@ -1,20 +1,20 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { useUserAuth } from '../../hooks/use.user.auth';
+// import { useUserAuth } from '../../hooks/use.user.auth';
 import { RootState } from '../../store/store';
 import * as ac from '../../reducer/action.creator';
 
 import './menu.scss';
 
 export function Menu() {
-    const { handleLoginWithGoogle } = useUserAuth();
+    // const { handleLoginWithGoogle } = useUserAuth();
     const user = useSelector((state: RootState) => state.user);
 
     const dispatch = useDispatch();
 
-    const handleLoginOnClick = () => {
-        handleLoginWithGoogle();
-    };
+    // const handleLoginOnClick = () => {
+    //     handleLoginWithGoogle();
+    // };
 
     const handleOpenModalClick = () => {
         dispatch(ac.openActionCreatorModal());
@@ -50,7 +50,7 @@ export function Menu() {
             )}
 
             {!user?.info.firebaseId && (
-                <p className="nav-button" onClick={handleLoginOnClick}>
+                <p className="nav-button" onClick={handleOpenModalClick}>
                     Login
                 </p>
             )}
