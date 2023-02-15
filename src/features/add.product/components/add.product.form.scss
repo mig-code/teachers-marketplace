@@ -142,6 +142,7 @@
         }
         &:disabled {
             background-color: $color-grey-dark-1;
+            cursor: default;
         }
     }
 }
