@@ -114,6 +114,7 @@ export function AddProductForm() {
                         name="uploadImage"
                         type="file"
                         onChange={handleUploadImage}
+                        placeholder="Subir Imagen"
                         required
                     />
 
@@ -134,7 +135,7 @@ export function AddProductForm() {
                         id="description"
                         value={productFormData.description}
                         onInput={handleInput}
-                        placeholder="Describe en unas líneas el producto que quieres vender."
+                        placeholder="Describe en unas líneas el producto que quieres vender"
                         required
                     ></textarea>
                 </div>
@@ -156,6 +157,7 @@ export function AddProductForm() {
                         id="category"
                         value={productFormData.category}
                         onInput={handleInput}
+                        placeholder="Categoría"
                         required
                     >
                         <option value="">Categoría</option>

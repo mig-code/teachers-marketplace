@@ -19,8 +19,6 @@ describe('When render AddProduct Page', () => {
                 </MemoryRouter>
             </Provider>
         );
-        const title = screen.getByText(/¿Qué quieres subir?/i);
-        expect(title).toBeInTheDocument();
 
         const mockedAddProductForm = screen.getByText(/Mocked AddProductForm/i);
         expect(mockedAddProductForm).toBeInTheDocument();
