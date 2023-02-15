@@ -1,21 +1,28 @@
-import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useUserAuth } from '../../hooks/use.user.auth';
+import { RootState } from '../../store/store';
+import * as ac from '../../reducer/action.creator';
+
 import './login.modal.scss';
 
 export function LoginModal() {
-    const [showModal, setShowModal] = useState(true);
+    const isLoginModalOpen = useSelector(
+        (state: RootState) => state.modal.loginModal
+    );
+
+    const dispatch = useDispatch();
 
     const { handleLoginWithGoogle } = useUserAuth();
     const handleLoginOnClick = async () => {
         await handleLoginWithGoogle();
-        setShowModal(false);
+        dispatch(ac.closeActionCreatorModal());
     };
     const handleCloseModal = () => {
-        setShowModal(false);
+        dispatch(ac.closeActionCreatorModal());
     };
     return (
         <>
-            {showModal && (
+            {isLoginModalOpen && (
                 <div className="login-modal">
                     <div className="login-modal__content">
                         <h2 className="login-modal__title">Bienvenido</h2>

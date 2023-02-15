@@ -6,17 +6,24 @@ import {
     actionTypesUploadImage,
     actionTypesProducts,
     actionTypesSearch,
+    actionTypesModal,
 } from './action.types';
 
 
+
+// Upload image actions
 export const setUploadImageUrlActionCreatorUploadImage = createAction<string>(
     actionTypesUploadImage.setUploadImageUrl
 );
+
+// User actions
 
 export const loginActionCreatorUser = createAction<UserStructure>(
     actionTypesUser.login
 );
 export const logoutActionCreatorUser = createAction(actionTypesUser.logout);
+
+// Products actions
 
 export const loadActionCreatorProducts = createAction<Array<ProductStructure>>(
     actionTypesProducts.load
@@ -36,6 +43,8 @@ export const setCurrentActionCreatorProducts = createAction<ProductStructure>(
     actionTypesProducts.loadCurrent
 );
 
+// Search actions
+
 export const setQueryActionCreatorSearch = createAction<string>(
     actionTypesSearch.setQuery
 );
@@ -45,3 +54,8 @@ export const setModeActionCreatorSearch = createAction<boolean>(
 );
 
 export const resetActionCreatorSearch = createAction(actionTypesSearch.reset);
+
+//Modal actions
+
+export const openActionCreatorModal = createAction(actionTypesModal.open);
+export const closeActionCreatorModal = createAction(actionTypesModal.close);
