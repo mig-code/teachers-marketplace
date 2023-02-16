@@ -15,6 +15,11 @@ import { UserStructure } from '../../types/user.type';
 import { configureStore } from '@reduxjs/toolkit';
 import { userReducer } from '../../reducer/user.reducer/user.reducer';
 import userEvent from '@testing-library/user-event';
+import { currentReducer } from '../../reducer/current.reducer/current.reducer';
+import {
+    mockInitialCurrentState,
+    mockCurrentStateWithProduct,
+} from '../../../mocks/store.mock';
 
 jest.mock('../../hooks/use.products');
 jest.mock('../../hooks/use.user.favorites');
@@ -23,13 +28,19 @@ describe('Given Item component', () => {
     const mockHandleAddToFavorites = jest.fn();
     const mockHandleRemoveFromFavorites = jest.fn();
     const mockUser: UserStructure = userMockSameOwner;
+    const mockCurrent = mockCurrentStateWithProduct;
+
+    const mockCurrentInitialState = mockInitialCurrentState;
+
     const preloadedState: Partial<RootState> = {
         user: mockUser,
+        current: mockCurrent,
     };
 
     const mockStore = configureStore({
         reducer: {
             user: userReducer,
+            current: currentReducer,
         },
         preloadedState,
     });
@@ -86,6 +97,33 @@ describe('Given Item component', () => {
 
             userEvent.click(buttonElement);
             expect(mockHandleRemoveFromFavorites).toHaveBeenCalled();
+        });
+    });
+
+    describe('When click in clickable-container', () => {
+        test('Then navigate to product detail', () => {
+            const productMock = productMockWithIsLikedBySameOwner;
+            const mockNavigate = jest.fn();
+            jest.mock('react-router-dom', () => ({
+                ...jest.requireActual('react-router-dom'),
+                useNavigate: () => mockNavigate,
+            }));
+            render(
+                <Provider store={mockStore}>
+                    <MemoryRouter>
+                        <Item item={productMock} />
+                    </MemoryRouter>
+                </Provider>
+            );
+            const clickableContainer = screen.getByTestId(
+                'item__clickable-container'
+            );
+
+            userEvent.click(clickableContainer);
+
+            const currentProductState =
+                mockStore.getState().current.currentProduct;
+            expect(currentProductState).toEqual(mockCurrentInitialState);
         });
     });
 });

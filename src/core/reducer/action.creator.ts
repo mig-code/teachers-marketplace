@@ -9,8 +9,6 @@ import {
     actionTypesModal,
 } from './action.types';
 
-
-
 // Upload image actions
 export const setUploadImageUrlActionCreatorUploadImage = createAction<string>(
     actionTypesUploadImage.setUploadImageUrl
@@ -39,8 +37,12 @@ export const updateActionCreatorProducts = createAction<
     Partial<ProductStructure>
 >(actionTypesProducts.update);
 
-export const setCurrentActionCreatorProducts = createAction<ProductStructure>(
+export const loadCurrentActionCreatorProducts = createAction<ProductStructure>(
     actionTypesProducts.loadCurrent
+);
+
+export const resetCurrentActionCreatorProducts = createAction(
+    actionTypesProducts.resetCurrent
 );
 
 // Search actions

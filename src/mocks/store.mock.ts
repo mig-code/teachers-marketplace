@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
+import { CurrentState } from '../core/reducer/current.reducer/current.reducer';
 import { productsReducer } from '../core/reducer/products.reducer/products.reducer';
 import {
     searchReducer,
@@ -185,6 +186,27 @@ export const mockProductWithOnlyFirebaseId: Partial<ProductStructure> = {
 };
 
 export const emptyMockProducts = [];
+
+export const mockCurrentStateWithProduct: CurrentState = {
+    currentProduct: mockProduct1,
+};
+export const mockInitialCurrentState = {
+    firebaseId: '',
+    productInfo: {
+        id: 0,
+        title: '',
+        description: '',
+        ownerUid: '',
+        ownerName: '',
+        imgUrl: '',
+        available: false,
+
+        price: 0,
+        category: ' ',
+        publishedAt: '',
+    },
+};
+
 export const mockProductsState: Array<ProductStructure> = [
     mockProduct1,
     mockProduct2,

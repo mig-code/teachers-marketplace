@@ -1,7 +1,6 @@
 import { DeepPartial, ProductStructure } from '../types/products.types';
 
 const invalidIdError = new Error('Invalid ID');
-const urlId = '';
 
 interface Repository<T> {
     load: () => Promise<T[]>;
@@ -12,15 +11,11 @@ interface Repository<T> {
 }
 export class ProductsRepository implements Repository<ProductStructure> {
     constructor(
-        private url = 'https://teachers-marketplace-default-rtdb.firebaseio.com/products/' +
-            urlId +
-            '.json'
+        private url = 'https://teachers-marketplace-default-rtdb.firebaseio.com/products'
     ) {}
 
     async load(): Promise<Array<ProductStructure>> {
-        this.url =
-            'https://teachers-marketplace-default-rtdb.firebaseio.com/products.json';
-        const resp = await fetch(this.url);
+        const resp = await fetch(this.url + '.json');
         if (!resp.ok)
             throw new Error(`Error ${resp.status}: ${resp.statusText}`);
 
@@ -36,11 +31,7 @@ export class ProductsRepository implements Repository<ProductStructure> {
         token: string
     ): Promise<ProductStructure['firebaseId']> {
         if (!id) return Promise.reject(invalidIdError);
-        this.url =
-            'https://teachers-marketplace-default-rtdb.firebaseio.com/products/' +
-            id +
-            '.json?auth=' +
-            token;
+        this.url = this.url + '/' + id + '.json?auth=' + token;
         const resp = await fetch(this.url, {
             method: 'DELETE',
         });
@@ -56,18 +47,16 @@ export class ProductsRepository implements Repository<ProductStructure> {
             return Promise.reject(invalidIdError);
         }
 
-        this.url =
-            'https://teachers-marketplace-default-rtdb.firebaseio.com/products/' +
-            payload.firebaseId +
-            '.json?auth=' +
-            token;
-        const resp = await fetch(this.url, {
-            method: 'PATCH',
-            body: JSON.stringify(payload),
-            headers: {
-                'Content-type': 'application/json',
-            },
-        });
+        const resp = await fetch(
+            this.url + '/' + payload.firebaseId + '.json?auth=' + token,
+            {
+                method: 'PATCH',
+                body: JSON.stringify(payload),
+                headers: {
+                    'Content-type': 'application/json',
+                },
+            }
+        );
         if (!resp.ok)
             throw new Error(`Error ${resp.status}: ${resp.statusText}`);
         return await resp.json();
@@ -76,10 +65,7 @@ export class ProductsRepository implements Repository<ProductStructure> {
         payload: Partial<ProductStructure>,
         token: string
     ): Promise<ProductStructure['firebaseId']> {
-        this.url =
-            'https://teachers-marketplace-default-rtdb.firebaseio.com/products.json?auth=' +
-            token;
-        const resp = await fetch(this.url, {
+        const resp = await fetch(this.url + '.json?auth=' + token, {
             method: 'POST',
             body: JSON.stringify(payload),
             headers: {
@@ -94,11 +80,8 @@ export class ProductsRepository implements Repository<ProductStructure> {
         id: ProductStructure['firebaseId']
     ): Promise<ProductStructure> {
         if (!id) return Promise.reject(invalidIdError);
-        this.url =
-            'https://teachers-marketplace-default-rtdb.firebaseio.com/products/' +
-            id +
-            '.json';
-        const resp = await fetch(this.url);
+
+        const resp = await fetch(this.url + '/' + id + '.json');
         if (!resp.ok)
             throw new Error(`Error ${resp.status}: ${resp.statusText}`);
         const result = await resp.json();

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import { useProducts } from '../../../core/hooks/use.products';
@@ -7,7 +7,6 @@ import { useUserFavorites } from '../../../core/hooks/use.user.favorites';
 import { RootState } from '../../../core/store/store';
 import { ProductStructure } from '../../../core/types/products.types';
 import './details.product.scss';
-import * as ac from '../../../core/reducer/action.creator';
 
 import { ButtonFavorite } from '../../../core/components/button.favorite/button.favorite';
 
@@ -23,17 +22,14 @@ export default function DetailsProduct() {
     const { handleAddToFavorites, handleRemoveFromFavorites } =
         useUserFavorites(item);
 
-    const dispatcher = useDispatch();
-
     async function handleClickAddToFavorites() {
         await handleAddToFavorites();
-        dispatcher(ac.setCurrentActionCreatorProducts(item));
-        handleQueryProduct(firebaseString);
+        await handleQueryProduct(item.firebaseId);
     }
+
     async function handleClickDeleteFromFavorites() {
         await handleRemoveFromFavorites();
-        dispatcher(ac.setCurrentActionCreatorProducts(item));
-        handleQueryProduct(firebaseString);
+        await handleQueryProduct(item.firebaseId);
     }
 
     useEffect(() => {
