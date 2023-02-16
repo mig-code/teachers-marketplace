@@ -1,13 +1,14 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import './item.scss';
 
 import { ProductStructure } from '../../types/products.types';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import { useUserFavorites } from '../../hooks/use.user.favorites';
 import { ButtonFavorite } from '../button.favorite/button.favorite';
+import * as ac from '../../reducer/action.creator';
 
 export default function Item({ item }: { item: ProductStructure }) {
     const { handleAddToFavorites, handleRemoveFromFavorites } =
@@ -15,22 +16,33 @@ export default function Item({ item }: { item: ProductStructure }) {
 
     const user = useSelector((state: RootState) => state.user);
 
+    const dispatcher = useDispatch();
+    const navigate = useNavigate();
+
     async function handleClickAddToFavorites() {
         await handleAddToFavorites();
     }
     async function handleClickDeleteFromFavorites() {
         await handleRemoveFromFavorites();
     }
+    function setCurrentProduct() {
+        dispatcher(ac.resetCurrentActionCreatorProducts());
+        navigate(`/producto/${item.firebaseId}`);
+    }
 
     return (
         <>
-            <Link to={`/producto/${item.firebaseId}`}>
+            <div
+                className="item__clickable-container"
+                data-testid="item__clickable-container"
+                onClick={setCurrentProduct}
+            >
                 <h2 className="item__title">{item.productInfo.title}</h2>
                 <div className="item__favorites">
                     {item.isLikedBy
                         ? '¡Le gusta a ' +
-                        item.isLikedBy.users.length +
-                        ' personas!'
+                          item.isLikedBy.users.length +
+                          ' personas!'
                         : 'A nadie le gusta todavía'}{' '}
                 </div>
 
@@ -49,7 +61,7 @@ export default function Item({ item }: { item: ProductStructure }) {
                 <div className="item__category">
                     {item.productInfo.category}
                 </div>
-            </Link>
+            </div>
             <ButtonFavorite
                 item={item}
                 user={user}

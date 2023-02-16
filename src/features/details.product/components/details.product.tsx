@@ -27,12 +27,12 @@ export default function DetailsProduct() {
 
     async function handleClickAddToFavorites() {
         await handleAddToFavorites();
-        dispatcher(ac.setCurrentActionCreatorProducts(item));
+        dispatcher(ac.loadCurrentActionCreatorProducts(item));
         handleQueryProduct(firebaseString);
     }
     async function handleClickDeleteFromFavorites() {
         await handleRemoveFromFavorites();
-        dispatcher(ac.setCurrentActionCreatorProducts(item));
+        dispatcher(ac.loadCurrentActionCreatorProducts(item));
         handleQueryProduct(firebaseString);
     }
 
@@ -71,8 +71,8 @@ export default function DetailsProduct() {
                         <div className="details__favorites">
                             {item.isLikedBy
                                 ? '¡Le gusta a  ' +
-                                item.isLikedBy.users.length +
-                                ' personas!'
+                                  item.isLikedBy.users.length +
+                                  ' personas!'
                                 : 'A nadie le gusta todavía'}{' '}
                         </div>
                         <ButtonFavorite

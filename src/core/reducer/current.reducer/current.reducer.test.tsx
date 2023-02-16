@@ -2,11 +2,11 @@ import { mockProduct1, mockProductEmpty } from '../../../mocks/store.mock';
 import { ProductStructure } from '../../types/products.types';
 import { actionTypesProducts } from '../action.types';
 
-import { currentReducer, currentState } from './current.reducer';
+import { currentReducer, CurrentState } from './current.reducer';
 
 describe('Given the function currentReducer', () => {
     let action: { type: string; payload: ProductStructure };
-    let state: currentState;
+    let state: CurrentState;
     const mockResource: ProductStructure = mockProduct1;
 
     describe('When the action is loadCurrent', () => {

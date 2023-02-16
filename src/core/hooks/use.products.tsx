@@ -77,7 +77,7 @@ export function useProducts(): UseProducts {
             try {
                 const result = await repo.queryById(productPayload);
 
-                dispatcher(ac.setCurrentActionCreatorProducts(result));
+                dispatcher(ac.loadCurrentActionCreatorProducts(result));
             } catch (error) {
                 handleError(error as Error);
             }

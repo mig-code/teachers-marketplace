@@ -3,10 +3,10 @@ import { ProductStructure } from '../../types/products.types';
 
 import * as ac from '../action.creator';
 
-export type currentState = {
+export type CurrentState = {
     currentProduct: ProductStructure;
 };
-const initialState: currentState = {
+const initialState: CurrentState = {
     currentProduct: {
         firebaseId: '',
         productInfo: {
@@ -25,11 +25,18 @@ const initialState: currentState = {
     },
 };
 export const currentReducer = createReducer(initialState, (builder) => {
-    builder.addCase(ac.setCurrentActionCreatorProducts, (state, action) => {
+    builder.addCase(ac.loadCurrentActionCreatorProducts, (state, action) => {
         return {
             ...state,
             currentProduct: action.payload,
         };
     });
+    builder.addCase(ac.resetCurrentActionCreatorProducts, (state) => {
+        return {
+            ...state,
+            currentProduct: initialState.currentProduct,
+        };
+    });
+
     builder.addDefaultCase((state) => state);
 });

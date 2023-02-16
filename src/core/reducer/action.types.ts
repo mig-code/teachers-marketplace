@@ -13,6 +13,7 @@ export const actionTypesProducts = {
     delete: 'products@delete',
     update: 'products@update',
     loadCurrent: 'products@loadCurrent',
+    resetCurrent: 'products@resetCurrent',
 };
 
 export const actionTypesSearch = {
