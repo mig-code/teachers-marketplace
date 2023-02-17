@@ -102,21 +102,11 @@ Typographic tweaks!
 
 body {
     margin: 0;
-    background-color: $color-white;
+    background-color: $color-background;
 }
 
-.list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    grid-gap: 1rem;
-    margin: 1rem;
-    max-width: 1200px;
-    justify-items: center;
-    flex-wrap: wrap;
-}
-.user-list {
-    max-width: 100%;
-}
+
+
 
 button {
     background-color: $color-white;
@@ -175,8 +165,4 @@ button {
     }
 }
 
-@media (min-width: 630px) {
-    .list {
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    }
-}
+

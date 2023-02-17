@@ -10,7 +10,8 @@
     text-align: center;
     flex-wrap: wrap;
     align-content: space-around;
-    background-color: $color-grey-light-1;
+    background-color: $color-primary-light-1;
+
     border-radius: 1rem;
 
     .user-info__img {
@@ -24,5 +25,10 @@
     }
     .user-info__botton {
         color: $color-secondary;
+        border: 1px solid $color-secondary;
+    }
+    .user-info__botton:hover {
+        background-color: $color-secondary;
+        color: $color-white;
     }
 }

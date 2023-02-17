@@ -2,8 +2,9 @@
 @import '../../../sass/mixins';
 
 .item {
+    @include box-shadow-item;
     width: 300px;
-    border: 1px solid $color-grey-dark-1;
+
     border-radius: 15px;
     padding: 0.5rem 1rem;
     margin: 1rem;
@@ -25,9 +26,10 @@
         color: $color-black;
     }
     &__price {
-        background-color: $color-secondary;
+        background-color: $color-secondary-dark;
         color: $color-white;
         font-family: $font-stack-secondary;
+        font-weight: bolder;
         padding: 0.2em 0.5em;
         border-radius: 5px;
         position: absolute;
@@ -68,7 +70,7 @@
         overflow: hidden;
     }
     &__favorites {
-        color: $color-secondary;
+        color: $color-secondary-dark;
         font-size: $font-size-small;
         font-weight: bold;
         margin: 0.5rem 0;
@@ -76,5 +78,5 @@
 }
 
 .item:hover {
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    @include box-shadow-item-hover;
 }
