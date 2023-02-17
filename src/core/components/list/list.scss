@@ -1,0 +1,12 @@
+@import '../../../sass/variables';
+@import '../../../sass/mixins';
+
+.list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 1rem;
+    margin: 0 1rem;
+    max-width: 1200px;
+    justify-items: center;
+    flex-wrap: wrap;
+}

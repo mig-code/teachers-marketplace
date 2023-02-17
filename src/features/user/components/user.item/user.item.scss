@@ -2,15 +2,13 @@
 @import '../../../../sass/mixins';
 
 .user-item {
-    border: 1px solid $color-grey-dark-1;
-    background-color: $color-grey-light-1;
+    @include box-shadow-item;
     border-radius: 15px;
     padding: 0.5rem 1rem;
     margin: 0.5rem;
     display: flex;
     flex-direction: row;
-    transition: all 0.1s ease-in-out;
-    align-items: center;
+    align-items: flex-end;
     width: 100%;
     flex-wrap: wrap;
     justify-content: center;
@@ -52,5 +50,14 @@
     &__botton {
         color: $color-secondary;
         background-color: $color-tertiary;
+    }
+}
+.user-item:hover {
+    @include box-shadow-item-hover;
+}
+
+@media (min-width: 630px) {
+    .user-item {
+        justify-content: space-between;
     }
 }

@@ -9,6 +9,7 @@
     width: 300px;
     padding-bottom: 10rem;
     margin: 0 auto;
+
     &__title {
         font-size: $font-size-h1;
         text-transform: capitalize;
@@ -17,7 +18,7 @@
         color: $color-black;
     }
     &__price {
-        background-color: $color-secondary;
+        background-color: $color-secondary-dark;
         color: $color-white;
         font-size: $font-size-h4;
         font-family: $font-stack-secondary;
@@ -29,7 +30,7 @@
     &__image {
         position: relative;
         width: 100%;
-        max-width: 500px;
+        max-width: 600px;
         min-height: 300px;
         max-height: 600px;
         border-radius: 5px;
@@ -57,7 +58,7 @@
         text-align: justify;
     }
     &__favorites {
-        color: $color-secondary;
+        color: $color-secondary-dark;
         font-size: $font-size-small;
         font-weight: bold;
         margin: 0.5rem 0;

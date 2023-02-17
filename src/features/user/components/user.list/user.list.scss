@@ -4,21 +4,26 @@
 .user-list {
     padding: 0 1rem;
 
+    max-width: 100%;
+
     &__title {
-        font-size: $font-size-h2;
-        font-weight: 600;
+        font-size: $font-size-mobile-h2;
+        margin: 1rem 1rem 0 1rem;
+
+        font-weight: 400;
+        color: $color-black-light-1;
     }
     &__options {
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: flex-start;
-        padding: 1rem;
-
-        border-radius: 1rem;
+        padding: 0 1rem;
+        margin: 0 0 1rem 0;
     }
     &__button {
         margin-right: 1rem;
+        border-radius: 15px;
     }
 }
 
@@ -27,8 +32,12 @@
     flex-direction: column;
     flex-wrap: wrap;
     align-content: stretch;
-    padding: 1rem;
-    margin-top: 1rem;
+
     border-radius: 1rem;
     justify-content: flex-start;
+}
+@media (min-width: 630px) {
+    .list {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
 }
