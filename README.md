@@ -6,6 +6,7 @@
 [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=mig-code_teachers-marketplace&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=mig-code_teachers-marketplace)
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=mig-code_teachers-marketplace&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=mig-code_teachers-marketplace)
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=mig-code_teachers-marketplace&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=mig-code_teachers-marketplace)
+
 [![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=mig-code_teachers-marketplace)](https://sonarcloud.io/summary/new_code?id=mig-code_teachers-marketplace)
 
 ## Índice de contenidos
